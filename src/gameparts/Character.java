@@ -23,7 +23,7 @@ public class Character extends MovingImage {
 		yVelocity = 0;
 		//onASurface = false;
 		//gravity = 0.7;
-		friction = .85;
+		friction = .7;
 		//jumpStrength = 15;
 	}
 
@@ -38,7 +38,7 @@ public class Character extends MovingImage {
 			
 			//y = y + newdir*yVelocity;
 			//y += newdir*4;
-			if (yVelocity <= 4 && yVelocity >= -4){
+			if (yVelocity <= 15 && yVelocity >= -15){
 				yVelocity += newdir;
 				//y += newdir;
 			}
@@ -52,7 +52,7 @@ public class Character extends MovingImage {
 			}
 		x+= dir*xVelocity;
 		*/
-			if (xVelocity <= 4 && xVelocity >= -4)
+			if (xVelocity <= 15 && xVelocity >= -15)
 				xVelocity += dir;
 		}
 		

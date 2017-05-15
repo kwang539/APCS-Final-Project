@@ -22,8 +22,8 @@ import java.util.*;
 
 public class GamePanel extends JPanel implements Runnable
 {
-	public static final int DRAWING_WIDTH = 800;
-	public static final int DRAWING_HEIGHT = 600;
+	public static final int DRAWING_WIDTH = 1200;
+	public static final int DRAWING_HEIGHT = 900;
 
 	private long timeOfLastProjectile = 0;
 	private long timeNow = 0;
@@ -45,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable
 	private Image cursorImage;
 	
 	private ArrayList<Bullet> bullets;
+	
+	
 
 	public GamePanel () {
 		super();
@@ -54,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable
 
 		keyControl = new KeyHandler();
 		mouseControl = new MouseHandler();
-		setBackground(Color.CYAN);
+		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 		obstacles = new ArrayList<Shape>();
 		obstacles.add(new Rectangle(200,400,400,50));
@@ -148,6 +150,8 @@ public class GamePanel extends JPanel implements Runnable
 
 		}
 		}
+		
+		/*
 		if(player.generateTrackingLine(obstacles).intersects(enemy1.getBounds2D())){
 			//System.out.println("hit!");
 			//enemy1.setIsHit(true);
@@ -158,7 +162,7 @@ public class GamePanel extends JPanel implements Runnable
 		else{
 			enemy1.setIsHit(false);
 		}
-		
+		*/
 		//g2.draw(trackingLine);
 		
 		//draws trackingline, but we are no longer using a tracking line, just projectiles
