@@ -24,7 +24,6 @@ public class Player extends Character {
 	private double friction;
 	private double gravity;
 	private double jumpStrength;
-	private BufferedImage img;
 	
 	private Line2D.Double trackingLine;
 	private double mouseX, mouseY;
@@ -33,10 +32,9 @@ public class Player extends Character {
 
 	
 	public Player(int x, int y) {
-		super("survivor-idle_rifle_0.png", x, y, MARIO_WIDTH, MARIO_HEIGHT);
+		super("playerchar.png", x, y, MARIO_WIDTH, MARIO_HEIGHT);
 		xVelocity = 0;
 		yVelocity = 0;
-		loadImage("survivor-idle_rifle_0.png");
 		
 		mouseX = MouseInfo.getPointerInfo().getLocation().getX();
 		mouseY = MouseInfo.getPointerInfo().getLocation().getY();
@@ -69,9 +67,7 @@ public class Player extends Character {
 		
 		// WALK!
 	}
-	public BufferedImage getImage(){
-		return img;
-	}
+
 
 	public void jump() {
 		// JUMP!
@@ -85,23 +81,7 @@ public class Player extends Character {
 	
 	}
 	
-	
-	
-	
-	private void loadImage(String filename){
-		img = null;
-		try{
-			img = ImageIO.read(new File(filename));
-		} catch(IOException e){
-			
-		}
-	}
-	
 	public Line2D.Double generateTrackingLine(ArrayList<Shape> obstacles){
-		
-		
-		
-	
 		
 		try{
 			mouseX = MouseInfo.getPointerInfo().getLocation().getX();
