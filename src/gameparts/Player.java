@@ -73,9 +73,9 @@ public class Player extends Character {
 		// JUMP!
 	}
 
-	public void act(ArrayList<Shape> obstacles) {
+	public void act(ArrayList<Shape> obstacles, boolean isPlatformer) {
 		//dY += 0.5;
-		super.act(obstacles);
+		super.act(obstacles, isPlatformer);
 		generateTrackingLine(obstacles);
 		
 	
