@@ -12,6 +12,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+
+/**
+ * Enemy class that creates enemy and its functionality and hit detection for enemy
+ * @author Jacob, Keving, Akshay
+ * Date: 5/15/17
+ *
+ */
 public class Enemy extends Character {
 
 	public static final int ENEMY_WIDTH = 40;
@@ -23,6 +30,11 @@ public class Enemy extends Character {
 	//not implemented yet
 	private Rectangle2D.Double hitbox;
 
+	/**
+	 * Creates enemy MovingImage
+	 * @param x xCord of enemy
+	 * @param y yCord of enemy
+	 */
 	public Enemy(int x, int y) {
 		super("survivor-idle_rifle_0.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
 		dX = 0;
@@ -30,17 +42,23 @@ public class Enemy extends Character {
 	}
 
 	// METHODS
+	/**
+	 * Moves the enemy a certain amount in direction dir.
+	 */
 	public void walk(int dir) {
 		// WALK!
 		//THIS MAKES IT NOT MERGE!!!
 		super.walk(dir);
 	}
 
-
+	
 	public void jump() {
 		// JUMP!
 	}
 
+	/**
+	 * Creates the obstacles and causes the enemy to move
+	 */
 	public void act(ArrayList<Shape> obstacles) {
 		//dY += 0.5;
 		super.act(obstacles);
@@ -50,18 +68,34 @@ public class Enemy extends Character {
 	}
 
 	//should only be called once within this class for most efficiency
+	/**
+	 * 
+	 * @return The hitbox for the enemy hit detection
+	 */
 	public Rectangle2D.Double makeHitBox(){
 		return  new Rectangle2D.Double(x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
 	}
 
+	/**
+	 * Sets isHit field to true or false
+	 * @param hit Passed in false or true for enemy hit
+	 */
 	public void setIsHit(boolean hit){
 		isHit = hit;
 	}
+	
+	/**
+	 * 
+	 * @return If enemy is hit or not
+	 */
 	public boolean getIsHit(){
 		return isHit;
 	}
 
 	//doesn't reallly work
+	/**
+	 * Removes enemy from game
+	 */
 	public void removeEnemy(){
 		hitbox = null;
 		dX = 0;
@@ -73,6 +107,10 @@ public class Enemy extends Character {
 		System.out.println("remove");
 	}
 
+	/**
+	 * Determines if enemy is hit or not
+	 * @param bullets Array of bullets and their locations
+	 */
 	public void hitByBullet(ArrayList<Bullet> bullets){
 		for (Bullet b : bullets) {
 			if(this.getBounds2D().intersects(b.getBounds2D())){

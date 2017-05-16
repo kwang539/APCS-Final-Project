@@ -6,6 +6,12 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
 
+/**
+ * Character class that creates basics for the enemy and player class
+ * @author Jacob, Keving, Akshay
+ * Date: 5/15/17
+ *
+ */
 public class Character extends MovingImage {
 
 	public static final int MARIO_WIDTH = 40;
@@ -17,6 +23,14 @@ public class Character extends MovingImage {
 	//private double gravity;
 	//private double jumpStrength;
 
+	/**
+	 * 
+	 * @param name Name of character
+	 * @param x xCord of character
+	 * @param y yCord of character
+	 * @param width width of character
+	 * @param height height of character
+	 */
 	public Character(String name, int x, int y, int width, int height) {
 		super(name, x, y, width, height);
 		xVelocity = 0;
@@ -28,6 +42,10 @@ public class Character extends MovingImage {
 	}
 
 	// METHODS
+	/**
+	 * Moves the character based on the inputed dir
+	 * @param dir Direction of movement of character
+	 */
 	public void walk(int dir) {
 		
 		
@@ -63,6 +81,10 @@ public class Character extends MovingImage {
 			//yVelocity -= jumpStrength;
 	}
 
+	/**
+	 * Moves the character
+	 * @param obstacles Passed in arraylist of obstacles
+	 */
 	public void act(ArrayList<Shape> obstacles) {
 		double xCoord = getX();
 		double yCoord = getY();

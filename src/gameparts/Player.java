@@ -12,7 +12,12 @@ import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
+/**
+ * Player class that creates the player and its functionality
+ * @author Jacob, Keving, Akshay
+ * Date: 5/15/17
+ *
+ */
 public class Player extends Character {
 
 	public static final int MARIO_WIDTH = 40;
@@ -30,7 +35,11 @@ public class Player extends Character {
 	
 	
 
-	
+	/**
+	 * Creates a player Character Moving Image
+	 * @param x xCord of player
+	 * @param y yCord of player
+	 */
 	public Player(int x, int y) {
 		super("playerchar.png", x, y, MARIO_WIDTH, MARIO_HEIGHT);
 		xVelocity = 0;
@@ -41,6 +50,10 @@ public class Player extends Character {
 	}
 
 	// METHODS
+	/**
+	 * Causes the player to walk a certain direction
+	 * @param dir Direction player will travel
+	 */
 	public void walk(int dir) {
 		super.walk(dir);
 		
@@ -73,6 +86,9 @@ public class Player extends Character {
 		// JUMP!
 	}
 
+	/**
+	 * Generates the obstacles and runs the superclass' act method
+	 */
 	public void act(ArrayList<Shape> obstacles) {
 		//dY += 0.5;
 		super.act(obstacles);
@@ -81,6 +97,11 @@ public class Player extends Character {
 	
 	}
 	
+	/**
+	 * 
+	 * @param obstacles Passes in obstacles arraylist
+	 * @return
+	 */
 	public Line2D.Double generateTrackingLine(ArrayList<Shape> obstacles){
 		
 		try{

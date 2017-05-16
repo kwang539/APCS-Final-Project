@@ -19,7 +19,12 @@ import gameparts.Player;
 
 import java.util.*;
 
-
+/**
+ * The GamePanel class creates the basics for creating the window and all the game functionality
+ * @author Jacob, Keving, Akshay
+ * Date: 5/15/17
+ *
+ */
 public class GamePanel extends JPanel implements Runnable
 {
 	public static final int DRAWING_WIDTH = 1200;
@@ -59,14 +64,14 @@ public class GamePanel extends JPanel implements Runnable
 		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 		obstacles = new ArrayList<Shape>();
-		obstacles.add(new Rectangle(200,400,400,50));
-		obstacles.add(new Rectangle(0,250,100,50));
-		obstacles.add(new Rectangle(700,250,100,50));
-		obstacles.add(new Rectangle(375,300,50,100));
-		obstacles.add(new Rectangle(300,250,200,50));
+//		obstacles.add(new Rectangle(200,400,400,50));
+//		obstacles.add(new Rectangle(0,250,100,50));
+//		obstacles.add(new Rectangle(700,250,100,50));
+//		obstacles.add(new Rectangle(375,300,50,100));
+//		obstacles.add(new Rectangle(300,250,200,50));
 		
 		spawnNewPlayer();
-		spawnNewEnemy(90,100);
+		spawnNewEnemy(80,100);
 		//spawnNewCharacter(100,200);
 		bullets = new ArrayList<Bullet>();
 		
@@ -85,6 +90,10 @@ public class GamePanel extends JPanel implements Runnable
 		new Thread(this).start();
 	}
 
+	/**
+	 * Creates basics to drawing on the window
+	 * @param g Passed in graphics object
+	 */
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);  // Call JPanel's paintComponent method to paint the background
@@ -196,10 +205,18 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 
+	/**
+	 * Spawns a player at top-middle of screen
+	 */
 	public void spawnNewPlayer() {
 		player = new Player(DRAWING_WIDTH/2-player.MARIO_WIDTH/2,50);
 	}
 	
+	/**
+	 * Spawns an enemy
+	 * @param locX xCord of enemy spawn
+	 * @param locY yCord of enemy spawn
+	 */
 	public void spawnNewEnemy(int locX, int locY) {
 		enemy1 = new Enemy(locX,locY);
 	}
@@ -216,6 +233,9 @@ public class GamePanel extends JPanel implements Runnable
 		return mouseControl;
 	}
 
+	/**
+	 * Running code and basics for key presses and button clicks
+	 */
 	public void run() {
 		while (true) { // Modify this to allow quitting
 			long startTime = System.currentTimeMillis();
@@ -300,7 +320,11 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 
-
+	/**
+	 * 
+	 * Class that deals with keyboard presses
+	 *
+	 */
 	public class KeyHandler implements KeyListener {
 
 		private ArrayList<Integer> keys;
@@ -331,6 +355,9 @@ public class GamePanel extends JPanel implements Runnable
 	
 	
 	//I have no clue how mouse handler works
+	/**
+	 * Class that deals with mouse clicks
+	 */
 	public class MouseHandler implements MouseListener {
 		private int mX;
 		private int mY;
