@@ -2,6 +2,7 @@ package gameparts;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
 import java.io.File;
@@ -68,6 +69,11 @@ public class MovingImage extends Rectangle2D.Double {
 		}
 		return img;
 	}
+	
+	public Point2D.Double getCenter() {
+		return new Point2D.Double(getX()+getWidth()/2,getY()+getHeight()/2);
+	}
+
 	
 	
 }

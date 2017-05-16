@@ -15,6 +15,7 @@ import javax.swing.*;
 
 import gameparts.Bullet;
 import gameparts.Enemy;
+import gameparts.MovingImage;
 import gameparts.Player;
 
 import java.util.*;
@@ -25,6 +26,9 @@ public class GamePanel extends JPanel implements Runnable
 	public static final int DRAWING_WIDTH = 1200;
 	public static final int DRAWING_HEIGHT = 900;
 
+	 public static final int ASSUMED_DRAWING_WIDTH = 400; // These numbers are way too small
+	  public static final int ASSUMED_DRAWING_HEIGHT = 300; // We are only using them to zoom in on the scene
+	
 	private long timeOfLastProjectile = 0;
 	private long timeNow = 0;
 	private long time = 0;
@@ -47,6 +51,10 @@ public class GamePanel extends JPanel implements Runnable
 	private ArrayList<Bullet> bullets;
 	
 	
+	  private Rectangle2D.Double visibleSpace;
+	  private Rectangle2D.Double characterSpace;
+	  
+	  private Level thisLevel;
 
 	public GamePanel () {
 		super();
@@ -54,12 +62,16 @@ public class GamePanel extends JPanel implements Runnable
 		mX = MouseInfo.getPointerInfo().getLocation().getX();
 		mY = MouseInfo.getPointerInfo().getLocation().getY();
 
+		thisLevel = new Level();
+		  visibleSpace = new Rectangle2D.Double(0,thisLevel.getHeight()-ASSUMED_DRAWING_HEIGHT,ASSUMED_DRAWING_WIDTH,ASSUMED_DRAWING_HEIGHT);
+		  characterSpace = new Rectangle2D.Double(visibleSpace.getX()+visibleSpace.getWidth()/5,visibleSpace.getY()+visibleSpace.getHeight()/5,visibleSpace.getWidth()*3/5,visibleSpace.getHeight()*3/5);
+		
 		keyControl = new KeyHandler();
 		mouseControl = new MouseHandler();
 		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 		obstacles = new ArrayList<Shape>();
-		obstacles.add(new Rectangle(200,400,400,50));
+	obstacles.add(new Rectangle(200,400,400,50));
 		obstacles.add(new Rectangle(0,250,100,50));
 		obstacles.add(new Rectangle(700,250,100,50));
 		obstacles.add(new Rectangle(375,300,50,100));
@@ -99,7 +111,9 @@ public class GamePanel extends JPanel implements Runnable
 
 		AffineTransform at = g2.getTransform();
 		g2.scale(ratioX, ratioY);
-
+		g2.translate(-visibleSpace.getX(),-visibleSpace.getY());
+		thisLevel.draw(g2, this);
+		
 		g.setColor(new Color(205,102,29));
 		for (Shape s : obstacles) {
 			g2.fill(s);
@@ -216,6 +230,42 @@ public class GamePanel extends JPanel implements Runnable
 		return mouseControl;
 	}
 
+	
+	
+	
+	 public void slideWorldToImage(MovingImage img) {
+		  	Point2D.Double center = img.getCenter();
+			if (!characterSpace.contains(center)) {
+				double newX = visibleSpace.getX();
+				double newY = visibleSpace.getY();
+				
+			  	if (center.getX() < characterSpace.getX()) {
+			  		newX -= (characterSpace.getX() - center.getX());
+			  	} else if (center.getX() > characterSpace.getX() + characterSpace.getWidth()) {
+			  		newX += (center.getX() - (characterSpace.getX() + characterSpace.getWidth()));
+			  	}
+			  	
+			  	if (center.getY() < characterSpace.getY()) {
+			  		newY -= (characterSpace.getY() - center.getY());
+			  	} else if (center.getY() > characterSpace.getY() + characterSpace.getHeight()) {
+			  		newY += (center.getY() - characterSpace.getY() - characterSpace.getHeight());
+			  	}
+			  	newX = Math.max(newX,0);
+			  	newY = Math.max(newY,0);
+			  	newX = Math.min(newX,thisLevel.getWidth()-visibleSpace.getWidth());
+			  	newY = Math.min(newY,thisLevel.getHeight()-visibleSpace.getHeight());
+			  	
+			  	visibleSpace.setRect(newX,newY,visibleSpace.getWidth(),visibleSpace.getHeight());
+			  	
+			  	characterSpace.setRect(visibleSpace.getX()+visibleSpace.getWidth()/5,visibleSpace.getY()+visibleSpace.getHeight()/5,visibleSpace.getWidth()*3/5,visibleSpace.getHeight()*3/5);
+			}
+		  }
+		  
+	
+	
+	
+	
+	
 	public void run() {
 		while (true) { // Modify this to allow quitting
 			long startTime = System.currentTimeMillis();
@@ -234,7 +284,7 @@ public class GamePanel extends JPanel implements Runnable
 				player.walk(-2);
 			if (keyControl.isPressed(KeyEvent.VK_S))
 				player.walk(2);
-			
+			slideWorldToImage(player);
 			
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
 				
