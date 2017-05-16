@@ -15,6 +15,7 @@ import javax.swing.*;
 
 import gameparts.Bullet;
 import gameparts.Enemy;
+import gameparts.Link;
 import gameparts.Player;
 
 import java.util.*;
@@ -46,6 +47,8 @@ public class GamePanel extends JPanel implements Runnable
 	
 	private ArrayList<Bullet> bullets;
 	
+
+	private Link sound;
 	
 
 	public GamePanel () {
@@ -81,6 +84,8 @@ public class GamePanel extends JPanel implements Runnable
 		Cursor c = toolkit.createCustomCursor(cursorImage , new Point(16, 16), "img");
 		setCursor (c);
 		
+		
+		sound = new Link(this);
 		
 		new Thread(this).start();
 	}
@@ -222,7 +227,12 @@ public class GamePanel extends JPanel implements Runnable
 
 
 
-
+			if(keyControl.isPressed(KeyEvent.VK_1)){
+				sound.sound1();
+			}
+			if(keyControl.isPressed(KeyEvent.VK_2)){
+				sound.sound2();
+			}
 
 			if (keyControl.isPressed(KeyEvent.VK_A))
 				player.walk(-1);
@@ -307,6 +317,7 @@ public class GamePanel extends JPanel implements Runnable
 
 		public KeyHandler() {
 			keys = new ArrayList<Integer>();
+			
 		}
 
 		public void keyPressed(KeyEvent e) {
