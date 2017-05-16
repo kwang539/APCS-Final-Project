@@ -234,20 +234,32 @@ public class GamePanel extends JPanel implements Runnable
 				sound.sound2();
 			}
 
+			
+			if(!isPlatformer){
+				
+			
 			if (keyControl.isPressed(KeyEvent.VK_A))
 				player.walk(-1);
 			if (keyControl.isPressed(KeyEvent.VK_D))
 				player.walk(1);
 
 			if (keyControl.isPressed(KeyEvent.VK_W))
-				if (isPlatformer){
-					player.jump();
-				} else {
 					player.walk(-2);
-				}
+		
 			if (keyControl.isPressed(KeyEvent.VK_S))
 				player.walk(2);
+			}
+			else{
+				if (keyControl.isPressed(KeyEvent.VK_A))
+					player.walk(-1);
+				if (keyControl.isPressed(KeyEvent.VK_D))
+					player.walk(1);
 
+				if (keyControl.isPressed(KeyEvent.VK_W))
+						player.jump();
+		
+			}
+			
 			if (keyControl.isPressed(KeyEvent.VK_T)){
 				togglePerspective();
 			}
@@ -259,14 +271,14 @@ public class GamePanel extends JPanel implements Runnable
 
 				if (time == 0 || time >= 300) {
 					timeOfLastProjectile = System.currentTimeMillis();
-					System.out.println("Last" + timeOfLastProjectile);
+					//System.out.println("Last" + timeOfLastProjectile);
 					bullets.add(new Bullet("fireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 25, 25, mX, mY));
 				}
 				
 				timeNow = System.currentTimeMillis()+1;
-				System.out.println("Now" + timeNow);
+				//System.out.println("Now" + timeNow);
 				time = timeNow - timeOfLastProjectile;
-				System.out.println("time" + time);
+				//System.out.println("time" + time);
 			}
 
 			for(Bullet b: bullets){

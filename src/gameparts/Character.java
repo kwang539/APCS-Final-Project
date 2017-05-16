@@ -22,9 +22,9 @@ public class Character extends MovingImage {
 		xVelocity = 0;
 		yVelocity = 0;
 		onASurface = false;
-		gravity = 1.5;
-		friction = 0.7;
-		jumpStrength = 9;
+		gravity = 0.3;
+		friction = 0.85;
+		jumpStrength = 8.5;
 	}
 
 	// METHODS
@@ -36,9 +36,8 @@ public class Character extends MovingImage {
 
 			int newdir = dir/2;
 
-			y = y + newdir*yVelocity;
-			y += newdir*4;
-			if (yVelocity <= 15 && yVelocity >= -15){
+		
+			if (yVelocity <= 5 && yVelocity >= -5){
 				yVelocity += newdir;
 				y += newdir;
 			}
@@ -52,7 +51,7 @@ public class Character extends MovingImage {
 			}
 		x+= dir*xVelocity;
 			 */
-			if (xVelocity <= 15 && xVelocity >= -15)
+			if (xVelocity <= 5 && xVelocity >= -5)
 				xVelocity += dir;
 		}
 
@@ -75,7 +74,6 @@ public class Character extends MovingImage {
 
 			yVelocity += gravity; // GRAVITY
 
-			yVelocity *= friction;
 			double yCoord2 = yCoord + yVelocity;
 
 			Rectangle2D.Double stretchY = new Rectangle2D.Double(xCoord,Math.min(yCoord,yCoord2),width,height+Math.abs(yVelocity));

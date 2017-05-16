@@ -71,6 +71,7 @@ public class Player extends Character {
 
 	public void jump() {
 		// JUMP!
+		super.jump();
 	}
 
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer) {
