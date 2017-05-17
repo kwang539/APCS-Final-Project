@@ -240,8 +240,8 @@ public class GamePanel extends JPanel implements Runnable
 	}
 	
 	public void clearLevel(){
-		enemies = null;
-		obstacles = null;
+		enemies.clear();;
+		obstacles.clear();;
 		player = null;
 	}
 	
