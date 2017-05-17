@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable
 	private long timeOfLastProjectile = 0;
 	private long timeNow = 0;
 	private long time = 0;
-	
+
 	private boolean isPlatformer;
 
 	private Rectangle screenRect;
@@ -33,8 +33,7 @@ public class GamePanel extends JPanel implements Runnable
 	private Player player;
 	//private Character cmario;
 
-	private Enemy enemy1;
-	private ArrayList<Shape> obstacles;
+
 	private double mX, mY, mouseAngle;
 
 
@@ -43,17 +42,26 @@ public class GamePanel extends JPanel implements Runnable
 
 	private Image cursorImage;
 
-	private ArrayList<Bullet> bullets;
-
-
 	private Link sound;
+
+
+
+	private ArrayList<Bullet> bullets;
+	private ArrayList<Enemy> enemies;
+
+
+	private ArrayList<Shape> obstacles;
+
+
+
+
 
 
 	public GamePanel () {
 		super();
 
 		isPlatformer = false;
-		
+
 		mX = MouseInfo.getPointerInfo().getLocation().getX();
 		mY = MouseInfo.getPointerInfo().getLocation().getY();
 
@@ -62,16 +70,27 @@ public class GamePanel extends JPanel implements Runnable
 		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 		obstacles = new ArrayList<Shape>();
-		obstacles.add(new Rectangle(200,400,400,50));
+		enemies = new ArrayList<Enemy>();
+		bullets = new ArrayList<Bullet>();
+
+
+		/*obstacles.add(new Rectangle(200,400,400,50));
 		obstacles.add(new Rectangle(0,250,100,50));
 		obstacles.add(new Rectangle(700,250,100,50));
 		obstacles.add(new Rectangle(375,300,50,100));
 		obstacles.add(new Rectangle(300,250,200,50));
+		 */
+		spawnNewPlayer(0,0);
+		//spawnNewEnemy(90,100);
+		//enemy2 = new Enemy(200,30);
+		obstacles.add(new Rectangle(0,250,400,50));
 
-		spawnNewPlayer();
-		spawnNewEnemy(90,100);
+		enemies.add(new Enemy(100,0));
+		enemies.add(new Enemy(50,0));
+
+		enemies.add(new Enemy(250,0));
+
 		//spawnNewCharacter(100,200);
-		bullets = new ArrayList<Bullet>();
 
 		try {
 			cursorImage = ImageIO.read(new File("crosshair.png"));
@@ -144,18 +163,29 @@ public class GamePanel extends JPanel implements Runnable
 
 		//this way you can make your own hitbox
 		//if(trackingLine.intersects(enemy1.makeHitBox())){
-		for(Bullet b: bullets){
-			b.hitObstacle(obstacles);
-			if(b != null && b.getBounds2D().intersects(enemy1.getBounds2D())){
-				enemy1.setIsHit(true);
-				System.out.println("why");
-				enemy1.removeEnemy();
-			}else{
-				enemy1.setIsHit(false);
 
+		for(Enemy e: enemies){
+
+			for(Bullet b: bullets){
+				//b.hitObstacle(obstacles);
+				
+				if(b != null && b.getBounds2D().intersects(e.getBounds2D())){
+					e.setIsHit(true);
+					//System.out.println("why");
+					//e.removeEnemy();
+					enemies.remove(e);
+				}else{
+					e.setIsHit(false);
+
+				}
 			}
 		}
-
+		for(Bullet b: bullets){
+			if(b.hitObstacle(obstacles)){
+				bullets.remove(b);
+			}
+		}
+		
 		/*
 		if(player.generateTrackingLine(obstacles).intersects(enemy1.getBounds2D())){
 			//System.out.println("hit!");
@@ -183,7 +213,10 @@ public class GamePanel extends JPanel implements Runnable
 			mouseAngle = Math.atan(scalar);
 		}
 
-		enemy1.draw(g2, null);
+		for(Enemy e: enemies){
+			e.draw(g2, null);
+
+		}
 		//cmario.draw(g2, null);
 		if(bullets.size() > 0){
 
@@ -201,14 +234,29 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 
-	public void spawnNewPlayer() {
-		player = new Player(DRAWING_WIDTH/2-player.MARIO_WIDTH/2,50);
+	public void spawnNewPlayer(int locX, int locY) {
+		//player = new Player(DRAWING_WIDTH/2-player.MARIO_WIDTH/2,50);
+		player = new Player(locX,locY);
+
 	}
 
 	public void spawnNewEnemy(int locX, int locY) {
-		enemy1 = new Enemy(locX,locY);
-	}
+		//enemy1 = new Enemy(locX,locY);
+		enemies.add(new Enemy(locX,locY));
 
+	}
+	
+	public void spawnNewObstacle(int locX, int locY, int height, int width){
+		
+		obstacles.add(new Rectangle(locX, locY, height, width));
+	}
+	
+	
+	
+//	public void removeBullet(Bullet b){
+//		bullets.remove(b);
+//	}
+	
 	public KeyHandler getKeyHandler() {
 		return keyControl;
 	}
@@ -230,20 +278,20 @@ public class GamePanel extends JPanel implements Runnable
 				sound.sound2();
 			}
 
-			
-			if(!isPlatformer){
-				
-			
-			if (keyControl.isPressed(KeyEvent.VK_A))
-				player.walk(-1);
-			if (keyControl.isPressed(KeyEvent.VK_D))
-				player.walk(1);
 
-			if (keyControl.isPressed(KeyEvent.VK_W))
+			if(!isPlatformer){
+
+
+				if (keyControl.isPressed(KeyEvent.VK_A))
+					player.walk(-1);
+				if (keyControl.isPressed(KeyEvent.VK_D))
+					player.walk(1);
+
+				if (keyControl.isPressed(KeyEvent.VK_W))
 					player.walk(-2);
-		
-			if (keyControl.isPressed(KeyEvent.VK_S))
-				player.walk(2);
+
+				if (keyControl.isPressed(KeyEvent.VK_S))
+					player.walk(2);
 			}
 			else{
 				if (keyControl.isPressed(KeyEvent.VK_A))
@@ -252,12 +300,12 @@ public class GamePanel extends JPanel implements Runnable
 					player.walk(1);
 
 				if (keyControl.isPressed(KeyEvent.VK_W))
-						player.jump();
-		
+					player.jump();
+
 			}
-			
+
 			//if (keyControl.isPressed(KeyEvent.VK_SPACE)){
-				//togglePerspective();
+			//togglePerspective();
 			//}
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
@@ -268,7 +316,7 @@ public class GamePanel extends JPanel implements Runnable
 					bullets.add(new Bullet("fireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 25, 25, mX, mY));
 					sound.sound1();
 				}
-				
+
 				timeNow = System.currentTimeMillis()+1;
 				//System.out.println("Now" + timeNow);
 				time = timeNow - timeOfLastProjectile;
@@ -281,25 +329,30 @@ public class GamePanel extends JPanel implements Runnable
 				if(screenRect.intersects(b)){
 					b = null;
 				}
-				if(b != null && b.getBounds2D().intersects(enemy1.getBounds2D())){
-					enemy1.setIsHit(true);
+				for(Enemy e: enemies){
+				if(b != null && e != null && b.getBounds2D().intersects(e.getBounds2D())){
+					e.setIsHit(true);
 				}else{
-					enemy1.setIsHit(false);
+					e.setIsHit(false);
+				}
 				}
 			}
 			
-			if(enemy1.getIsHit()){
-				enemy1.removeEnemy();
-			}
-			
 			player.act(obstacles, isPlatformer);
-			enemy1.act(obstacles, isPlatformer);
-			enemy1.hitByBullet(bullets);
-			//cmario.act(obstacles);
 
+			for(Enemy e: enemies){
+			if(e.getIsHit()){
+				//e.removeEnemy();
+				enemies.remove(e);
+			}
+
+			e.act(obstacles, isPlatformer);
+			e.hitByBullet(bullets);
+			//cmario.act(obstacles);
+			}
 
 			if (!screenRect.intersects(player))
-				spawnNewPlayer();
+				spawnNewPlayer(0,0);
 
 
 			repaint();
@@ -328,7 +381,7 @@ public class GamePanel extends JPanel implements Runnable
 
 		public void keyPressed(KeyEvent e) {
 			keys.add(e.getKeyCode());
-			
+
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				togglePerspective();
 			}

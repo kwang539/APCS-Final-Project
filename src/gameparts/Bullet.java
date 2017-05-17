@@ -45,15 +45,19 @@ public class Bullet extends MovingImage{
 		}
 	}
 	
-	public void hitObstacle(ArrayList<Shape> obstacles){
+	public boolean hitObstacle(ArrayList<Shape> obstacles){
+		
 		for (Shape s : obstacles) {
 		if(this.getBounds2D().intersects(s.getBounds2D())){
 			bulletVelocity = 0;
 			x= 0;
 			y = 0;
+			return true;
+		
 		}
 			
 		}
+		return false;
 	}
 	
 

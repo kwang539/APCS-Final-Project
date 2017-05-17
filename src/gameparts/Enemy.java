@@ -24,7 +24,7 @@ public class Enemy extends Character {
 	private Rectangle2D.Double hitbox;
 
 	public Enemy(int x, int y) {
-		super("survivor-idle_rifle_0.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+		super("playerchar.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
 		dX = 0;
 		dY = 0;
 	}
