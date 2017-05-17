@@ -256,9 +256,9 @@ public class GamePanel extends JPanel implements Runnable
 		
 			}
 			
-			if (keyControl.isPressed(KeyEvent.VK_T)){
+			//if (keyControl.isPressed(KeyEvent.VK_SPACE)){
 				//togglePerspective();
-			}
+			//}
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
 
@@ -266,6 +266,7 @@ public class GamePanel extends JPanel implements Runnable
 					timeOfLastProjectile = System.currentTimeMillis();
 					//System.out.println("Last" + timeOfLastProjectile);
 					bullets.add(new Bullet("fireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 25, 25, mX, mY));
+					sound.sound1();
 				}
 				
 				timeNow = System.currentTimeMillis()+1;
@@ -328,7 +329,7 @@ public class GamePanel extends JPanel implements Runnable
 		public void keyPressed(KeyEvent e) {
 			keys.add(e.getKeyCode());
 			
-			if(e.getKeyCode() == KeyEvent.VK_T){
+			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				togglePerspective();
 			}
 		}
