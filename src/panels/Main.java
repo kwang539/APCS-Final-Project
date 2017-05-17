@@ -32,8 +32,11 @@ public class Main extends JFrame{
 		//code for game panel, add later
 		
 		//Levels 1 2 and 3
-		panel4 = new GamePanel();
+		panel4 = new GamePanel(this);
+		//panel4.loadLevel(panel4.getLevel1());
+		panel4.clearLevel();
 		panel4.loadLevel(panel4.getLevel1());
+
 
 		addKeyListener(panel4.getKeyHandler());
 		addMouseListener(panel4.getMouseHandler());

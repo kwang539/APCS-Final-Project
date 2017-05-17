@@ -15,6 +15,7 @@ import gameparts.Enemy;
 import gameparts.Link;
 import gameparts.Player;
 import levels.Level1;
+import levels.Level2;
 
 import java.util.*;
 
@@ -32,26 +33,34 @@ public class GamePanel extends JPanel implements Runnable
 
 	private Rectangle screenRect;
 
-	private Player player;
 
+
+	private Main m;
+	//private boolean isRunning;
+	
 	private double mX, mY, mouseAngle;
 	private KeyHandler keyControl;
 	private MouseHandler mouseControl;
 	private Image cursorImage;
 	private Link sound;
+	
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Shape> obstacles;
+	private Player player;
 
 	private Level1 level1;
+	private Level2 level2;
+	
 
 
-
-	public GamePanel () {
+	public GamePanel (Main m) {
 		super();
-
+		this.m = m;
+		//isRunning = true;
 		//Where all the levels will be added
 		level1 = new Level1();
+		level2 = new Level2();
 		
 		isPlatformer = false;
 
@@ -212,7 +221,7 @@ public class GamePanel extends JPanel implements Runnable
 		// TODO Add any custom drawings here
 	}
 
-
+//Spawn methods not really needed?
 	public void spawnNewPlayer(int locX, int locY) {
 		//player = new Player(DRAWING_WIDTH/2-player.MARIO_WIDTH/2,50);
 		player = new Player(locX,locY);
@@ -383,6 +392,24 @@ public class GamePanel extends JPanel implements Runnable
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				togglePerspective();
 			}
+			
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				m.changePanel("1");
+				//isRunning = !isRunning;
+			}
+			if(e.getKeyCode() == KeyEvent.VK_4){
+				//clearLevel();
+				loadLevel(level2);
+			}
+			if(e.getKeyCode() == KeyEvent.VK_5){
+				//clearLevel();
+				loadLevel(level1);
+			}
+			if(e.getKeyCode() == KeyEvent.VK_R){
+				//clearLevel();
+				level1.reset();
+				System.out.println("wut");
+			}
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -392,6 +419,7 @@ public class GamePanel extends JPanel implements Runnable
 		}
 
 		public void keyTyped(KeyEvent e) {
+			
 		}
 
 		public boolean isPressed(int code) {
