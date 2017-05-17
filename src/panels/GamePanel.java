@@ -13,6 +13,7 @@ import gameparts.Bullet;
 import gameparts.Enemy;
 import gameparts.Link;
 import gameparts.Player;
+import levels.Level1;
 
 import java.util.*;
 
@@ -31,35 +32,25 @@ public class GamePanel extends JPanel implements Runnable
 	private Rectangle screenRect;
 
 	private Player player;
-	//private Character cmario;
-
 
 	private double mX, mY, mouseAngle;
-
-
 	private KeyHandler keyControl;
 	private MouseHandler mouseControl;
-
 	private Image cursorImage;
-
 	private Link sound;
-
-
-
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Enemy> enemies;
-
-
 	private ArrayList<Shape> obstacles;
 
-
-
+	private Level1 level1;
 
 
 
 	public GamePanel () {
 		super();
 
+		level1 = new Level1();
+		
 		isPlatformer = false;
 
 		mX = MouseInfo.getPointerInfo().getLocation().getX();
@@ -69,28 +60,13 @@ public class GamePanel extends JPanel implements Runnable
 		mouseControl = new MouseHandler();
 		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
-		obstacles = new ArrayList<Shape>();
-		enemies = new ArrayList<Enemy>();
+		
+		obstacles = level1.getObstacles();
+		enemies = level1.getEnemies();
+		player = level1.getPlayer();
+		
 		bullets = new ArrayList<Bullet>();
 
-
-		/*obstacles.add(new Rectangle(200,400,400,50));
-		obstacles.add(new Rectangle(0,250,100,50));
-		obstacles.add(new Rectangle(700,250,100,50));
-		obstacles.add(new Rectangle(375,300,50,100));
-		obstacles.add(new Rectangle(300,250,200,50));
-		 */
-		spawnNewPlayer(0,0);
-		//spawnNewEnemy(90,100);
-		//enemy2 = new Enemy(200,30);
-		obstacles.add(new Rectangle(0,250,400,50));
-
-		enemies.add(new Enemy(100,0));
-		enemies.add(new Enemy(50,0));
-
-		enemies.add(new Enemy(250,0));
-
-		//spawnNewCharacter(100,200);
 
 		try {
 			cursorImage = ImageIO.read(new File("crosshair.png"));
