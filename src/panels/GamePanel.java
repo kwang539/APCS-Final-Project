@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import levels.Level;
 import gameparts.Bullet;
 import gameparts.Enemy;
 import gameparts.Link;
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable
 	public GamePanel () {
 		super();
 
+		//Where all the levels will be added
 		level1 = new Level1();
 		
 		isPlatformer = false;
@@ -61,9 +63,9 @@ public class GamePanel extends JPanel implements Runnable
 		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 		
-		obstacles = level1.getObstacles();
-		enemies = level1.getEnemies();
-		player = level1.getPlayer();
+//		obstacles = level1.getObstacles();
+//		enemies = level1.getEnemies();
+//		player = level1.getPlayer();
 		
 		bullets = new ArrayList<Bullet>();
 
@@ -150,6 +152,7 @@ public class GamePanel extends JPanel implements Runnable
 					//System.out.println("why");
 					//e.removeEnemy();
 					enemies.remove(e);
+					bullets.remove(b);
 				}else{
 					e.setIsHit(false);
 
@@ -227,6 +230,25 @@ public class GamePanel extends JPanel implements Runnable
 		obstacles.add(new Rectangle(locX, locY, height, width));
 	}
 	
+	public void clearLevel(){
+		enemies = null;
+		obstacles = null;
+		player = null;
+	}
+	
+	public void loadLevel(Level level){
+		
+		this.obstacles = level.getObstacles();
+		this.enemies = level.getEnemies();
+		this.player = level.getPlayer();
+		
+		
+	}
+	
+	
+	public Level1 getLevel1(){
+		return level1;
+	}
 	
 	
 //	public void removeBullet(Bullet b){

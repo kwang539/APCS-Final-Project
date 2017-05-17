@@ -3,6 +3,9 @@ package panels;
 import java.awt.event.*;
 import javax.swing.*;
 
+import levels.Level;
+import levels.Level1;
+
 import java.awt.*;
 
 public class Main extends JFrame{
@@ -10,9 +13,12 @@ public class Main extends JFrame{
 
 
 	JPanel cardPanel;
-
+	GamePanel panel4;
+	
 	public Main(String title) {
 		super(title);
+		
+		
 		setBounds(20, 20, 1200, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -26,7 +32,8 @@ public class Main extends JFrame{
 		//code for game panel, add later
 		
 		//Levels 1 2 and 3
-		GamePanel panel4 = new GamePanel();
+		panel4 = new GamePanel();
+		panel4.loadLevel(panel4.getLevel1());
 
 		addKeyListener(panel4.getKeyHandler());
 		addMouseListener(panel4.getMouseHandler());
@@ -52,6 +59,13 @@ public class Main extends JFrame{
 	public void changePanel(String name) {
 		((CardLayout)cardPanel.getLayout()).show(cardPanel,name);
 		requestFocus();
+	}
+	
+	public void loadGamePanel(Level level){
+		panel4.loadLevel(level);
+	}
+	public GamePanel getGamePanel(){
+		return panel4;
 	}
 
 }

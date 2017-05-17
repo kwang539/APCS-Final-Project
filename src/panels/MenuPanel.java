@@ -48,15 +48,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 		w.changePanel("2");
 		if(e.getSource().equals(OptionsButton))
 			w.changePanel("3");
-		if(e.getSource().equals(playButton))
+		if(e.getSource().equals(playButton)){
 			w.changePanel("4");
+		}
 		
-		if(e.getSource().equals(playButton1))
+		if(e.getSource().equals(playButton1)){
 			w.changePanel("L1");
+			
+		}
 		if(e.getSource().equals(playButton2))
 			w.changePanel("L2");
 		if(e.getSource().equals(playButton3))
 			w.changePanel("L3");
 	}
+	
 	
 }

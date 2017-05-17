@@ -44,7 +44,6 @@ public class Enemy extends Character {
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer) {
 		//dY += 0.5;
 		super.act(obstacles, isPlatformer);
-		walk(2);
 
 
 	}
