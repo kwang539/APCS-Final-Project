@@ -3,10 +3,6 @@ package panels;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -261,13 +257,10 @@ public class GamePanel extends JPanel implements Runnable
 			}
 			
 			if (keyControl.isPressed(KeyEvent.VK_T)){
-				togglePerspective();
+				//togglePerspective();
 			}
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
-
-
-
 
 				if (time == 0 || time >= 300) {
 					timeOfLastProjectile = System.currentTimeMillis();
@@ -292,7 +285,6 @@ public class GamePanel extends JPanel implements Runnable
 				}else{
 					enemy1.setIsHit(false);
 				}
-
 			}
 			
 			if(enemy1.getIsHit()){
@@ -331,12 +323,14 @@ public class GamePanel extends JPanel implements Runnable
 
 		public KeyHandler() {
 			keys = new ArrayList<Integer>();
-
 		}
 
 		public void keyPressed(KeyEvent e) {
 			keys.add(e.getKeyCode());
-
+			
+			if(e.getKeyCode() == KeyEvent.VK_T){
+				togglePerspective();
+			}
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -346,7 +340,6 @@ public class GamePanel extends JPanel implements Runnable
 		}
 
 		public void keyTyped(KeyEvent e) {
-
 		}
 
 		public boolean isPressed(int code) {
@@ -354,8 +347,6 @@ public class GamePanel extends JPanel implements Runnable
 		}
 	}
 
-
-	//I have no clue how mouse handler works
 	public class MouseHandler implements MouseListener {
 		private int mX;
 		private int mY;
@@ -371,18 +362,10 @@ public class GamePanel extends JPanel implements Runnable
 			return mouses.contains(code);
 		}
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			//mX = e.getX();
-			//mY = e.getY();
-			//mouses.add(e.getButton());
-
-
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
