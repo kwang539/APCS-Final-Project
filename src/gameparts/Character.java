@@ -24,7 +24,7 @@ public class Character extends MovingImage {
 		onASurface = false;
 		gravity = 0.3;
 		friction = 0.85;
-		jumpStrength = 8.5;
+		jumpStrength = 9.5;
 	}
 
 	// METHODS
