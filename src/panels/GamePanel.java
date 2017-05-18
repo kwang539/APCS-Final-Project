@@ -52,7 +52,6 @@ public class GamePanel extends JPanel implements Runnable
 	private Level1 level1;
 	private Level2 level2;
 	
-	private Level currentLevel;
 
 
 	public GamePanel (Main m) {
@@ -131,27 +130,6 @@ public class GamePanel extends JPanel implements Runnable
 		double dY = mY - player.getCenterY();
 		double dX = mX - player.getCenterX();
 
-
-		//if you generate the tracking Line in gamepanel, it doesn't get screwed up when  you move the screen around
-		/*
-		Line2D.Double trackingLine = new Line2D.Double(mX, mY, mario.getCenterX(), mario.getCenterY());
-
-		for(Shape s: obstacles){
-
-			if( trackingLine.intersects((Rectangle2D)s)){
-				//basically make a new line that goes from the center of the character to the intersection point of the rectangle and trackiong line
-				trackingLine = new Line2D.Double(s.getBounds2D().getX(), s.getBounds2D().getY(), mario.getCenterX(), mario.getCenterY());
-			}
-		}
-		 */
-
-
-		//idk if this belongs here
-		//basically its a hit scan detection, if the tracking line is in contact with the enemy, you can hit the enemey
-
-		//this way you can make your own hitbox
-		//if(trackingLine.intersects(enemy1.makeHitBox())){
-
 		for(Enemy e: enemies){
 
 			for(Bullet b: bullets){
@@ -174,24 +152,6 @@ public class GamePanel extends JPanel implements Runnable
 				bullets.remove(b);
 			}
 		}
-		
-		/*
-		if(player.generateTrackingLine(obstacles).intersects(enemy1.getBounds2D())){
-			//System.out.println("hit!");
-			//enemy1.setIsHit(true);
-			//draws a box where the eney can be hit
-			//g2.draw( new Rectangle2D.Double(mX,mY,6,6));
-
-		}
-		else{
-			enemy1.setIsHit(false);
-		}
-		 */
-		//g2.draw(trackingLine);
-
-		//draws trackingline, but we are no longer using a tracking line, just projectiles
-		//g2.draw(player.generateTrackingLine(obstacles));
-
 
 		double scalar = dY/dX;
 
@@ -252,9 +212,6 @@ public class GamePanel extends JPanel implements Runnable
 		this.enemies = level.getEnemies();
 		this.player = level.getPlayer();
 		
-		currentLevel = level;
-		
-		
 	}
 	
 	
@@ -288,7 +245,6 @@ public class GamePanel extends JPanel implements Runnable
 
 			}
 			if(keyControl.isPressed(KeyEvent.VK_2)){
-				//sound.sound2();
 				loadLevel(level2);
 			}
 
@@ -414,18 +370,14 @@ public class GamePanel extends JPanel implements Runnable
 			}
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				//clearLevel();
-				
-				if(currentLevel == level1){
 				level1 = null;
 				level1 = new Level1();
 				loadLevel(level1);
-				}
 				
-				if(currentLevel == level2){
 				level2 = null;
 				level2 = new Level2();
 				loadLevel(level2);
-				}
+
 				
 				//level1.reset();
 				//System.out.println("wut");
