@@ -83,7 +83,7 @@ public class Player extends Character {
 	}
 	
 
-	
+	//doesnt work yet
 	public void death(){
 		x = -100;
 		y = -100;
