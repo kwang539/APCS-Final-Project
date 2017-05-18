@@ -52,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable
 	private Level1 level1;
 	private Level2 level2;
 	
+	private Level currentLevel;
 
 
 	public GamePanel (Main m) {
@@ -251,6 +252,8 @@ public class GamePanel extends JPanel implements Runnable
 		this.enemies = level.getEnemies();
 		this.player = level.getPlayer();
 		
+		currentLevel = level;
+		
 		
 	}
 	
@@ -411,14 +414,18 @@ public class GamePanel extends JPanel implements Runnable
 			}
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				//clearLevel();
+				
+				if(currentLevel == level1){
 				level1 = null;
 				level1 = new Level1();
 				loadLevel(level1);
+				}
 				
+				if(currentLevel == level2){
 				level2 = null;
 				level2 = new Level2();
 				loadLevel(level2);
-
+				}
 				
 				//level1.reset();
 				//System.out.println("wut");
