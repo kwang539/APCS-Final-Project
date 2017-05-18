@@ -360,9 +360,13 @@ public class GamePanel extends JPanel implements Runnable
 				enemies.remove(e);
 			}
 
-			e.act(obstacles, isPlatformer);
+			e.act(obstacles, isPlatformer, player);
 			e.hitByBullet(bullets);
-			//cmario.act(obstacles);
+			
+			//if enemy touches player
+			if(e.intersects(player)){
+				player.death();
+			}
 			}
 
 			if (!screenRect.intersects(player))

@@ -11,9 +11,9 @@ public class Character extends MovingImage {
 	public static final int MARIO_WIDTH = 40;
 	public static final int MARIO_HEIGHT = 60;
 
-	private double xVelocity, yVelocity;
+	protected double xVelocity, yVelocity;
 	private boolean onASurface;
-	private double friction;
+	protected double friction;
 	private double gravity;
 	private double jumpStrength;
 
@@ -39,7 +39,7 @@ public class Character extends MovingImage {
 		
 			if (yVelocity <= 5 && yVelocity >= -5){
 				yVelocity += newdir;
-				y += newdir;
+				//y += newdir;
 			}
 		}
 

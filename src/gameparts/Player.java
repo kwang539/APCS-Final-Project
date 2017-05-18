@@ -82,6 +82,13 @@ public class Player extends Character {
 	
 	}
 	
+
+	
+	public void death(){
+		x = -100;
+		y = -100;
+	}
+	
 	public Line2D.Double generateTrackingLine(ArrayList<Shape> obstacles){
 		
 		try{
@@ -110,7 +117,6 @@ public class Player extends Character {
 		
 	}
 
-	
 	
 	
 }

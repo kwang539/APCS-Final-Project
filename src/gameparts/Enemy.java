@@ -22,18 +22,35 @@ public class Enemy extends Character {
 	//the hitbox field(rect) should move with the image, so that way you won't have to create new hitboxes every second
 	//not implemented yet
 	private Rectangle2D.Double hitbox;
+	
+	private double enemyAcceleration;
+	private double enemyAngle;
+	
 
 	public Enemy(int x, int y) {
 		super("playerchar.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
 		dX = 0;
 		dY = 0;
+		enemyAcceleration = .6;
 	}
 
 	// METHODS
-	public void walk(int dir) {
+	public void walk(double locX, double locY) {
 		// WALK!
 		//THIS MAKES IT NOT MERGE!!!
-		super.walk(dir);
+		
+		generateAngle(locX,locY);
+		if (yVelocity <= 4 && yVelocity >= -4){
+			
+			yVelocity += Math.sin(enemyAngle) * enemyAcceleration;
+			//y += newdir;
+		}
+		
+		if (xVelocity <= 4 && xVelocity >= -4){
+			xVelocity += Math.cos(enemyAngle) * enemyAcceleration;
+		}
+		//x += Math.cos(enemyAngle) * enemyVelocity;
+		//y += Math.sin(enemyAngle) * enemyVelocity;
 	}
 
 
@@ -41,9 +58,12 @@ public class Enemy extends Character {
 		// JUMP!
 	}
 
-	public void act(ArrayList<Shape> obstacles, boolean isPlatformer) {
+	public void act(ArrayList<Shape> obstacles, boolean isPlatformer, Player player1) {
 		//dY += 0.5;
 		super.act(obstacles, isPlatformer);
+		
+		
+		walk(player1.getCenterX(), player1.getCenterY());
 
 
 	}
@@ -69,8 +89,19 @@ public class Enemy extends Character {
 
 		x= 90;
 		y = 30;
-		System.out.println("remove");
+		//System.out.println("remove");
 	}
+	
+	private void generateAngle(double crosshairX, double crosshairY){
+		if (crosshairX < x){
+			//mouseAngle = Math.PI + Math.atan(scalar);
+			enemyAngle = Math.PI + Math.atan((crosshairY-y)/(crosshairX - x));
+
+		} else {
+			enemyAngle = Math.atan((crosshairY-y)/(crosshairX - x));
+		}
+	}
+	
 
 	public void hitByBullet(ArrayList<Bullet> bullets){
 		for (Bullet b : bullets) {
