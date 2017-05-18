@@ -240,8 +240,8 @@ public class GamePanel extends JPanel implements Runnable
 	}
 	
 	public void clearLevel(){
-		enemies.clear();;
-		obstacles.clear();;
+		enemies.clear();
+		obstacles.clear();
 		player = null;
 	}
 	
@@ -279,10 +279,14 @@ public class GamePanel extends JPanel implements Runnable
 
 
 			if(keyControl.isPressed(KeyEvent.VK_1)){
-				sound.sound1();
+				//sound.sound1();
+				loadLevel(level1);
+				
+
 			}
 			if(keyControl.isPressed(KeyEvent.VK_2)){
-				sound.sound2();
+				//sound.sound2();
+				loadLevel(level2);
 			}
 
 
@@ -403,12 +407,21 @@ public class GamePanel extends JPanel implements Runnable
 			}
 			if(e.getKeyCode() == KeyEvent.VK_5){
 				//clearLevel();
-				loadLevel(level1);
+				//loadLevel(level1);
 			}
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				//clearLevel();
-				level1.reset();
-				System.out.println("wut");
+				level1 = null;
+				level1 = new Level1();
+				loadLevel(level1);
+				
+				level2 = null;
+				level2 = new Level2();
+				loadLevel(level2);
+
+				
+				//level1.reset();
+				//System.out.println("wut");
 			}
 		}
 

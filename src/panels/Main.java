@@ -34,7 +34,7 @@ public class Main extends JFrame{
 		//Levels 1 2 and 3
 		panel4 = new GamePanel(this);
 		//panel4.loadLevel(panel4.getLevel1());
-		panel4.clearLevel();
+		//panel4.clearLevel();
 		panel4.loadLevel(panel4.getLevel1());
 
 
