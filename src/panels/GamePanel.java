@@ -135,14 +135,14 @@ public class GamePanel extends JPanel implements Runnable
 			mY = mousePoint.getY();
 		}
 		catch(NullPointerException e){
-			System.out.println("Mouse is out of bounds");
+			//System.out.println("Mouse is out of bounds");
 		}
 
 		double dY = mY - player.getCenterY();
 		double dX = mX - player.getCenterX();
 
 		for(Enemy e: enemies){
-
+			
 			for(Bullet b: bullets){
 				//b.hitObstacle(obstacles);
 
@@ -157,6 +157,7 @@ public class GamePanel extends JPanel implements Runnable
 
 				}
 			}
+
 		}
 		for(Bullet b: bullets){
 			if(b.hitObstacle(obstacles)){
@@ -248,15 +249,6 @@ public class GamePanel extends JPanel implements Runnable
 		while (true) { // Modify this to allow quitting
 			long startTime = System.currentTimeMillis();
 
-
-			if(keyControl.isPressed(KeyEvent.VK_L)){
-
-				//make sure you cap it at the last level too
-				for(int i = 1; i < lastLevel; i ++){
-					if(levels.get(i) == currentLevel)
-						loadLevel(levels.get(i+1));
-				}
-			}
 
 
 			if(keyControl.isPressed(KeyEvent.VK_1)){
@@ -415,6 +407,36 @@ public class GamePanel extends JPanel implements Runnable
 			}
 			//if level is finished, hit enter to move onto the next one
 			//for some reason, if you have hit 'r', the enter key will not work anymore
+			if(e.getKeyCode() == KeyEvent.VK_R){
+				//clearLevel();
+				isPlatformer = false;
+				if(currentLevel == level1){
+					level1 = null;
+					level1 = new Level1();
+
+					//clearLevel();
+					loadLevel(level1);
+					//levels.add(0,level1);
+					currentLevel = level1;
+
+				}
+				else if(currentLevel == level2){
+					level2 = null;
+					level2 = new Level2();
+
+					loadLevel(level2);
+					//levels.add(1,level2);
+					currentLevel = level2;
+
+				}
+
+
+				levelFinished = false;
+
+
+				//level1.reset();
+				//System.out.println("wut");
+			}
 			if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				//clearLevel();
 				//loadLevel(level1);
@@ -427,28 +449,7 @@ public class GamePanel extends JPanel implements Runnable
 				}
 				isPlatformer= false;
 			}
-			if(e.getKeyCode() == KeyEvent.VK_R){
-				//clearLevel();
-				isPlatformer = false;
-				if(currentLevel == level1){
-					level1 = null;
-					level1 = new Level1();
-					clearLevel();
-					loadLevel(level1);
 
-				}
-				else if(currentLevel == level2){
-					level2 = null;
-					level2 = new Level2();
-					loadLevel(level2);
-				}
-
-				levelFinished = false;
-				
-
-				//level1.reset();
-				//System.out.println("wut");
-			}
 		}
 
 		public void keyReleased(KeyEvent e) {
