@@ -26,12 +26,14 @@ public class Enemy extends Character {
 	private double enemyAcceleration;
 	private double enemyAngle;
 	
+	private double enemyVelocity;
 
-	public Enemy(int x, int y) {
+	public Enemy(int x, int y, double enemyVelocity) {
 		super("playerchar.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
 		dX = 0;
 		dY = 0;
 		enemyAcceleration = .6;
+		this.enemyVelocity = enemyVelocity;
 	}
 
 	// METHODS
@@ -40,13 +42,27 @@ public class Enemy extends Character {
 		//THIS MAKES IT NOT MERGE!!!
 		
 		generateAngle(locX,locY);
-		if (yVelocity <= 4 && yVelocity >= -4){
+		if (yVelocity <= enemyVelocity && yVelocity >= -enemyVelocity){
 			
 			yVelocity += Math.sin(enemyAngle) * enemyAcceleration;
 			//y += newdir;
 		}
 		
-		if (xVelocity <= 4 && xVelocity >= -4){
+		if (xVelocity <= enemyVelocity && xVelocity >= -enemyVelocity){
+			xVelocity += Math.cos(enemyAngle) * enemyAcceleration;
+		}
+		//x += Math.cos(enemyAngle) * enemyVelocity;
+		//y += Math.sin(enemyAngle) * enemyVelocity;
+	}
+	
+	//walk for the platformer version
+	public void walk(double locX, int locY) {
+		// WALK!
+		//THIS MAKES IT NOT MERGE!!!
+		
+		generateAngle(locX,locY);
+		
+		if (xVelocity <= enemyVelocity && xVelocity >= -enemyVelocity){
 			xVelocity += Math.cos(enemyAngle) * enemyAcceleration;
 		}
 		//x += Math.cos(enemyAngle) * enemyVelocity;
@@ -54,17 +70,253 @@ public class Enemy extends Character {
 	}
 
 
+
 	public void jump() {
 		// JUMP!
+		super.jump();
 	}
 
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer, Player player1) {
 		//dY += 0.5;
-		super.act(obstacles, isPlatformer);
+		//super.act(obstacles, isPlatformer);
 		
-		
-		walk(player1.getCenterX(), player1.getCenterY());
+		double xCoord = getX();
+		double yCoord = getY();
+		double width = getWidth();
+		double height = getHeight();
 
+		// ***********Y AXIS***********
+
+		if (isPlatformer){
+
+			yVelocity += gravity; // GRAVITY
+
+			double yCoord2 = yCoord + yVelocity;
+
+			Rectangle2D.Double stretchY = new Rectangle2D.Double(xCoord,Math.min(yCoord,yCoord2),width,height+Math.abs(yVelocity));
+
+			onASurface = false;
+
+			//Problem is that is is testing to see if the mario is on the surface,
+			//if mario is not on a surface, he keeps going.	
+
+
+			if (yVelocity > 0) {
+				Shape standingSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(stretchY)) {
+						onASurface = true;
+						standingSurface = s;
+						yVelocity = 0;
+
+					}
+				}
+				if (standingSurface != null) {
+					Rectangle r = standingSurface.getBounds();
+					yCoord2 = r.getY()-height;
+					
+				}
+			} else if (yVelocity < 0) {
+				Shape headSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(stretchY)) {
+						headSurface = s;
+						yVelocity = 0;
+					}
+				}
+				if (headSurface != null) {
+					Rectangle r = headSurface.getBounds();
+					yCoord2 = r.getY()+r.getHeight();
+				}
+			}
+
+			if (Math.abs(yVelocity) < .2)
+				yVelocity = 0;
+
+			if (yVelocity > 0) {
+				Shape standingSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(stretchY)) {
+						standingSurface = s;
+						yVelocity = 0;
+					}
+				}
+				if (standingSurface != null) {
+					Rectangle r = standingSurface.getBounds();
+					yCoord2 = r.getX()-width;
+				}
+			} else if (yVelocity < 0) {
+				Shape headSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(stretchY)) {
+						headSurface = s;
+						yVelocity = 0;
+					}
+				}
+				if (headSurface != null) {
+					Rectangle r = headSurface.getBounds();
+					yCoord2 = r.getX()+r.getWidth();
+				}
+			}
+
+			if (Math.abs(yVelocity) < .2)
+				yVelocity = 0;
+
+			// ***********X AXIS***********
+
+
+			xVelocity *= friction;
+
+			double xCoord2 = xCoord + xVelocity;
+
+			Rectangle2D.Double strechX = new Rectangle2D.Double(Math.min(xCoord,xCoord2),yCoord2,width+Math.abs(xVelocity),height);
+
+			if (xVelocity > 0) {
+				Shape rightSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(strechX)) {
+						rightSurface = s;
+						xVelocity = 0;
+					}
+				}
+				if (rightSurface != null) {
+					Rectangle r = rightSurface.getBounds();
+					xCoord2 = r.getX()-width;
+				}
+			} else if (xVelocity < 0) {
+				Shape leftSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(strechX)) {
+						leftSurface = s;
+						xVelocity = 0;
+					}
+				}
+				if (leftSurface != null) {
+					Rectangle r = leftSurface.getBounds();
+					xCoord2 = r.getX()+r.getWidth();
+				}
+			}
+
+
+			if (Math.abs(xVelocity) < .2)
+				xVelocity = 0;
+
+			moveToLocation(xCoord2,yCoord2);	
+		}
+		
+		
+		else {
+			
+			yVelocity *= friction;
+			double yCoord2 = yCoord + yVelocity;
+
+			Rectangle2D.Double strechY = new Rectangle2D.Double(xCoord,Math.min(yCoord,yCoord2),width,height+Math.abs(yVelocity));
+
+			//onASurface = false;
+
+			//Problem is that is is testing to see if the mario is on the surface,
+			//if mario is not on a surface, he keeps going.
+
+
+
+
+
+
+
+			if (yVelocity > 0) {
+				Shape standingSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(strechY)) {
+						//onASurface = true;
+						standingSurface = s;
+						yVelocity = 0;
+
+					}
+				}
+				if (standingSurface != null) {
+					Rectangle r = standingSurface.getBounds();
+					yCoord2 = r.getY()-height;
+					//if coming from the top
+					//makes it go around the obstacle to the right
+					xVelocity += enemyAcceleration;
+				
+						
+				}
+			} else if (yVelocity < 0) {
+				Shape headSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(strechY)) {
+						headSurface = s;
+						yVelocity = 0;
+					}
+				}
+				if (headSurface != null) {
+					Rectangle r = headSurface.getBounds();
+					yCoord2 = r.getY()+r.getHeight();
+					//if coming from the bottom of the obstacle, will go around to the left
+					xVelocity -= enemyAcceleration;
+
+				}
+			}
+
+			if (Math.abs(yVelocity) < .2)
+				yVelocity = 0;
+
+
+			// ***********X AXIS***********
+
+
+			xVelocity *= friction;
+
+			double xCoord2 = xCoord + xVelocity;
+
+			Rectangle2D.Double strechX = new Rectangle2D.Double(Math.min(xCoord,xCoord2),yCoord2,width+Math.abs(xVelocity),height);
+
+			if (xVelocity > 0) {
+				Shape rightSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(strechX)) {
+						rightSurface = s;
+						xVelocity = 0;
+					}
+				}
+				if (rightSurface != null) {
+					Rectangle r = rightSurface.getBounds();
+					xCoord2 = r.getX()-width;
+				}
+			} else if (xVelocity < 0) {
+				Shape leftSurface = null;
+				for (Shape s : obstacles) {
+					if (s.intersects(strechX)) {
+						leftSurface = s;
+						xVelocity = 0;
+					}
+				}
+				if (leftSurface != null) {
+					Rectangle r = leftSurface.getBounds();
+					xCoord2 = r.getX()+r.getWidth();
+				}
+			}
+
+
+			if (Math.abs(xVelocity) < .2)
+				xVelocity = 0;
+
+			moveToLocation(xCoord2,yCoord2);
+
+		}
+	
+		
+		if(isPlatformer){
+			walk(player1.getCenterX(), (int)player1.getCenterY());
+			if(player1.getCenterY()+ ENEMY_HEIGHT*1.5 < y){
+			jump();
+			}
+
+		}
+		else{
+		walk(player1.getCenterX(), player1.getCenterY());
+		}
 
 	}
 

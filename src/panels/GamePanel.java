@@ -37,31 +37,42 @@ public class GamePanel extends JPanel implements Runnable
 
 	private Main m;
 	//private boolean isRunning;
-	
+
 	private double mX, mY, mouseAngle;
 	private KeyHandler keyControl;
 	private MouseHandler mouseControl;
 	private Image cursorImage;
 	private Link sound;
-	
+
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Enemy> enemies;
 	private ArrayList<Shape> obstacles;
 	private Player player;
 
+
+	private ArrayList<Level> levels;
 	private Level1 level1;
 	private Level2 level2;
-	
 
+
+	private final int lastLevel = 2;
+	private Level currentLevel;
+
+	private boolean levelFinished;
 
 	public GamePanel (Main m) {
 		super();
 		this.m = m;
 		//isRunning = true;
 		//Where all the levels will be added
+		levels = new ArrayList<Level>();
 		level1 = new Level1();
 		level2 = new Level2();
-		
+		levels.add(level1);
+		levels.add(level2);
+
+
+		levelFinished = false;
 		isPlatformer = false;
 
 		mX = MouseInfo.getPointerInfo().getLocation().getX();
@@ -71,11 +82,11 @@ public class GamePanel extends JPanel implements Runnable
 		mouseControl = new MouseHandler();
 		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
-		
-//		obstacles = level1.getObstacles();
-//		enemies = level1.getEnemies();
-//		player = level1.getPlayer();
-		
+
+		//		obstacles = level1.getObstacles();
+		//		enemies = level1.getEnemies();
+		//		player = level1.getPlayer();
+
 		bullets = new ArrayList<Bullet>();
 
 
@@ -134,7 +145,7 @@ public class GamePanel extends JPanel implements Runnable
 
 			for(Bullet b: bullets){
 				//b.hitObstacle(obstacles);
-				
+
 				if(b != null && b.getBounds2D().intersects(e.getBounds2D())){
 					e.setIsHit(true);
 					//System.out.println("why");
@@ -182,48 +193,49 @@ public class GamePanel extends JPanel implements Runnable
 		// TODO Add any custom drawings here
 	}
 
-//Spawn methods not really needed?
+	//Spawn methods not really needed?
 	public void spawnNewPlayer(int locX, int locY) {
 		//player = new Player(DRAWING_WIDTH/2-player.MARIO_WIDTH/2,50);
 		player = new Player(locX,locY);
 
 	}
 
-	public void spawnNewEnemy(int locX, int locY) {
+	public void spawnNewEnemy(int locX, int locY, int velocity) {
 		//enemy1 = new Enemy(locX,locY);
-		enemies.add(new Enemy(locX,locY));
+		enemies.add(new Enemy(locX,locY, velocity));
 
 	}
-	
+
 	public void spawnNewObstacle(int locX, int locY, int height, int width){
-		
+
 		obstacles.add(new Rectangle(locX, locY, height, width));
 	}
-	
+
 	public void clearLevel(){
 		enemies.clear();
 		obstacles.clear();
 		player = null;
 	}
-	
+
 	public void loadLevel(Level level){
-		
+
 		this.obstacles = level.getObstacles();
 		this.enemies = level.getEnemies();
 		this.player = level.getPlayer();
-		
+
+		currentLevel = level;
 	}
-	
-	
+
+
 	public Level1 getLevel1(){
 		return level1;
 	}
-	
-	
-//	public void removeBullet(Bullet b){
-//		bullets.remove(b);
-//	}
-	
+
+
+	//	public void removeBullet(Bullet b){
+	//		bullets.remove(b);
+	//	}
+
 	public KeyHandler getKeyHandler() {
 		return keyControl;
 	}
@@ -237,15 +249,31 @@ public class GamePanel extends JPanel implements Runnable
 			long startTime = System.currentTimeMillis();
 
 
+			if(keyControl.isPressed(KeyEvent.VK_L)){
+
+				//make sure you cap it at the last level too
+				for(int i = 1; i < lastLevel; i ++){
+					if(levels.get(i) == currentLevel)
+						loadLevel(levels.get(i+1));
+				}
+			}
+
 
 			if(keyControl.isPressed(KeyEvent.VK_1)){
 				//sound.sound1();
 				loadLevel(level1);
-				
+				isPlatformer = false;
+
+
 
 			}
+
+
+
 			if(keyControl.isPressed(KeyEvent.VK_2)){
 				loadLevel(level2);
+				isPlatformer = false;
+
 			}
 
 
@@ -300,34 +328,50 @@ public class GamePanel extends JPanel implements Runnable
 					b = null;
 				}
 				for(Enemy e: enemies){
-				if(b != null && e != null && b.getBounds2D().intersects(e.getBounds2D())){
-					e.setIsHit(true);
-				}else{
-					e.setIsHit(false);
-				}
+					if(b != null && e != null && b.getBounds2D().intersects(e.getBounds2D())){
+						e.setIsHit(true);
+					}else{
+						e.setIsHit(false);
+					}
 				}
 			}
-			
+
 			player.act(obstacles, isPlatformer);
 
+
 			for(Enemy e: enemies){
-			if(e.getIsHit()){
-				//e.removeEnemy();
-				enemies.remove(e);
+				if(e.getIsHit()){
+					//e.removeEnemy();
+					enemies.remove(e);
+				}
+
+				for(Enemy e1: enemies){
+					if(e1 != e)
+						obstacles.add(e1);
+				}
+
+				e.act(obstacles, isPlatformer, player);
+				for(Enemy e1: enemies){
+					if(e1 != e)
+						obstacles.remove(e1);
+				}
+				e.hitByBullet(bullets);
+
+
+				//if enemy touches player
+				if(e.intersects(player)){
+					player.death();
+				}
 			}
 
-			e.act(obstacles, isPlatformer, player);
-			e.hitByBullet(bullets);
-			
-			//if enemy touches player
-			if(e.intersects(player)){
-				player.death();
-			}
-			}
 
 			if (!screenRect.intersects(player))
 				spawnNewPlayer(0,0);
 
+
+			if(enemies.size() == 0){
+				levelFinished = true;
+			}
 
 			repaint();
 
@@ -359,30 +403,49 @@ public class GamePanel extends JPanel implements Runnable
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				togglePerspective();
 			}
-			
+
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				m.changePanel("1");
 				//isRunning = !isRunning;
 			}
 			if(e.getKeyCode() == KeyEvent.VK_4){
 				//clearLevel();
-				loadLevel(level2);
+				//loadLevel(level2);
+
 			}
-			if(e.getKeyCode() == KeyEvent.VK_5){
+			//if level is finished, hit enter to move onto the next one
+			//for some reason, if you have hit 'r', the enter key will not work anymore
+			if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				//clearLevel();
 				//loadLevel(level1);
+
+				if(levelFinished){
+					for(int i = 0; i < lastLevel-1; i ++){
+						if(levels.get(i) == currentLevel)
+							loadLevel(levels.get(i+1));
+					}
+				}
+				isPlatformer= false;
 			}
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				//clearLevel();
-				level1 = null;
-				level1 = new Level1();
-				loadLevel(level1);
-				
-				level2 = null;
-				level2 = new Level2();
-				loadLevel(level2);
+				isPlatformer = false;
+				if(currentLevel == level1){
+					level1 = null;
+					level1 = new Level1();
+					clearLevel();
+					loadLevel(level1);
 
+				}
+				else if(currentLevel == level2){
+					level2 = null;
+					level2 = new Level2();
+					loadLevel(level2);
+				}
+
+				levelFinished = false;
 				
+
 				//level1.reset();
 				//System.out.println("wut");
 			}
@@ -395,7 +458,7 @@ public class GamePanel extends JPanel implements Runnable
 		}
 
 		public void keyTyped(KeyEvent e) {
-			
+
 		}
 
 		public boolean isPressed(int code) {

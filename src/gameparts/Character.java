@@ -12,10 +12,10 @@ public class Character extends MovingImage {
 	public static final int MARIO_HEIGHT = 60;
 
 	protected double xVelocity, yVelocity;
-	private boolean onASurface;
+	protected boolean onASurface;
 	protected double friction;
-	private double gravity;
-	private double jumpStrength;
+	protected double gravity;
+	protected double jumpStrength;
 
 	public Character(String name, int x, int y, int width, int height) {
 		super(name, x, y, width, height);
