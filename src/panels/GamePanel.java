@@ -16,6 +16,7 @@ import gameparts.Link;
 import gameparts.Player;
 import levels.Level1;
 import levels.Level2;
+import levels.Level3;
 
 import java.util.*;
 
@@ -53,9 +54,10 @@ public class GamePanel extends JPanel implements Runnable
 	private ArrayList<Level> levels;
 	private Level1 level1;
 	private Level2 level2;
+	private Level3 level3;
 
 
-	private final int lastLevel = 2;
+	private final int lastLevel = 3;
 	private Level currentLevel;
 
 	private boolean levelFinished;
@@ -68,8 +70,10 @@ public class GamePanel extends JPanel implements Runnable
 		levels = new ArrayList<Level>();
 		level1 = new Level1();
 		level2 = new Level2();
+		level3 = new Level3();
 		levels.add(level1);
 		levels.add(level2);
+		levels.add(level3);
 
 
 		levelFinished = false;
@@ -115,8 +119,8 @@ public class GamePanel extends JPanel implements Runnable
 
 		//draws an image scaled perfectlyto the size of the screen
 		g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
-		
-		
+
+
 		for(Shape o: obstacles){
 			double x1 = o.getBounds2D().getX()-10;
 			double y1 = o.getBounds2D().getY()-10;
@@ -124,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawImage(currentLevel.getobstacleImg(),(int) x1, (int)y1, (int)(x1 +o.getBounds2D().getWidth()), (int)(y1+ o.getBounds2D().getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
 
 		}
-		
+
 		int width = getWidth();
 		int height = getHeight();
 
@@ -153,7 +157,7 @@ public class GamePanel extends JPanel implements Runnable
 		double dY = mY - player.getCenterY();
 		double dX = mX - player.getCenterX();
 
-		
+
 		for(Enemy e: enemies){
 
 			for(Bullet b: bullets){
@@ -189,17 +193,20 @@ public class GamePanel extends JPanel implements Runnable
 
 		for(Enemy e: enemies){
 			e.draw(g2, null);
+			
+		}
 
+		//cmario.draw(g2, null);
+		if(bullets.size() > 0){
 
-			//cmario.draw(g2, null);
-			if(bullets.size() > 0){
-
-				//sometimes has a concurrentModificationException
-				for(Bullet b: bullets){
-					b.draw(g2, null);
-				}
+			//sometimes has a concurrentModificationException
+			for(Bullet b: bullets){
+				b.draw(g2, null);
 			}
 		}
+
+
+
 
 		g2.rotate(mouseAngle, player.getCenterX(), player.getCenterY());
 
@@ -218,7 +225,7 @@ public class GamePanel extends JPanel implements Runnable
 
 	public void spawnNewEnemy(int locX, int locY, int velocity) {
 		//enemy1 = new Enemy(locX,locY);
-		enemies.add(new Enemy(locX,locY, velocity));
+		enemies.add(new Enemy("mario.png",locX,locY, velocity));
 
 	}
 
@@ -283,6 +290,12 @@ public class GamePanel extends JPanel implements Runnable
 
 			}
 
+			if(keyControl.isPressed(KeyEvent.VK_3)){
+				loadLevel(level3);
+				isPlatformer = false;
+
+			}
+
 
 			if(!isPlatformer){
 
@@ -315,7 +328,7 @@ public class GamePanel extends JPanel implements Runnable
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
 
-				if (time == 0 || time >= 300) {
+				if (time == 0 || time >= 1000) {
 					timeOfLastProjectile = System.currentTimeMillis();
 					//System.out.println("Last" + timeOfLastProjectile);
 					bullets.add(new Bullet("fireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 25, 25, mX, mY));
@@ -329,7 +342,7 @@ public class GamePanel extends JPanel implements Runnable
 			}
 
 			for(Bullet b: bullets){
-				b.fire(mX, mY, screenRect);
+				b.fire();
 
 				if(screenRect.intersects(b)){
 					b = null;
@@ -455,11 +468,13 @@ public class GamePanel extends JPanel implements Runnable
 			if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				//clearLevel();
 				//loadLevel(level1);
-
+				//okay well this is screwed
 				if(levelFinished){
 					for(int i = 0; i < lastLevel-1; i ++){
 						if(levels.get(i) == currentLevel)
 							loadLevel(levels.get(i+1));
+						//loadLevel(level);
+
 					}
 				}
 				isPlatformer= false;

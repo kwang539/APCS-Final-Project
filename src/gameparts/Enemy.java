@@ -28,8 +28,8 @@ public class Enemy extends Character {
 	
 	private double enemyVelocity;
 
-	public Enemy(int x, int y, double enemyVelocity) {
-		super("mario.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+	public Enemy(String filename, int x, int y, double enemyVelocity) {
+		super(filename, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
 		dX = 0;
 		dY = 0;
 		enemyAcceleration = .6;

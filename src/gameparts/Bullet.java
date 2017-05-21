@@ -17,7 +17,7 @@ public class Bullet extends MovingImage{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void fire(double crosshairX, double crosshairY, Rectangle border){
+	public void fire(){
 		
 //
 //		if (crosshairX < x){
