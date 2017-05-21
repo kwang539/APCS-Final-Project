@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import bosses.Boss;
 import gameparts.Enemy;
 import gameparts.Player;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 import panels.GamePanel;
 
 public class Level1 extends Level{
@@ -16,8 +16,8 @@ public class Level1 extends Level{
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 100, 50, 50);
 
 		
-		super.enemies.add(new Boss("mario.png",300, 200,3));
-		super.enemies.add(new RangedEnemy1("mario.png",400, 200,3));
+		//super.enemies.add(new Boss("mario.png",300, 200,3));
+		super.enemies.add(new Enemy("mario.png",400, 200,3));
 
 		//super.hasRangedEnemy = true;
 		super.hasBoss = true;

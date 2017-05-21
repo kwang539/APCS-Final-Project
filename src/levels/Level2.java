@@ -2,11 +2,10 @@ package levels;
 
 import java.awt.Rectangle;
 
-import bosses.RangedEnemy;
 import bosses.Boss;
 import gameparts.Enemy;
 import gameparts.Player;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 import panels.GamePanel;
 
 public class Level2 extends Level{
@@ -20,8 +19,8 @@ public class Level2 extends Level{
 		super.enemies.add(new Enemy("mario.png",400, 790,5));
 		super.enemies.add(new Enemy("mario.png",300, 790,5));
 
-		super.enemies.add(new RangedEnemy1("playerchar.png",400, 600,3));
-		super.enemies.add(new RangedEnemy1("playerchar.png",300, 600,3));
+		super.enemies.add(new RangedEnemy("playerchar.png",400, 600,3));
+		super.enemies.add(new RangedEnemy("playerchar.png",300, 600,3));
 
 		
 		hasRangedEnemy = true;

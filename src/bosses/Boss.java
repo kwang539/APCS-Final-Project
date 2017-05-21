@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import gameparts.Bullet;
 import gameparts.Enemy;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 
-public class Boss extends RangedEnemy1 {
+public class Boss extends RangedEnemy {
 	
 	private ArrayList<Bullet> bossBullets;
 	private HealthBar healthBar;
