@@ -257,7 +257,8 @@ public class GamePanel extends JPanel implements Runnable
 
 		for(Enemy e: enemies){
 			//boss shoots back at you
-			if(currentLevel == level3){
+			//
+			if(currentLevel.hasBoss()){
 				if(e instanceof Boss){
 					if (timeB == 0 || timeB >= 1000) {
 						timeOfLastProjectileB = System.currentTimeMillis();

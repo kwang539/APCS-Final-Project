@@ -20,7 +20,7 @@ public abstract class Level {
 	
 	private Image backgroundImg;
 	private Image obstacleImg;
-	
+	protected boolean hasBoss;
 	protected Rectangle door;
 
 	
@@ -63,6 +63,10 @@ public abstract class Level {
 	
 	public Rectangle getdoor(){
 		return door;
+	}
+	
+	public boolean hasBoss(){
+		return hasBoss;
 	}
 
 	
