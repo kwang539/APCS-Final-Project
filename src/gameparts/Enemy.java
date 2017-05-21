@@ -29,7 +29,7 @@ public class Enemy extends Character {
 	private double enemyVelocity;
 
 	public Enemy(int x, int y, double enemyVelocity) {
-		super("playerchar.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+		super("mario.png", x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
 		dX = 0;
 		dY = 0;
 		enemyAcceleration = .6;
@@ -76,6 +76,8 @@ public class Enemy extends Character {
 		super.jump();
 	}
 
+	
+	
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer, Player player1) {
 		//dY += 0.5;
 		//super.act(obstacles, isPlatformer);
@@ -253,8 +255,8 @@ public class Enemy extends Character {
 				if (headSurface != null) {
 					Rectangle r = headSurface.getBounds();
 					yCoord2 = r.getY()+r.getHeight();
-					//if coming from the bottom of the obstacle, will go around to the left
-					xVelocity -= enemyAcceleration;
+					//if coming from the bottom of the obstacle, will go around to the right also
+					xVelocity += enemyAcceleration;
 
 				}
 			}

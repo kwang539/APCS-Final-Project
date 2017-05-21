@@ -19,7 +19,7 @@ public class Main extends JFrame{
 		super(title);
 		
 		
-		setBounds(20, 20, 1200, 900);
+		setBounds(0, 0, 1200, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		cardPanel = new JPanel();

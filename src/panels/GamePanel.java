@@ -113,6 +113,18 @@ public class GamePanel extends JPanel implements Runnable
 
 		Graphics2D g2 = (Graphics2D)g;
 
+		//draws an image scaled perfectlyto the size of the screen
+		g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
+		
+		
+		for(Shape o: obstacles){
+			double x1 = o.getBounds2D().getX()-10;
+			double y1 = o.getBounds2D().getY()-10;
+			//isn't very accurate
+			g2.drawImage(currentLevel.getobstacleImg(),(int) x1, (int)y1, (int)(x1 +o.getBounds2D().getWidth()), (int)(y1+ o.getBounds2D().getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
+
+		}
+		
 		int width = getWidth();
 		int height = getHeight();
 
@@ -141,8 +153,9 @@ public class GamePanel extends JPanel implements Runnable
 		double dY = mY - player.getCenterY();
 		double dX = mX - player.getCenterX();
 
+		
 		for(Enemy e: enemies){
-			
+
 			for(Bullet b: bullets){
 				//b.hitObstacle(obstacles);
 
@@ -177,15 +190,17 @@ public class GamePanel extends JPanel implements Runnable
 		for(Enemy e: enemies){
 			e.draw(g2, null);
 
-		}
-		//cmario.draw(g2, null);
-		if(bullets.size() > 0){
 
-			//sometimes has a concurrentModificationException
-			for(Bullet b: bullets){
-				b.draw(g2, null);
+			//cmario.draw(g2, null);
+			if(bullets.size() > 0){
+
+				//sometimes has a concurrentModificationException
+				for(Bullet b: bullets){
+					b.draw(g2, null);
+				}
 			}
 		}
+
 		g2.rotate(mouseAngle, player.getCenterX(), player.getCenterY());
 
 		player.draw(g2, null);

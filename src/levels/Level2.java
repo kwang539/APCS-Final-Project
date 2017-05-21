@@ -7,7 +7,7 @@ import gameparts.Player;
 public class Level2 extends Level{
 	
 	public Level2(){
-		super();
+		super("backgroundtester2.gif", "blocktester.jpg");
 		super.enemies.add(new Enemy(50, 790,5));
 		super.enemies.add(new Enemy(400, 790,5));
 		

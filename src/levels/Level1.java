@@ -8,7 +8,7 @@ public class Level1 extends Level{
 	
 
 	public Level1(){
-		super();
+		super("backgroundtester.png", "blocktester.jpg");
 		super.enemies.add(new Enemy(300, 200,4));
 		
 		super.player = new Player(300, 600);
