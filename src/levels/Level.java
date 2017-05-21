@@ -38,7 +38,6 @@ public abstract class Level {
 			this.obstacleImg = ImageIO.read(new File(obstacleImg));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

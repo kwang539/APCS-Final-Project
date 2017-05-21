@@ -65,7 +65,6 @@ public class InstructionsPanel extends JPanel implements ActionListener {
 		
 		g2.setTransform(at);
 
-		// TODO Add any custom drawings here
 	}
 	public
 	

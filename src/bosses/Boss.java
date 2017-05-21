@@ -6,7 +6,6 @@ import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 import gameparts.Bullet;
-import gameparts.Enemy;
 import gameparts.RangedEnemy;
 
 public class Boss extends RangedEnemy {
@@ -24,9 +23,6 @@ public class Boss extends RangedEnemy {
 	
 	public void fire(int PlayerLocX, int PlayerLocY){
 		bossBullets.add(new Bullet("fireball.png", (int) this.getCenterX(), (int)this.getCenterY(), 25, 25, PlayerLocX, PlayerLocY));
-//		for(Bullet b: bossBullets){
-//			b.fire();
-//		}
 	}
 	
 	public void takeDamage(){

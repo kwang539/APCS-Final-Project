@@ -15,9 +15,7 @@ public class RangedEnemy extends Enemy {
 	
 	public void fire(int PlayerLocX, int PlayerLocY){
 		bossBullets.add(new Bullet("fireball.png", (int) this.getCenterX(), (int)this.getCenterY(), 25, 25, PlayerLocX, PlayerLocY));
-//		for(Bullet b: bossBullets){
-//			b.fire();
-//		}
+
 	}
 	
 	public ArrayList<Bullet> getbossBullets(){
