@@ -20,7 +20,7 @@ public class Level0 extends Level{
 		
 		//window bottom bound
 		obstacles.add(new Rectangle(0, 900, 1200, 10));
-
+		
 		
 	}
 }

@@ -196,6 +196,11 @@ public class GamePanel extends JPanel implements Runnable
 		//int strWidth = g.getFontMetrics().stringWidth(""+ammo);
 		g2.drawString(ammoDisplay, 20, 40);
 		
+		//draws game over screen when dead
+		if(playerIsDead){
+		g2.drawString("GAME OVER", 500, 500);
+		}
+		
 		//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
 		//just fills the obstacles with an image, look ugly but less laggy
 		/*for(Shape o: obstacles){
@@ -457,13 +462,13 @@ public class GamePanel extends JPanel implements Runnable
 				if(screenRect.intersects(b)){
 					b = null;
 				}
-				for(Enemy e: enemies){
-					if(b != null && e != null && b.getBounds2D().intersects(e.getBounds2D())){
-						e.setIsHit(true);
-					}else{
-						e.setIsHit(false);
-					}
-				}
+//				for(Enemy e: enemies){
+//					if(b != null && e != null && b.getBounds2D().intersects(e.getBounds2D())){
+//						e.setIsHit(true);
+//					}else{
+//						e.setIsHit(false);
+//					}
+//				}
 			}
 
 			player.act(obstacles, isPlatformer);
@@ -485,7 +490,7 @@ public class GamePanel extends JPanel implements Runnable
 					if(e1 != e)
 						obstacles.remove(e1);
 				}
-				e.hitByBullet(bullets);
+				//e.hitByBullet(bullets);
 
 
 				//if enemy touches player

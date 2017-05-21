@@ -16,6 +16,7 @@ public class Character extends MovingImage {
 	protected double friction;
 	protected double gravity;
 	protected double jumpStrength;
+	protected double maxVelocity;
 
 	public Character(String name, int x, int y, int width, int height) {
 		super(name, x, y, width, height);
@@ -25,6 +26,7 @@ public class Character extends MovingImage {
 		gravity = 0.23;
 		friction = 0.85;
 		jumpStrength = 9.5;
+		maxVelocity = 5;
 	}
 
 	// METHODS
@@ -37,7 +39,7 @@ public class Character extends MovingImage {
 			int newdir = dir/2;
 
 		
-			if (yVelocity <= 5 && yVelocity >= -5){
+			if (yVelocity <= maxVelocity && yVelocity >= -maxVelocity){
 				yVelocity += newdir;
 				//y += newdir;
 			}
@@ -51,7 +53,7 @@ public class Character extends MovingImage {
 			}
 		x+= dir*xVelocity;
 			 */
-			if (xVelocity <= 5 && xVelocity >= -5)
+			if (xVelocity <= maxVelocity && xVelocity >= -maxVelocity)
 				xVelocity += dir;
 		}
 

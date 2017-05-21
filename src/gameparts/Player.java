@@ -88,10 +88,12 @@ public class Player extends Character {
 
 	//doesnt work yet
 	public void death(){
-		x = -100;
-		y = -100;
+		maxVelocity = 0;
 		GamePanel.setplayerIsDead(true);
+		
 	}
+	
+
 	
 	public Line2D.Double generateTrackingLine(ArrayList<Shape> obstacles){
 		
