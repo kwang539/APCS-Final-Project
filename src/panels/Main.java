@@ -35,7 +35,7 @@ public class Main extends JFrame{
 		panel4 = new GamePanel(this);
 		//panel4.loadLevel(panel4.getLevel1());
 		//panel4.clearLevel();
-		panel4.loadLevel(panel4.getLevel1());
+		panel4.loadLevel(panel4.getLevel0());
 
 
 		addKeyListener(panel4.getKeyHandler());

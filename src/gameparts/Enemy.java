@@ -311,7 +311,7 @@ public class Enemy extends Character {
 		
 		if(isPlatformer){
 			walk(player1.getCenterX(), (int)player1.getCenterY());
-			if(player1.getCenterY()+ ENEMY_HEIGHT*1.5 < y){
+			if(player1.getCenterY()+ ENEMY_HEIGHT*1.7 < y){
 			jump();
 			}
 

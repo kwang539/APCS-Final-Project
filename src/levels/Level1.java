@@ -3,12 +3,16 @@ package levels;
 import java.awt.Rectangle;
 import gameparts.Enemy;
 import gameparts.Player;
+import panels.GamePanel;
 
 public class Level1 extends Level{
 	
 
 	public Level1(){
 		super("grass.png", "blocktester.jpg");
+		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 100, 50, 50);
+
+		
 		super.enemies.add(new Enemy("mario.png",300, 200,4));
 		
 		super.player = new Player(300, 600);
@@ -20,9 +24,7 @@ public class Level1 extends Level{
 		
 		/* Window Bounds */
 		//super.obstacles.add(new Rectangle(0, 900, 1200, 10));
-		super.obstacles.add(new Rectangle(-10, 0, 10, 900));
-		super.obstacles.add(new Rectangle(1200, 0, 10, 900));
-		super.obstacles.add(new Rectangle(0, -10, 1200, 10));
+		
 	}
 	
 	

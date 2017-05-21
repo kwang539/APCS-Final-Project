@@ -8,6 +8,9 @@ import java.awt.geom.Rectangle2D;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import panels.GamePanel;
+
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
@@ -87,6 +90,7 @@ public class Player extends Character {
 	public void death(){
 		x = -100;
 		y = -100;
+		GamePanel.setplayerIsDead(true);
 	}
 	
 	public Line2D.Double generateTrackingLine(ArrayList<Shape> obstacles){

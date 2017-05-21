@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import levels.Level;
+import levels.Level0;
 import gameparts.Boss;
 import gameparts.Bullet;
 import gameparts.Enemy;
@@ -37,8 +38,10 @@ public class GamePanel extends JPanel implements Runnable
 	private long timeB = 0;
 
 	private boolean isPlatformer;
-
+	
+	
 	private Rectangle screenRect;
+	
 
 
 
@@ -56,8 +59,10 @@ public class GamePanel extends JPanel implements Runnable
 	private ArrayList<Shape> obstacles;
 	private Player player;
 
-
+	//private Rectangle door;
+	
 	private ArrayList<Level> levels;
+	private Level0 level0;
 	private Level1 level1;
 	private Level2 level2;
 	private Level3 level3;
@@ -68,21 +73,25 @@ public class GamePanel extends JPanel implements Runnable
 	private Level currentLevel;
 
 	private boolean levelFinished;
-
+	private static boolean playerIsDead;
+	
 	public GamePanel (Main m) {
 		super();
 		this.m = m;
 		//isRunning = true;
 		//Where all the levels will be added
 		levels = new ArrayList<Level>();
+		level0 = new Level0();
 		level1 = new Level1();
 		level2 = new Level2();
 		level3 = new Level3();
+		levels.add(level0);
 		levels.add(level1);
 		levels.add(level2);
-
 		levels.add(level3);
-
+		
+		//generates door rectangle
+		//door = new Rectangle(DRAWING_WIDTH-50, DRAWING_HEIGHT - 100, 50, 50);
 		
 		try {
 			backgroundImg = ImageIO.read(new File("grass.png"));
@@ -95,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable
 
 		levelFinished = false;
 		isPlatformer = false;
+		playerIsDead = false;
 
 		mX = MouseInfo.getPointerInfo().getLocation().getX();
 		mY = MouseInfo.getPointerInfo().getLocation().getY();
@@ -165,6 +175,9 @@ public class GamePanel extends JPanel implements Runnable
 
 		
 		//puts textures onto the obstacles, makes it a bit laggier
+		Rectangle door1 = currentLevel.getdoor();
+ 		g2.drawImage(currentLevel.getobstacleImg(),(int) door1.getX(), (int)door1.getY(), (int)(door1.getX() +door1.getWidth()), (int)(door1.getY() + door1.getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
+
 		g2.setPaint(new TexturePaint(wallImg, new Rectangle(0,0,64,64)));
 		for(Shape o: obstacles){
 
@@ -322,8 +335,12 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 
-	public Level1 getLevel1(){
-		return level1;
+	public Level0 getLevel0(){
+		return level0;
+	}
+	
+	public static void setplayerIsDead(boolean isDead){
+		playerIsDead = isDead;
 	}
 
 
@@ -343,7 +360,14 @@ public class GamePanel extends JPanel implements Runnable
 		while (true) { // Modify this to allow quitting
 			long startTime = System.currentTimeMillis();
 
+			if(keyControl.isPressed(KeyEvent.VK_0)){
+				//sound.sound1();
+				loadLevel(level0);
+				isPlatformer = false;
 
+
+
+			}
 
 			if(keyControl.isPressed(KeyEvent.VK_1)){
 				//sound.sound1();
@@ -434,7 +458,7 @@ public class GamePanel extends JPanel implements Runnable
 			for(Enemy e: enemies){
 				if(e.getIsHit()){
 					//e.removeEnemy();
-					enemies.remove(e);
+					//enemies.remove(e);
 				}
 
 				for(Enemy e1: enemies){
@@ -454,11 +478,31 @@ public class GamePanel extends JPanel implements Runnable
 				if(e.intersects(player)){
 					player.death();
 				}
+				//if(e.intersects(screenRect)){
+					
+				//}
+			}
+			
+			for(int i = 0; i< enemies.size(); i++){
+				if(!screenRect.intersects(enemies.get(i))){
+					enemies.remove(i);
+					
+				}
 			}
 
 
-			if (!screenRect.intersects(player))
-				spawnNewPlayer(0,0);
+			if (!screenRect.intersects(player)){
+				player.death();
+			}
+			if(currentLevel.getdoor().intersects(player)){
+				int nextLevelIndex = levels.indexOf(currentLevel)+1;
+				if(levelFinished && nextLevelIndex < lastLevel+1){
+				loadLevel(levels.get(nextLevelIndex));
+				isPlatformer= false;
+				}
+		
+				levelFinished = false;
+			}
 
 
 			if(enemies.size() == 0){
@@ -510,25 +554,30 @@ public class GamePanel extends JPanel implements Runnable
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				//clearLevel();
 				isPlatformer = false;
-				if(currentLevel == level1){
+				if(currentLevel == level1 && playerIsDead){
 					level1 = null;
 					level1 = new Level1();
-
+					levels.add(1,level1);
 					//clearLevel();
 					loadLevel(level1);
 					//levels.add(0,level1);
 					currentLevel = level1;
+					//playerIsDead = false;
 
 				}
-				else if(currentLevel == level2){
+				else if(currentLevel == level2 && playerIsDead){
 					level2 = null;
 					level2 = new Level2();
 
 					loadLevel(level2);
-					//levels.add(1,level2);
+					levels.add(2,level2);
 					currentLevel = level2;
+					//playerIsDead = false;
+
 
 				}
+				
+				playerIsDead = false;
 
 
 				levelFinished = false;
@@ -540,16 +589,23 @@ public class GamePanel extends JPanel implements Runnable
 			if(e.getKeyCode() == KeyEvent.VK_ENTER){
 				//clearLevel();
 				//loadLevel(level1);
-				//okay well this is screwed
-				if(levelFinished){
-					for(int i = 0; i < lastLevel-1; i ++){
-						if(levels.get(i) == currentLevel)
-							loadLevel(levels.get(i+1));
-						//loadLevel(level);
-
-					}
-				}
+//				if(levelFinished){
+//					for(int i = 0; i < lastLevel-1; i ++){
+//						if(levels.get(i) == currentLevel)
+//							loadLevel(levels.get(i+1));
+//						//loadLevel(level);
+//
+//					}
+//				}
+				//hitting enter to switch levels now works!!
+				
+				int nextLevelIndex = levels.indexOf(currentLevel)+1;
+				if(levelFinished && nextLevelIndex < lastLevel){
+				loadLevel(levels.get(nextLevelIndex));
 				isPlatformer= false;
+
+				}
+				levelFinished = false;
 			}
 
 		}
@@ -561,7 +617,21 @@ public class GamePanel extends JPanel implements Runnable
 		}
 
 		public void keyTyped(KeyEvent e) {
+			if(e.getKeyCode() == KeyEvent.VK_ENTER){
+				//clearLevel();
+				//loadLevel(level1);
+				//okay well this is screwed
+				if(levelFinished){
+					for(int i = 0; i < lastLevel; i ++){
+						if(levels.get(i) == currentLevel)
+							loadLevel(levels.get(i+1));
+						//loadLevel(level);
 
+					}
+				}
+				isPlatformer= false;
+				levelFinished = false;
+			}
 		}
 
 		public boolean isPressed(int code) {
