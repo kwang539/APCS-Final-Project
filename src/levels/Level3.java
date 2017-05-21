@@ -2,7 +2,7 @@ package levels;
 
 import java.awt.Rectangle;
 
-import gameparts.Boss;
+import bosses.Boss;
 import gameparts.Enemy;
 import gameparts.Player;
 import panels.GamePanel;
