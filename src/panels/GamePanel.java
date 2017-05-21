@@ -21,6 +21,8 @@ import gameparts.RangedEnemy1;
 import levels.Level1;
 import levels.Level2;
 import levels.Level3;
+import levels.Level4;
+import levels.Level5;
 
 import java.util.*;
 
@@ -67,6 +69,8 @@ public class GamePanel extends JPanel implements Runnable
 	private Level1 level1;
 	private Level2 level2;
 	private Level3 level3;
+	private Level4 level4;
+	private Level5 level5;
 
 	private BufferedImage backgroundImg, wallImg;
 
@@ -85,12 +89,16 @@ public class GamePanel extends JPanel implements Runnable
 		level1 = new Level1();
 		level2 = new Level2();
 		level3 = new Level3();
+		level4 = new Level4();
+		level5 = new Level5();
 		levels.add(level0);
 		levels.add(level1);
 		levels.add(level2);
 		levels.add(level3);
+		levels.add(level4);
+		levels.add(level5);
 
-		ammo = 5;
+		ammo = 20;
 
 		try {
 			wallImg = ImageIO.read(new File("cobblestone.png"));
@@ -415,6 +423,20 @@ public class GamePanel extends JPanel implements Runnable
 
 			if(keyControl.isPressed(KeyEvent.VK_3)){
 				loadLevel(level3);
+				isPlatformer = false;
+
+			}
+			
+
+			if(keyControl.isPressed(KeyEvent.VK_4)){
+				loadLevel(level4);
+				isPlatformer = false;
+
+			}
+			
+
+			if(keyControl.isPressed(KeyEvent.VK_5)){
+				loadLevel(level5);
 				isPlatformer = false;
 
 			}
