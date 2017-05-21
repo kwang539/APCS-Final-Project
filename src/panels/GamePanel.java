@@ -10,8 +10,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import bosses.Boss;
 import levels.Level;
-import gameparts.Boss;
 import gameparts.Bullet;
 import gameparts.Enemy;
 import gameparts.Link;
@@ -86,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable
 		
 		try {
 			backgroundImg = ImageIO.read(new File("grass.png"));
-			wallImg = ImageIO.read(new File("stonewall.png"));
+			wallImg = ImageIO.read(new File("cobblestone.png"));
 		} catch (IOException e){
 			
 		}
@@ -133,27 +133,8 @@ public class GamePanel extends JPanel implements Runnable
 
 		Graphics2D g2 = (Graphics2D)g;
 
-		//draws an image scaled perfectlyto the size of the screen
-//<<<<<<< HEAD
-		//g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
-
-
-		
-//=======
 		g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
 				
-		//g2.setPaint(new TexturePaint(backgroundImg, new Rectangle(0, 0, 16, 16)));
-		//g2.fillRect(0, 0, 1200, 900);
-		
-		
-	
-//<<<<<<< HEAD
-
-//=======
-		
-		g2.setPaint(null);
-		
-//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
 		int width = getWidth();
 		int height = getHeight();
 
@@ -163,33 +144,13 @@ public class GamePanel extends JPanel implements Runnable
 		AffineTransform at = g2.getTransform();
 		g2.scale(ratioX, ratioY);
 
-		
-		//puts textures onto the obstacles, makes it a bit laggier
 		g2.setPaint(new TexturePaint(wallImg, new Rectangle(0,0,64,64)));
 		for(Shape o: obstacles){
 
 			g2.fill(o);
 		}
-		
-		//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
-		//just fills the obstacles with an image, look ugly but less laggy
-		/*for(Shape o: obstacles){
-	 		double x1 = o.getBounds2D().getX();
-	 			double y1 = o.getBounds2D().getY();
-	 			//isn't very accurate
-	 		g2.drawImage(currentLevel.getobstacleImg(),(int) x1, (int)y1, (int)(x1 +o.getBounds2D().getWidth()), (int)(y1+ o.getBounds2D().getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
-	 
-	 		}
-				*/
-//		This code just sets the color of the rectangle, no texture
-//		g.setColor(new Color(205,102,29));
-//		for (Shape s : obstacles) {
-//			g2.fill(s);
-//		}
-
 
 		Point mousePoint = this.getMousePosition();
-
 		try{
 			mX = mousePoint.getX();
 			mY = mousePoint.getY();
@@ -205,8 +166,6 @@ public class GamePanel extends JPanel implements Runnable
 		for(Enemy e: enemies){
 
 			for(Bullet b: bullets){
-				//b.hitObstacle(obstacles);
-
 				if(b != null && b.getBounds2D().intersects(e.getBounds2D())){
 					e.setIsHit(true);
 					//System.out.println("why");
@@ -343,35 +302,24 @@ public class GamePanel extends JPanel implements Runnable
 		while (true) { // Modify this to allow quitting
 			long startTime = System.currentTimeMillis();
 
-
-
 			if(keyControl.isPressed(KeyEvent.VK_1)){
 				//sound.sound1();
 				loadLevel(level1);
 				isPlatformer = false;
-
-
-
 			}
-
-
 
 			if(keyControl.isPressed(KeyEvent.VK_2)){
 				loadLevel(level2);
 				isPlatformer = false;
-
 			}
 
 			if(keyControl.isPressed(KeyEvent.VK_3)){
 				loadLevel(level3);
 				isPlatformer = false;
-
 			}
 
 
 			if(!isPlatformer){
-
-
 				if (keyControl.isPressed(KeyEvent.VK_A))
 					player.walk(-1);
 				if (keyControl.isPressed(KeyEvent.VK_D))
@@ -388,15 +336,9 @@ public class GamePanel extends JPanel implements Runnable
 					player.walk(-1);
 				if (keyControl.isPressed(KeyEvent.VK_D))
 					player.walk(1);
-
 				if (keyControl.isPressed(KeyEvent.VK_W))
 					player.jump();
-
 			}
-
-			//if (keyControl.isPressed(KeyEvent.VK_SPACE)){
-			//togglePerspective();
-			//}
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
 

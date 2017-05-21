@@ -7,10 +7,10 @@ import gameparts.Enemy;
 import gameparts.Player;
 
 
-public class Level3 extends Level{
+public class Level4 extends Level{
 
 	
-	public Level3(){
+	public Level4(){
 	super("backgroundtester.png", "blocktester.jpg");
 	//super.enemies.add(new Enemy("mario.png",300, 700,4));
 	
@@ -18,11 +18,6 @@ public class Level3 extends Level{
 	
 	
 	super.player = new Player(800, 600);
-	
-	super.obstacles.add(new Rectangle(50, 425, 500, 50));
-	super.obstacles.add(new Rectangle(0, 850, 500, 50));
-	super.obstacles.add(new Rectangle(700, 850, 500, 50));
-	super.obstacles.add(new Rectangle(1000, 200, 50, 500));
 	
 	/* Window Bounds */
 	//super.obstacles.add(new Rectangle(0, 900, 1200, 10));
