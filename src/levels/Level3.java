@@ -19,8 +19,10 @@ public class Level3 extends Level{
 	
 	//super.enemies.add(new Boss("playerchar.png", 150, 750, 1));
 	super.enemies.add(new Enemy("mario.png",100, 200,5));
+	
 	super.enemies.add(new Boss("mario.png",1050, 275,2));
 
+	hasBoss = true;
 	
 	super.player = new Player(500, 100);
 	

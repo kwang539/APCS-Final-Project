@@ -2,11 +2,11 @@ package gameparts;
 
 import java.util.ArrayList;
 
-public class Boss extends Enemy {
+public class RangedEnemy1 extends Enemy {
 	
 	private ArrayList<Bullet> bossBullets;
 
-	public Boss(String filename, int x, int y, double velocity) {
+	public RangedEnemy1(String filename, int x, int y, double velocity) {
 		super(filename, x,y, velocity);
 		
 		bossBullets = new ArrayList<Bullet>();

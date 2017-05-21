@@ -21,6 +21,7 @@ public abstract class Level {
 	private Image backgroundImg;
 	private Image obstacleImg;
 	protected boolean hasBoss;
+	protected boolean hasRangedEnemy;
 	protected Rectangle door;
 
 	
@@ -67,6 +68,10 @@ public abstract class Level {
 	
 	public boolean hasBoss(){
 		return hasBoss;
+	}
+	
+	public boolean hasRangedEnemy(){
+		return hasRangedEnemy;
 	}
 
 	

@@ -17,6 +17,7 @@ import gameparts.Bullet;
 import gameparts.Enemy;
 import gameparts.Link;
 import gameparts.Player;
+import gameparts.RangedEnemy1;
 import levels.Level1;
 import levels.Level2;
 import levels.Level3;
@@ -258,8 +259,8 @@ public class GamePanel extends JPanel implements Runnable
 		for(Enemy e: enemies){
 			//boss shoots back at you
 			//
-			if(currentLevel.hasBoss()){
-				if(e instanceof Boss){
+			if(currentLevel.hasBoss() ){
+				if(e instanceof Boss ){
 					if (timeB == 0 || timeB >= 1000) {
 						timeOfLastProjectileB = System.currentTimeMillis();
 						((Boss) e).fire((int)player.getCenterX(), (int)player.getCenterY());
@@ -273,11 +274,37 @@ public class GamePanel extends JPanel implements Runnable
 						b1.fire();
 						if(b1 != null && b1.getBounds2D().intersects(player.getBounds2D())){
 							player.death();
-							System.out.println("lolwut");
+							//System.out.println("lolwut");
 
 						}
 						if(b1.hitObstacle(obstacles)){
 							((Boss) e).getbossBullets().remove(b1);
+						}
+						b1.draw(g2, null);
+					}
+				}
+			}
+			
+			if(currentLevel.hasRangedEnemy() ){
+				if(e instanceof RangedEnemy1 ){
+					if (timeB == 0 || timeB >= 1000) {
+						timeOfLastProjectileB = System.currentTimeMillis();
+						((RangedEnemy1) e).fire((int)player.getCenterX(), (int)player.getCenterY());
+					}
+					timeNowB = System.currentTimeMillis()+1;
+					//System.out.println("Now" + timeNow);
+					timeB = timeNowB - timeOfLastProjectileB;
+
+
+					for(Bullet b1: ((RangedEnemy1) e).getbossBullets()){
+						b1.fire();
+						if(b1 != null && b1.getBounds2D().intersects(player.getBounds2D())){
+							player.death();
+							//System.out.println("lolwut");
+
+						}
+						if(b1.hitObstacle(obstacles)){
+							((RangedEnemy1) e).getbossBullets().remove(b1);
 						}
 						b1.draw(g2, null);
 					}
