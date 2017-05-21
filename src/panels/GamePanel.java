@@ -92,8 +92,7 @@ public class GamePanel extends JPanel implements Runnable
 		ammo = 5;
 
 		try {
-			backgroundImg = ImageIO.read(new File("grass.png"));
-			wallImg = ImageIO.read(new File("stonewall.png"));
+			wallImg = ImageIO.read(new File("cobblestone.png"));
 		} catch (IOException e){
 
 		}
