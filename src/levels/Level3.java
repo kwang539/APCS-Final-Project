@@ -19,7 +19,7 @@ public class Level3 extends Level{
 	
 	//super.enemies.add(new Boss("playerchar.png", 150, 750, 1));
 	super.enemies.add(new Enemy("mario.png",100, 200,5));
-	super.enemies.add(new Enemy("mario.png",800, 200,6));
+	super.enemies.add(new Boss("mario.png",1050, 275,2));
 
 	
 	super.player = new Player(500, 100);
@@ -30,7 +30,7 @@ public class Level3 extends Level{
 	super.obstacles.add(new Rectangle(400, 300, 50, 100));
 	
 	
-	super.obstacles.add(new Rectangle(750, 200, 50, 150));
+	super.obstacles.add(new Rectangle(750, 220, 50, 130));
 	super.obstacles.add(new Rectangle(800, 300, 200, 50));
 	super.obstacles.add(new Rectangle(950, 350, 50, 100));
 	super.obstacles.add(new Rectangle(1000, 400, 150, 50));

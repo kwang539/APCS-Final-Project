@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable
 
 	private boolean levelFinished;
 	private static boolean playerIsDead;
+	private int ammo;
 	
 	public GamePanel (Main m) {
 		super();
@@ -90,8 +91,7 @@ public class GamePanel extends JPanel implements Runnable
 		levels.add(level2);
 		levels.add(level3);
 		
-		//generates door rectangle
-		//door = new Rectangle(DRAWING_WIDTH-50, DRAWING_HEIGHT - 100, 50, 50);
+		ammo = 5;
 		
 		try {
 			backgroundImg = ImageIO.read(new File("grass.png"));
@@ -142,7 +142,9 @@ public class GamePanel extends JPanel implements Runnable
 		super.paintComponent(g);  // Call JPanel's paintComponent method to paint the background
 
 		Graphics2D g2 = (Graphics2D)g;
-
+		
+		
+	
 		//draws an image scaled perfectlyto the size of the screen
 //<<<<<<< HEAD
 		//g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
@@ -183,6 +185,16 @@ public class GamePanel extends JPanel implements Runnable
 
 			g2.fill(o);
 		}
+		
+		//draws the ammo
+		g2.setColor(Color.BLUE);
+		g2.setFont(new Font("Arial",Font.PLAIN,28));
+		String ammoDisplay="";
+		for(int i = 0; i < ammo; i++){
+			ammoDisplay = ammoDisplay + "I";
+		}
+		//int strWidth = g.getFontMetrics().stringWidth(""+ammo);
+		g2.drawString(ammoDisplay, 20, 40);
 		
 		//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
 		//just fills the obstacles with an image, look ugly but less laggy
@@ -424,11 +436,13 @@ public class GamePanel extends JPanel implements Runnable
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
 
-				if (time == 0 || time >= 1000) {
+				if ((time == 0 || time >= 1000)&& ammo >0 && currentLevel != level0) {
 					timeOfLastProjectile = System.currentTimeMillis();
 					//System.out.println("Last" + timeOfLastProjectile);
 					bullets.add(new Bullet("fireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 25, 25, mX, mY));
 					sound.sound1();
+					
+					ammo--;
 				}
 
 				timeNow = System.currentTimeMillis()+1;
