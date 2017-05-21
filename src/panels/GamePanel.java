@@ -3,6 +3,7 @@ package panels;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -10,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import levels.Level;
+import gameparts.Boss;
 import gameparts.Bullet;
 import gameparts.Enemy;
 import gameparts.Link;
@@ -29,6 +31,10 @@ public class GamePanel extends JPanel implements Runnable
 	private long timeOfLastProjectile = 0;
 	private long timeNow = 0;
 	private long time = 0;
+	
+	private long timeOfLastProjectileB = 0;
+	private long timeNowB = 0;
+	private long timeB = 0;
 
 	private boolean isPlatformer;
 
@@ -56,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable
 	private Level2 level2;
 	private Level3 level3;
 
+	private BufferedImage backgroundImg, wallImg;
 
 	private final int lastLevel = 3;
 	private Level currentLevel;
@@ -73,7 +80,17 @@ public class GamePanel extends JPanel implements Runnable
 		level3 = new Level3();
 		levels.add(level1);
 		levels.add(level2);
+
 		levels.add(level3);
+
+		
+		try {
+			backgroundImg = ImageIO.read(new File("grass.png"));
+			wallImg = ImageIO.read(new File("stonewall.png"));
+		} catch (IOException e){
+			
+		}
+
 
 
 		levelFinished = false;
@@ -84,7 +101,6 @@ public class GamePanel extends JPanel implements Runnable
 
 		keyControl = new KeyHandler();
 		mouseControl = new MouseHandler();
-		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 
 		//		obstacles = level1.getObstacles();
@@ -118,17 +134,26 @@ public class GamePanel extends JPanel implements Runnable
 		Graphics2D g2 = (Graphics2D)g;
 
 		//draws an image scaled perfectlyto the size of the screen
+//<<<<<<< HEAD
+		//g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
+
+
+		
+//=======
 		g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
+				
+		//g2.setPaint(new TexturePaint(backgroundImg, new Rectangle(0, 0, 16, 16)));
+		//g2.fillRect(0, 0, 1200, 900);
+		
+		
+	
+//<<<<<<< HEAD
 
-
-		for(Shape o: obstacles){
-			double x1 = o.getBounds2D().getX()-10;
-			double y1 = o.getBounds2D().getY()-10;
-			//isn't very accurate
-			g2.drawImage(currentLevel.getobstacleImg(),(int) x1, (int)y1, (int)(x1 +o.getBounds2D().getWidth()), (int)(y1+ o.getBounds2D().getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
-
-		}
-
+//=======
+		
+		g2.setPaint(null);
+		
+//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
 		int width = getWidth();
 		int height = getHeight();
 
@@ -138,10 +163,29 @@ public class GamePanel extends JPanel implements Runnable
 		AffineTransform at = g2.getTransform();
 		g2.scale(ratioX, ratioY);
 
-		g.setColor(new Color(205,102,29));
-		for (Shape s : obstacles) {
-			g2.fill(s);
+		
+		//puts textures onto the obstacles, makes it a bit laggier
+		g2.setPaint(new TexturePaint(wallImg, new Rectangle(0,0,64,64)));
+		for(Shape o: obstacles){
+
+			g2.fill(o);
 		}
+		
+		//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
+		//just fills the obstacles with an image, look ugly but less laggy
+		/*for(Shape o: obstacles){
+	 		double x1 = o.getBounds2D().getX();
+	 			double y1 = o.getBounds2D().getY();
+	 			//isn't very accurate
+	 		g2.drawImage(currentLevel.getobstacleImg(),(int) x1, (int)y1, (int)(x1 +o.getBounds2D().getWidth()), (int)(y1+ o.getBounds2D().getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
+	 
+	 		}
+				*/
+//		This code just sets the color of the rectangle, no texture
+//		g.setColor(new Color(205,102,29));
+//		for (Shape s : obstacles) {
+//			g2.fill(s);
+//		}
 
 
 		Point mousePoint = this.getMousePosition();
@@ -192,6 +236,33 @@ public class GamePanel extends JPanel implements Runnable
 		}
 
 		for(Enemy e: enemies){
+			//boss shoots back at you
+			if(currentLevel == level3){
+			if(e instanceof Boss){
+				if (timeB == 0 || timeB >= 1000) {
+					timeOfLastProjectileB = System.currentTimeMillis();
+				((Boss) e).fire((int)player.getCenterX(), (int)player.getCenterY());
+				}
+				timeNowB = System.currentTimeMillis()+1;
+				//System.out.println("Now" + timeNow);
+				timeB = timeNowB - timeOfLastProjectileB;
+				
+				
+				for(Bullet b1: ((Boss) e).getbossBullets()){
+					b1.fire();
+					if(b1 != null && b1.getBounds2D().intersects(player.getBounds2D())){
+						player.death();
+						System.out.println("lolwut");
+						
+					}
+					if(b1.hitObstacle(obstacles)){
+						((Boss) e).getbossBullets().remove(b1);
+					}
+					b1.draw(g2, null);
+				}
+			}
+			}
+			
 			e.draw(g2, null);
 			
 		}
@@ -211,7 +282,8 @@ public class GamePanel extends JPanel implements Runnable
 		g2.rotate(mouseAngle, player.getCenterX(), player.getCenterY());
 
 		player.draw(g2, null);
-
+		
+		g2.dispose();
 
 		// TODO Add any custom drawings here
 	}
