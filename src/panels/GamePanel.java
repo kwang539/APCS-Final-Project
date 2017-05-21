@@ -3,6 +3,7 @@ package panels;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -54,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable
 	private Level1 level1;
 	private Level2 level2;
 
+	private BufferedImage backgroundImg, wallImg;
 
 	private final int lastLevel = 2;
 	private Level currentLevel;
@@ -70,6 +72,13 @@ public class GamePanel extends JPanel implements Runnable
 		level2 = new Level2();
 		levels.add(level1);
 		levels.add(level2);
+		
+		try {
+			backgroundImg = ImageIO.read(new File("grass.png"));
+			wallImg = ImageIO.read(new File("stonewall.png"));
+		} catch (IOException e){
+			
+		}
 
 
 		levelFinished = false;
@@ -80,7 +89,6 @@ public class GamePanel extends JPanel implements Runnable
 
 		keyControl = new KeyHandler();
 		mouseControl = new MouseHandler();
-		setBackground(Color.GRAY);
 		screenRect = new Rectangle(0,0,DRAWING_WIDTH,DRAWING_HEIGHT);
 
 		//		obstacles = level1.getObstacles();
@@ -114,16 +122,20 @@ public class GamePanel extends JPanel implements Runnable
 		Graphics2D g2 = (Graphics2D)g;
 
 		//draws an image scaled perfectlyto the size of the screen
-		g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
+		//g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
+				
+		g2.setPaint(new TexturePaint(backgroundImg, new Rectangle(0, 0, 16, 16)));
+		g2.fillRect(0, 0, 1200, 900);
 		
+		
+		g2.setPaint(new TexturePaint(wallImg, new Rectangle(0,0,16,16)));
 		
 		for(Shape o: obstacles){
-			double x1 = o.getBounds2D().getX()-10;
-			double y1 = o.getBounds2D().getY()-10;
-			//isn't very accurate
-			g2.drawImage(currentLevel.getobstacleImg(),(int) x1, (int)y1, (int)(x1 +o.getBounds2D().getWidth()), (int)(y1+ o.getBounds2D().getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
 
+			g2.fill(o);
 		}
+		
+		g2.setPaint(null);
 		
 		int width = getWidth();
 		int height = getHeight();
