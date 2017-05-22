@@ -185,7 +185,13 @@ public class GamePanel extends JPanel implements Runnable
 		AffineTransform at = g2.getTransform();
 		g2.scale(ratioX, ratioY);
 
-
+		
+		//Where the text for the story will be
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial",Font.PLAIN,28));
+		if(currentLevel == level0){
+			g2.drawString("hi", 50, 100);
+		}
 		//puts textures onto the obstacles, makes it a bit laggier
 		Rectangle door1 = currentLevel.getdoor();
 		g2.drawImage(currentLevel.getobstacleImg(),(int) door1.getX(), (int)door1.getY(), (int)(door1.getX() +door1.getWidth()), (int)(door1.getY() + door1.getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
@@ -199,7 +205,7 @@ public class GamePanel extends JPanel implements Runnable
 		g2.setPaint(null);
 
 		//draws the ammo
-		g2.setColor(Color.BLUE);
+		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Arial",Font.PLAIN,28));
 		String ammoDisplay="";
 		for(int i = 0; i < ammo; i++){

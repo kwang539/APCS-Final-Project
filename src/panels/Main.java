@@ -8,7 +8,7 @@ import levels.Level1;
 
 import java.awt.*;
 
-public class Main extends JFrame implements ActionListener, KeyListener{
+public class Main extends JFrame implements ActionListener{
 
 
 
@@ -61,7 +61,7 @@ public class Main extends JFrame implements ActionListener, KeyListener{
 
 	public static void main(String[] args)
 	{
-		Main w = new Main("GAME");
+		Main w = new Main("Programmers Worst Nightmare");
 	}
 
 	public void changePanel(String name) {
@@ -98,38 +98,6 @@ public class Main extends JFrame implements ActionListener, KeyListener{
 		
 	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		if(arg0.getKeyCode() == KeyEvent.VK_R)
-		{
-			System.out.println("hihi");
-			cl.removeLayoutComponent(panel4);
-			
-			panel4 = new GamePanel(this);
-			cardPanel.add(panel4, "4");
-			
-			//cardLayout.addLayoutComponent("Card 2" , card2);
-			
-			//card2 = new Tron();
-			cl.show(cardPanel, "4");
-			cardPanel.setFocusable(true);
-			cardPanel.requestFocusInWindow();
-			//cardLayout.next(cardPanel);
-		}
-	}
-
+	
 }
 
