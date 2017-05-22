@@ -4,7 +4,7 @@ package panels;
 import java.awt.*;
 import javax.swing.*;
 
-
+import gameparts.Link;
 
 import java.awt.event.*;
 
@@ -15,6 +15,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private JButton instructionsButton;
 	private JButton OptionsButton;
 	private JButton playButton;
+	private Link a;
 	
 	public MenuPanel(Main w) {
 		this.w = w;
@@ -22,23 +23,22 @@ public class MenuPanel extends JPanel implements ActionListener {
 		instructionsButton.addActionListener(this);
 		add(instructionsButton);
 		
-		OptionsButton = new JButton("Options");
-		OptionsButton.addActionListener(this);
-		add(OptionsButton);
+	
 		
 		playButton = new JButton("Play");
 		playButton.addActionListener(this);
 		add(playButton);
 		
-		
+		a = new Link(this);
+
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(instructionsButton))
 		w.changePanel("2");
-		if(e.getSource().equals(OptionsButton))
-			w.changePanel("3");
+	
 		if(e.getSource().equals(playButton)){
+			a.stopSound4();
 //			w.cl.removeLayoutComponent(w.panel4);
 //			w.panel4 = new GamePanel(w);
 //			w.cardPanel.add(w.panel4, "4");

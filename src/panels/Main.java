@@ -35,7 +35,6 @@ public class Main extends JFrame implements ActionListener, KeyListener{
 		
 		MenuPanel panel1 = new MenuPanel(this);
 		InstructionsPanel panel2 =new InstructionsPanel(this);
-		OptionsPanel panel3 = new OptionsPanel(this);
 		//code for game panel, add later
 		
 		//Levels 1 2 and 3
@@ -51,7 +50,6 @@ public class Main extends JFrame implements ActionListener, KeyListener{
 
 		cardPanel.add(panel1,"1");
 		cardPanel.add(panel2,"2");
-		cardPanel.add(panel3, "3");
 		
 		cardPanel.add(panel4, "4");
 		add(cardPanel);

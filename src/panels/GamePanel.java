@@ -102,6 +102,8 @@ public class GamePanel extends JPanel implements Runnable
 		ammo = 20;
 
 
+
+
 		try {
 			wallImg = ImageIO.read(new File("cobblestone.png"));
 		} catch (IOException e){
@@ -394,8 +396,18 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 	public void run() {
+		sound.sound3();
+
 		while (true) { 
 			long startTime = System.currentTimeMillis();
+			
+			
+			int lengthOfSong = 100;
+//			
+//			if(startTime % lengthOfSong == 0){
+//				sound.sound3();
+//			}
+
 
 			if(keyControl.isPressed(KeyEvent.VK_0)){
 				//sound.sound1();
