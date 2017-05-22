@@ -4,20 +4,34 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import gameparts.MovingImage;
 
 public class InstructionsPanel extends JPanel implements ActionListener {
 	
 	Main w;
 	private JButton menuButton;
 	private String message1, message2, message3, message4, message5, message6, message7, message8, message9, message10;
+	private Image InstructionsImg;
 	public InstructionsPanel(Main w) {
 		this.w = w;
+		try {
+			InstructionsImg = ImageIO.read(new File("InstructionsBackground.png"));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		menuButton = new JButton("Back To Menu");
 		menuButton.addActionListener(this);
 		add(menuButton);
@@ -42,14 +56,17 @@ public class InstructionsPanel extends JPanel implements ActionListener {
 		int width = getWidth();
 		int height = getHeight();
 
-		double ratioX = (double)width/800.0;
-		double ratioY = (double)height/600.0;
+		double ratioX = (double)width/1200.0;
+		double ratioY = (double)height/900.0;
 
 		AffineTransform at = g2.getTransform();
 		g2.scale(ratioX, ratioY);
 		
+		
+		g2.drawImage(InstructionsImg, 0, 0, 1200, 900, 0,0,InstructionsImg.getWidth(null) , InstructionsImg.getHeight(null), null);
 
-		g.setColor(Color.BLACK);
+
+		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial",Font.ROMAN_BASELINE,28));
 		int strWidth = g.getFontMetrics().stringWidth(message1);
 		g.drawString(message1, 50, 50);
