@@ -618,7 +618,7 @@ public class GamePanel extends JPanel implements Runnable
 					level4.reset();
 					level5.reset();
 					
-					
+					ammo = 15;
 					loadLevel(level0);
 					currentLevel = level0;
 				}
