@@ -14,6 +14,7 @@ private final int ACTION_TIMEOUT = 500;
 	private final EasySound2 sound2 = new EasySound2("Sound2.wav");
 	private final EasySound2 sound3 = new EasySound2("Sound3.wav");
 	private final EasySound2 sound4 = new EasySound2("Sound4.wav");
+	private  EasySound2 backgroundSound;
 
 
 	private JComponent surface; // for repainting when we make changes to his image
@@ -24,6 +25,7 @@ private final int ACTION_TIMEOUT = 500;
 		this.surface = surface;
 		actionTimer = new Timer(ACTION_TIMEOUT,this);
 		actionTimer.setRepeats(false);
+		backgroundSound = sound3;
 	}
 
 	public void sound1() {
@@ -48,7 +50,21 @@ private final int ACTION_TIMEOUT = 500;
 	public void stopSound4(){
 		actionTimer.stop();
 	}
+	public void stopSound3(){
+		//actionTimer.stop();
+		//actionTimer.restart();
+		//doesn't work
+		
+	}
 	
+	
+	public void playBackgroundSound(){
+		backgroundSound.play();
+	}
+	
+	public void setBackgroundSoundto4(){
+		backgroundSound = sound4;
+	}
 	public void actionPerformed(ActionEvent e) {
 		surface.repaint();
 		

@@ -187,10 +187,29 @@ public class GamePanel extends JPanel implements Runnable
 
 		
 		//Where the text for the story will be
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Arial",Font.PLAIN,28));
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Lucida Console",Font.PLAIN,20));
 		if(currentLevel == level0){
-			g2.drawString("hi", 50, 100);
+			g2.drawString("Hey you, looks like you've landed in a programmer's worst nightmare.", 50, 100);
+			g2.drawString("You've now become trapped in my simulation!", 50, 150);
+			g2.drawString("Scary isn't it?", 50, 200);
+			g2.drawString("Your existence is now simply a bunch of 1's and 0's that I've typed into a computer.", 50, 250);
+			g2.drawString("Don't worry, there is a way out. It's to elimate the person who coded the simulation!", 50, 300);
+			g2.drawString("(Which is me!)", 50, 350);
+			g2.drawString("I'm currently on a coffee break right now, but I'll be back soon.", 50, 400);
+			g2.drawString("In the meantime, enjoy these beautifully designed worlds within my simulation.", 50, 450);
+			g2.drawString("I've made it so you can only enter the purple portals and travel between worlds ", 50, 500);
+			g2.drawString(" when you are the only living object left.", 50, 550);
+			g2.drawString("(That way you have to be a murderer!)", 50, 600);
+			g2.drawString("I'll catch up with you in the 6th world :]", 50, 650);
+			g2.drawString("Don't worry if you die, you'll just be permanently erased from the plane of existence.", 50, 700);
+			g2.drawString("But of course, you can keep playing. ", 50, 750);
+			g2.drawString("Just hit 'R' and I will glady generate a new object representing you, and play again.", 50, 800);
+			
+			
+
+			
+			
 		}
 		//puts textures onto the obstacles, makes it a bit laggier
 		Rectangle door1 = currentLevel.getdoor();
@@ -402,8 +421,8 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 	public void run() {
-		sound.sound3();
-
+		sound.playBackgroundSound();
+		
 		while (true) { 
 			long startTime = System.currentTimeMillis();
 			

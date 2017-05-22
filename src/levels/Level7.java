@@ -12,10 +12,10 @@ import panels.GamePanel;
  * @author Kevin
  *this level is where the story goes
  */
-public class Level0 extends Level{
-	public Level0(){
+public class Level7 extends Level{
+	public Level7(){
 		//the story will we made onto the image
-		super("white-background-2.jpg", "portal4.png");
+		super("black-solid-color-background.jpg", "portal4.png");
 		super.player = new Player(0, 450);
 
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT/2, 50, 50);
