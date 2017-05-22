@@ -12,7 +12,7 @@ import panels.GamePanel;
 public class Level2 extends Level{
 	
 	public Level2(){
-		super("backgroundtester2.gif", "blocktester.jpg");
+		super("backgroundtester2.gif", "portal4.png");
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 500, 50, 50);
 
 		

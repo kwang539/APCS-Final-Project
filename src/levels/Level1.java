@@ -14,7 +14,7 @@ public class Level1 extends Level{
 	
 	
 	public Level1(){
-		super("grass.png", "blocktester.jpg");
+		super("grass.png", "portal4.png");
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 100, 50, 50);
 
 		

@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable
 	private Player player;
 
 	//private Rectangle door;
+	private Image doorImage;
 
 	private ArrayList<Level> levels;
 	private Level0 level0;
@@ -99,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable
 		levels.add(level5);
 
 		ammo = 20;
+
 
 		try {
 			wallImg = ImageIO.read(new File("cobblestone.png"));
@@ -618,7 +620,7 @@ public class GamePanel extends JPanel implements Runnable
 					level4.reset();
 					level5.reset();
 					
-					ammo = 15;
+					ammo = 20;
 					loadLevel(level0);
 					currentLevel = level0;
 				}

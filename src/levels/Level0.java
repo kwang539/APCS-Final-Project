@@ -15,7 +15,7 @@ import panels.GamePanel;
 public class Level0 extends Level{
 	public Level0(){
 		//the story will we made onto the image
-		super("backgroundtester2.gif", "blocktester.jpg");
+		super("backgroundtester2.gif", "portal4.png");
 		super.player = new Player(0, 450);
 
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT/2, 50, 50);
