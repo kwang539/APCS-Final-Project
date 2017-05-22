@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable
 
 	private BufferedImage backgroundImg, wallImg;
 
-	private final int lastLevel = 3;
+	private final int lastLevel = 5;
 	private Level currentLevel;
 
 	private boolean levelFinished;
@@ -528,15 +528,19 @@ public class GamePanel extends JPanel implements Runnable
 				player.death();
 			}
 
-			if(currentLevel.getdoor().intersects(player)){
+			
+		if(currentLevel.getdoor().intersects(player)){
+
 				int nextLevelIndex = levels.indexOf(currentLevel)+1;
 
 				if(levelFinished == true && nextLevelIndex < lastLevel+1){
 					loadLevel(levels.get(nextLevelIndex));
+					System.out.println("  ahihihi");
 					isPlatformer= false;
 				}
 
 				levelFinished = false;
+				
 			}
 
 
@@ -576,6 +580,7 @@ public class GamePanel extends JPanel implements Runnable
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				
 				m.changePanel("1");
 				//isRunning = !isRunning;
 			}
@@ -589,7 +594,38 @@ public class GamePanel extends JPanel implements Runnable
 			if(e.getKeyCode() == KeyEvent.VK_R){
 				//clearLevel();
 				isPlatformer = false;
-				if(currentLevel == level1 && playerIsDead){
+				
+				if(playerIsDead){
+					//level0 = null;
+					//level0 = new Level0();
+					//levels.add(level0);
+//					
+//					level1 = null;
+//					level1 = new Level1();
+//					levels.add(level1);
+//					
+//					level2 = null;
+//					level2 = new Level2();
+//					levels.add(level2);
+//					
+//					level3 = null;
+//					level3 = new Level3();
+//					levels.add(level3);
+					level0.reset();
+					level1.reset();
+					level2.reset();
+					level3.reset();
+					level4.reset();
+					level5.reset();
+					
+					
+					loadLevel(level0);
+					currentLevel = level0;
+				}
+				
+					
+					
+					if(currentLevel == level1 && playerIsDead){
 					level1 = null;
 					level1 = new Level1();
 					levels.add(1,level1);

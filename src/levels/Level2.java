@@ -18,10 +18,10 @@ public class Level2 extends Level{
 		
 		super.enemies.add(new Enemy("mario.png",50, 790,5));
 		super.enemies.add(new Enemy("mario.png",400, 790,5));
-		super.enemies.add(new Enemy("mario.png",300, 790,5));
+		
 
-		super.enemies.add(new RangedEnemy1("playerchar.png",400, 600,3));
-		super.enemies.add(new RangedEnemy1("playerchar.png",300, 600,3));
+	
+		super.enemies.add(new RangedEnemy1("playerchar.png",300, 700,3));
 
 		
 		hasRangedEnemy = true;
@@ -38,6 +38,22 @@ public class Level2 extends Level{
 		
 	
 	
+	}
+	
+	public void reset(){
+		enemies.clear();
+		
+		super.enemies.add(new Enemy("mario.png",50, 790,5));
+		super.enemies.add(new Enemy("mario.png",400, 790,5));
+		
+
+	
+		super.enemies.add(new RangedEnemy1("playerchar.png",300, 700,3));
+		//enemies = Oenemies;
+		
+		
+		//obstacles = Oobstacles;
+		player.reset(805, 515);
 	}
 
 }

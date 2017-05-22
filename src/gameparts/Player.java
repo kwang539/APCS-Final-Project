@@ -122,6 +122,15 @@ public class Player extends Character {
 		return trackingLine;
 		
 	}
+	
+	public void reset(int originalLocationX, int originalLocationY){
+		this.moveToLocation(originalLocationX, originalLocationY);
+		xVelocity = 0;
+		yVelocity = 0;
+		maxVelocity = 5;
+		GamePanel.setplayerIsDead(false);
+
+	}
 
 	
 	

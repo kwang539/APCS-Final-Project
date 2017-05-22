@@ -2,7 +2,9 @@ package levels;
 
 import java.awt.Rectangle;
 
+import bosses.Boss;
 import gameparts.Player;
+import gameparts.RangedEnemy1;
 import panels.GamePanel;
 
 /**
@@ -22,5 +24,15 @@ public class Level0 extends Level{
 		obstacles.add(new Rectangle(0, 900, 1200, 10));
 		
 		
+	}
+	
+	public void reset(){
+		
+		
+		//enemies = Oenemies;
+		
+		
+		//obstacles = Oobstacles;
+		player.reset(0, 450);
 	}
 }

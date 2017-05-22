@@ -1,6 +1,8 @@
 package levels;
 
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.util.ArrayList;
 
 import bosses.Boss;
 import gameparts.Enemy;
@@ -10,17 +12,17 @@ import panels.GamePanel;
 
 public class Level1 extends Level{
 	
-
+	
 	public Level1(){
 		super("grass.png", "blocktester.jpg");
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 100, 50, 50);
 
 		
-		super.enemies.add(new Boss("mario.png",300, 200,3));
-		super.enemies.add(new RangedEnemy1("mario.png",400, 200,3));
+		super.enemies.add(new Enemy("mario.png",300, 200,3));
+		super.enemies.add(new RangedEnemy1("mario.png",1100, 400,1));
 
 		//super.hasRangedEnemy = true;
-		super.hasBoss = true;
+		//super.hasBoss = true;
 		
 		super.player = new Player(300, 600);
 		
@@ -29,11 +31,27 @@ public class Level1 extends Level{
 		super.obstacles.add(new Rectangle(700, 850, 500, 50));
 		super.obstacles.add(new Rectangle(1000, 200, 50, 500));
 		
+		
+		//Oenemies = new ArrayList<Enemy>();
+
+		
+
 		/* Window Bounds */
 		//super.obstacles.add(new Rectangle(0, 900, 1200, 10));
 		
 	}
 	
+	public void reset(){
+		enemies.clear();
+		
+		super.enemies.add(new Enemy("mario.png",300, 200,3));
+		super.enemies.add(new RangedEnemy1("mario.png",1100, 400,1));
+		//enemies = Oenemies;
+		
+		
+		//obstacles = Oobstacles;
+		player.reset(300, 600);
+	}
 	
 	
 }

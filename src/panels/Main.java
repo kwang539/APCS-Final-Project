@@ -8,13 +8,15 @@ import levels.Level1;
 
 import java.awt.*;
 
-public class Main extends JFrame{
+public class Main extends JFrame implements ActionListener, KeyListener{
 
 
 
-	JPanel cardPanel;
-	GamePanel panel4;
+	public JPanel cardPanel;
+	public GamePanel panel4;
+	public CardLayout cl;
 	
+	private JButton playButton;
 	public Main(String title) {
 		super(title);
 		
@@ -23,9 +25,14 @@ public class Main extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		cardPanel = new JPanel();
-		CardLayout cl = new CardLayout();
+		cl = new CardLayout();
 		cardPanel.setLayout(cl);
 
+		
+		playButton = new JButton("Play");
+		playButton.addActionListener(this);
+		add(playButton);
+		
 		MenuPanel panel1 = new MenuPanel(this);
 		InstructionsPanel panel2 =new InstructionsPanel(this);
 		OptionsPanel panel3 = new OptionsPanel(this);
@@ -56,7 +63,7 @@ public class Main extends JFrame{
 
 	public static void main(String[] args)
 	{
-		Main w = new Main("AP Animation Demo");
+		Main w = new Main("GAME");
 	}
 
 	public void changePanel(String name) {
@@ -69,6 +76,61 @@ public class Main extends JFrame{
 	}
 	public GamePanel getGamePanel(){
 		return panel4;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource().equals(playButton))
+		{
+			System.out.println("hihi");
+			cl.removeLayoutComponent(panel4);
+			
+			panel4 = new GamePanel(this);
+			cardPanel.add(panel4, "4");
+			
+			//cardLayout.addLayoutComponent("Card 2" , card2);
+			
+			//card2 = new Tron();
+			cl.show(cardPanel, "4");
+			cardPanel.setFocusable(true);
+			cardPanel.requestFocusInWindow();
+			//cardLayout.next(cardPanel);
+		}
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getKeyCode() == KeyEvent.VK_R)
+		{
+			System.out.println("hihi");
+			cl.removeLayoutComponent(panel4);
+			
+			panel4 = new GamePanel(this);
+			cardPanel.add(panel4, "4");
+			
+			//cardLayout.addLayoutComponent("Card 2" , card2);
+			
+			//card2 = new Tron();
+			cl.show(cardPanel, "4");
+			cardPanel.setFocusable(true);
+			cardPanel.requestFocusInWindow();
+			//cardLayout.next(cardPanel);
+		}
 	}
 
 }

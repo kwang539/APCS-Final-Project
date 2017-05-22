@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import gameparts.Enemy;
 import gameparts.Player;
+import gameparts.RangedEnemy1;
 import panels.GamePanel;
 
 
@@ -14,11 +15,9 @@ public class Level4 extends Level{
 	super("backgroundtester.png", "blocktester.jpg");
 	door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 150, 50, 50);
 
-	//super.enemies.add(new Enemy("mario.png",300, 700,4));
+	super.enemies.add(new Enemy("mario.png", 100, 200, 5));
+	super.enemies.add(new Enemy("mario.png", 1000, 200, 5));
 	
-	//super.enemies.add(new Boss("playerchar.png", 150, 750, 1));
-	super.enemies.add(new Enemy("mario.png",100, 200,5));
-	//super.enemies.add(new Boss("playerchar.png",1050, 275,2));
 	super.hasBoss = true;
 
 	
@@ -36,4 +35,20 @@ public class Level4 extends Level{
 
 	
 	}
+	
+	public void reset(){
+		enemies.clear();
+
+		super.enemies.add(new Enemy("mario.png", 100, 200, 5));
+		super.enemies.add(new Enemy("mario.png", 1000, 200, 5));
+		
+
+	
+		//enemies = Oenemies;
+		
+		
+		//obstacles = Oobstacles;
+		player.reset(590, 440);
+	}
+
 }

@@ -140,7 +140,7 @@ public class Enemy extends Character {
 				for (Shape s : obstacles) {
 					if (s.intersects(stretchY)) {
 						standingSurface = s;
-						yVelocity = 0;
+						//yVelocity = 0;
 					}
 				}
 				if (standingSurface != null) {
@@ -152,7 +152,7 @@ public class Enemy extends Character {
 				for (Shape s : obstacles) {
 					if (s.intersects(stretchY)) {
 						headSurface = s;
-						yVelocity = 0;
+						//yVelocity = 0;
 					}
 				}
 				if (headSurface != null) {
@@ -205,8 +205,6 @@ public class Enemy extends Character {
 
 			moveToLocation(xCoord2,yCoord2);	
 		}
-		
-		
 		else {
 			
 			yVelocity *= friction;
@@ -317,7 +315,7 @@ public class Enemy extends Character {
 
 		}
 		else{
-		walk(player1.getCenterX(), player1.getCenterY());
+		walk(player1.getCenterX(), (double)player1.getCenterY());
 		}
 
 	}
