@@ -394,6 +394,15 @@ public class GamePanel extends JPanel implements Runnable
 	public void run() {
 		while (true) { 
 			long startTime = System.currentTimeMillis();
+			
+			sound.sound3();
+			
+			int lengthOfSong = 100;
+//			
+//			if(startTime % lengthOfSong == 0){
+//				sound.sound3();
+//			}
+
 
 			if(keyControl.isPressed(KeyEvent.VK_0)){
 				//sound.sound1();
