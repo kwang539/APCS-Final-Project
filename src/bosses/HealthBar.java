@@ -17,7 +17,7 @@ public class HealthBar {
 	private Rectangle2D.Double currentBar, maxBar;
 	private int currentWidth;
 	private int currentHP, maxHP;
-	private static final int x = 190, y = 100, width = 810, height = 50;
+	private static final int x = 190, y = 30, width = 810, height = 50;
 
 	private BufferedImage barTexture, healthTexture;
 
@@ -45,8 +45,13 @@ public class HealthBar {
 	public void draw(Graphics2D g2d){
 		g2d.setColor(Color.GRAY);		
 		g2d.fillRect(x, y, width, height);
-		g2d.setColor(Color.RED);
+		g2d.setColor(new Color(220, 20, 60));
 		g2d.fillRect(x+10, y+10, computeHealthFraction()-20, height-20);
+		g2d.setColor(new Color(178, 34, 34));
+		g2d.fillRect(x+10, y+10, computeHealthFraction()-20, (height-20)/2);
+		g2d.setColor(new Color(139, 0, 0));
+		g2d.fillRect(x+10, y+10, computeHealthFraction()-20, (height-20)/4);
+		
 	}
 
 	public void loadImage(){

@@ -39,6 +39,8 @@ public class Level3 extends Level{
 	super.obstacles.add(new Rectangle(800, 300, 200, 50));
 	super.obstacles.add(new Rectangle(950, 350, 50, 100));
 	super.obstacles.add(new Rectangle(1000, 400, 150, 50));
+	super.obstacles.add(new Rectangle(0, 0, 1200, 130));
+
 
 	
 	super.obstacles.add(new Rectangle(700, 600, 50, 150));
@@ -54,13 +56,6 @@ public class Level3 extends Level{
 
 		super.enemies.add(new Boss("mario.png",1050, 275,2));
 
-		
-
-	
-		//enemies = Oenemies;
-		
-		
-		//obstacles = Oobstacles;
 		player.reset(100, 600);
 	}
 }

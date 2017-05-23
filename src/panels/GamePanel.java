@@ -23,6 +23,7 @@ import levels.Level2;
 import levels.Level3;
 import levels.Level4;
 import levels.Level5;
+import levels.Level6;
 
 import java.util.*;
 
@@ -49,7 +50,6 @@ public class GamePanel extends JPanel implements Runnable
 
 
 	private Main m;
-	//private boolean isRunning;
 
 	private double mX, mY, mouseAngle;
 	private KeyHandler keyControl;
@@ -72,6 +72,7 @@ public class GamePanel extends JPanel implements Runnable
 	private Level3 level3;
 	private Level4 level4;
 	private Level5 level5;
+	private Level6 level6;
 
 	private BufferedImage backgroundImg, wallImg;
 
@@ -92,12 +93,14 @@ public class GamePanel extends JPanel implements Runnable
 		level3 = new Level3();
 		level4 = new Level4();
 		level5 = new Level5();
+		level6 = new Level6();
 		levels.add(level0);
 		levels.add(level1);
 		levels.add(level2);
 		levels.add(level3);
 		levels.add(level4);
 		levels.add(level5);
+		levels.add(level6);
 
 		ammo = 20;
 
@@ -153,29 +156,10 @@ public class GamePanel extends JPanel implements Runnable
 
 		Graphics2D g2 = (Graphics2D)g;
 
-
-
-		//draws an image scaled perfectlyto the size of the screen
-		//<<<<<<< HEAD
-		//g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
-
-
-
-		//=======
 		g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
-
-		//g2.setPaint(new TexturePaint(backgroundImg, new Rectangle(0, 0, 16, 16)));
-		//g2.fillRect(0, 0, 1200, 900);
-
-
-
-		//<<<<<<< HEAD
-
-		//=======
 
 		g2.setPaint(null);
 
-		//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
 		int width = getWidth();
 		int height = getHeight();
 
@@ -186,7 +170,6 @@ public class GamePanel extends JPanel implements Runnable
 		g2.scale(ratioX, ratioY);
 
 		
-		//Where the text for the story will be
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Lucida Console",Font.PLAIN,20));
 		if(currentLevel == level0){
@@ -428,10 +411,6 @@ public class GamePanel extends JPanel implements Runnable
 			
 			
 			int lengthOfSong = 100;
-//			
-//			if(startTime % lengthOfSong == 0){
-//				sound.sound3();
-//			}
 
 
 			if(keyControl.isPressed(KeyEvent.VK_0)){
@@ -477,9 +456,13 @@ public class GamePanel extends JPanel implements Runnable
 			if(keyControl.isPressed(KeyEvent.VK_5)){
 				loadLevel(level5);
 				isPlatformer = false;
-
 			}
 
+			
+			if(keyControl.isPressed(KeyEvent.VK_6)){
+				loadLevel(level6);
+				isPlatformer = false;
+			}
 
 			if(!isPlatformer){
 

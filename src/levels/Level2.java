@@ -49,10 +49,6 @@ public class Level2 extends Level{
 
 	
 		super.enemies.add(new RangedEnemy1("playerchar.png",300, 700,3));
-		//enemies = Oenemies;
-		
-		
-		//obstacles = Oobstacles;
 		player.reset(805, 515);
 	}
 
