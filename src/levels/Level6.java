@@ -14,7 +14,7 @@ public class Level6 extends Level{
 
 
 	public Level6(){
-		super("backgroundtester.png", "portal4.png");
+		super("pixelart6.png", "portal4.png");
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 150, 50, 50);
 		
 		super.obstacles.add(new Rectangle(400, 300, 50, 300));

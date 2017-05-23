@@ -14,7 +14,7 @@ public class Level1 extends Level{
 	
 	
 	public Level1(){
-		super("grass.png", "portal4.png");
+		super("pixelart1.png", "portal4.png");
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 100, 50, 50);
 
 		
@@ -35,28 +35,13 @@ public class Level1 extends Level{
 		super.obstacles.add(new Rectangle(700, 850, 500, 50));
 		super.obstacles.add(new Rectangle(1000, 200, 50, 500));
 		
-		
-		//Oenemies = new ArrayList<Enemy>();
-
-		
-
-		/* Window Bounds */
-		//super.obstacles.add(new Rectangle(0, 900, 1200, 10));
-		
 	}
 	
 	public void reset(){
 		enemies.clear();
-		
-
-		
 
 		super.enemies.add(new Enemy("minion.png",300, 200,2, 45, 56));
 		super.enemies.add(new RangedEnemy1("andromalius.png",1100, 400, 3, 53, 86));
-
-	
-
-		
 		player.reset(300, 600);
 	}
 	

@@ -198,12 +198,6 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("Don't worry if you die, you'll just be permanently erased from the plane of existence.", 50, 700);
 			g2.drawString("But of course, you can keep playing. ", 50, 750);
 			g2.drawString("Just hit 'R' and I will glady generate a new object representing you, and play again.", 50, 800);
-
-			
-			
-
-			
-			
 		}
 		
 	
@@ -225,11 +219,9 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("", 50, 700);
 			g2.drawString("Just like the last simulation, use the purple portals to travel between worlds! ", 50, 750);
 			g2.drawString("I'll see you in the 6th world!", 50, 800);
-			
-	
 
 		}
-		//puts textures onto the obstacles, makes it a bit laggier
+
 		Rectangle door1 = currentLevel.getdoor();
 		g2.drawImage(currentLevel.getobstacleImg(),(int) door1.getX(), (int)door1.getY(), (int)(door1.getX() +door1.getWidth()), (int)(door1.getY() + door1.getHeight()), 0,0,currentLevel.getobstacleImg().getWidth(null) , currentLevel.getobstacleImg().getHeight(null), null);
 
@@ -248,10 +240,8 @@ public class GamePanel extends JPanel implements Runnable
 		for(int i = 0; i < ammo; i++){
 			ammoDisplay = ammoDisplay + "I";
 		}
-		//int strWidth = g.getFontMetrics().stringWidth(""+ammo);
 		g2.drawString(ammoDisplay, 20, 40);
 
-		//draws game over screen when dead
 		if(playerIsDead){
 			g2.drawString("GAME OVER", 500, 500);
 		}

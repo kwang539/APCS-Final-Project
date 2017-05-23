@@ -12,7 +12,7 @@ public class Level5 extends Level{
 
 
 	public Level5(){
-		super("backgroundtester.png", "portal4.png");
+		super("pixelart5.gif", "portal4.png");
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 150, 50, 50);
 
 		super.enemies.add(new RangedEnemy1("andromalius.png", 1000, 400, 3, 53, 86));

@@ -13,7 +13,7 @@ public class Level3 extends Level{
 
 	
 	public Level3(){
-	super("backgroundtester.png", "portal4.png");
+	super("pixelart3.png", "portal4.png");
 	door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 150, 50, 50);
 
 	super.enemies.add(new Enemy("minion.png",100, 200, 3, 46, 60));
