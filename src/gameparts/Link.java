@@ -12,7 +12,7 @@ private final int ACTION_TIMEOUT = 500;
 	// Load the sounds from the disk. 
 	private final EasySound2 sound1 = new EasySound2("Sound1.wav");
 	private final EasySound2 sound2 = new EasySound2("Sound2.wav");
-	private final EasySound2 sound3 = new EasySound2("Sound3.wav");
+	
 	private final EasySound2 sound4 = new EasySound2("Sound4.wav");
 	private  EasySound2 backgroundSound;
 
@@ -38,9 +38,7 @@ private final int ACTION_TIMEOUT = 500;
 		actionTimer.restart();
 	}
 
-	public void sound3(){
-		sound3.play();
-	}
+
 	
 	public void sound4(){
 		sound4.play();
@@ -50,9 +48,7 @@ private final int ACTION_TIMEOUT = 500;
 	public void stopSound4(){
 		actionTimer.stop();
 	}
-	public void stopSound3(){
-		
-	}
+	
 	
 	
 	public void playBackgroundSound(){

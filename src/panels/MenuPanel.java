@@ -21,6 +21,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	private JButton playButton;
 	private Link a;
+	Timer songtime=new Timer(1,this);
 	
 	private Image MenuImg;
 
@@ -83,8 +84,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 		w.changePanel("2");
 	
 		if(e.getSource().equals(playButton)){
-			a.stopSound3();
+			
+			
 
+			songtime.start();
 			//a.setBackgroundSoundto4();
 
 			//a.playBackgroundSound();
@@ -120,6 +123,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 //			w.cardPanel.requestFocusInWindow();
 			//cardLayout.next(cardPanel);
 		}
+		
 		
 		
 	}

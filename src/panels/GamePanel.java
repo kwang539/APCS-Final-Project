@@ -85,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable
 
 	private boolean levelFinished;
 	private static boolean playerIsDead;
-	private int ammo;
+	private static int ammo;
 
 	public GamePanel (Main m) {
 		super();
@@ -111,7 +111,7 @@ public class GamePanel extends JPanel implements Runnable
 		levels.add(level7);
 
 
-		ammo = 20;
+		ammo = 30;
 
 
 
@@ -380,6 +380,9 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 
+	public static void setAmmo(int ammo1){
+		ammo = ammo1;
+	}
 	public void clearLevel(){
 		enemies.clear();
 		obstacles.clear();
@@ -494,7 +497,7 @@ public class GamePanel extends JPanel implements Runnable
 
 				if ((time == 0 || time >= 1000)&& ammo >0 && currentLevel != level0) {
 					timeOfLastProjectile = System.currentTimeMillis();
-					bullets.add(new Bullet("bluefireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 10, 10, mX, mY));
+					bullets.add(new Bullet("bluefireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 15, 15, mX, mY));
 					sound.sound1();
 
 					ammo--;
@@ -559,7 +562,7 @@ public class GamePanel extends JPanel implements Runnable
 					level6.reset();
 					level7.reset();
 					
-					ammo = 20;
+					ammo = 30;
 					loadLevel(level1);
 					currentLevel = level1;
 				}

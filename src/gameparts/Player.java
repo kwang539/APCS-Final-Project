@@ -88,7 +88,9 @@ public class Player extends Character {
 
 	//doesnt work yet
 	public void death(){
-		maxVelocity = 0;
+		
+		maxVelocity = -1;
+		GamePanel.setAmmo(0);
 		GamePanel.setplayerIsDead(true);
 		
 	}
