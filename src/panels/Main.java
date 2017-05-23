@@ -61,7 +61,7 @@ public class Main extends JFrame implements ActionListener{
 
 	public static void main(String[] args)
 	{
-		Main w = new Main("Programmer's Worst Nightmare");
+		Main w = new Main("java.hiddenfiles.pwn");
 	}
 
 	public void changePanel(String name) {
@@ -81,7 +81,7 @@ public class Main extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(playButton))
 		{
-			System.out.println("hihi");
+			
 			cl.removeLayoutComponent(panel4);
 			
 			panel4 = new GamePanel(this);
