@@ -9,15 +9,36 @@ import gameparts.Bullet;
 import gameparts.Enemy;
 import gameparts.Player;
 
+/** This class represents a Boss with ranged capabilities
+ * 
+ * @author Akshay
+ *
+ */
 public class RangedBoss extends Boss {
 
 	private ArrayList<Bullet> bossBullets;
 
+	/** Constructs a new RangedBoss.
+	 * 
+	 * @param filename The name of the image file to draw
+	 * @param x Starting x coordinate
+	 * @param y Starting y coordinate
+	 * @param velocity Speed at which this boss moves
+	 * @param width Width at which to draw image
+	 * @param height Height at which to draw image
+	 */
 	public RangedBoss(String filename, int x, int y, double velocity, int width, int height) {
 		super(filename, x,y, velocity, width, height);
 		bossBullets = new ArrayList<Bullet>();
 	}
 
+	/** Defines enemy AI behavior. Tracks player, and if this RangedBoss collides with an
+	 * obstacle, strafes around the obstacle to the bottom-right.
+	 * 
+	 * @param obstacles the array of obstacles in the game
+	 * @param isPlatformer whether the game is in platform mode or not
+	 * @param player1 the current Player object
+	 */
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer, Player player1){
 
 		double xCoord = getX();
@@ -221,10 +242,19 @@ public class RangedBoss extends Boss {
 		walk(player1.getCenterX(), player1.getCenterY());
 	}
 
+	/** Fires a bullet onscreen.
+	 * 
+	 * @param PlayerLocX the x-coordinate of the Player this Bullet will track
+	 * @param PlayerLocY the y-coordinate of the Player this Bullet will track
+	 */
 	public void fire(int PlayerLocX, int PlayerLocY){
 		bossBullets.add(new Bullet("fireball.png", (int) this.getCenterX(), (int)this.getCenterY(), 25, 25, PlayerLocX, PlayerLocY));
 	}
 
+	/** Returns the array of Bullets that this Boss fired
+	 * 
+	 * @return bossBullets the Bullet array
+	 */
 	public ArrayList<Bullet> getbossBullets(){
 		return bossBullets;
 	}

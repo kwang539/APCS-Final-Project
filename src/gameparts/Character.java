@@ -6,6 +6,11 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
 
+/** Represents a character affected by friction and gravity
+ * 
+ * @author Akshay
+ *
+ */
 public class Character extends MovingImage {
 
 	public static final int MARIO_WIDTH = 40;
@@ -18,6 +23,14 @@ public class Character extends MovingImage {
 	protected double jumpStrength;
 	protected double maxVelocity;
 
+	/** Constructs a new Character.
+	 * 
+	 * @param name the filename of the Image to be drawn
+	 * @param x the x-coordinate of the Image
+	 * @param y the y-coordinate of the Image
+	 * @param width the width of the Image
+	 * @param height the height of the Image
+	 */
 	public Character(String name, int x, int y, int width, int height) {
 		super(name, x, y, width, height);
 		xVelocity = 0;
@@ -30,6 +43,10 @@ public class Character extends MovingImage {
 	}
 
 	// METHODS
+	/** Moves this Character based off of input direction
+	 * 
+	 * @param dir -2 and 2 correspond to W and S keys. -1 and 1 correspond to A and D keys.
+	 */
 	public void walk(int dir) {
 
 
@@ -52,11 +69,19 @@ public class Character extends MovingImage {
 
 	}
 
+	/** Makes this Character jump and land.
+	 * 
+	 */
 	public void jump() {
 		if (onASurface)
 			yVelocity -= jumpStrength;
 	}
 
+	/** Detects collisions between this Character and obstacles, and halts movement if they occur.
+	 * 
+	 * @param obstacles the array of obstacles on the map
+	 * @param isPlatformer whether the gamemode is in platform or top-down mode
+	 */
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer) {
 		double xCoord = getX();
 		double yCoord = getY();

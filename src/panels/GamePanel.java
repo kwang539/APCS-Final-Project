@@ -49,9 +49,6 @@ public class GamePanel extends JPanel implements Runnable
 
 	private Rectangle screenRect;
 
-
-
-
 	private Main m;
 
 	private double mX, mY, mouseAngle;

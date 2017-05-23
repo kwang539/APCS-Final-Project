@@ -12,6 +12,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**This class represents a moving melee Enemy.
+ * 
+ * @author Akshay
+ *
+ */
 public class Enemy extends Character {
 
 ;
@@ -27,6 +32,15 @@ public class Enemy extends Character {
 	private double enemyVelocity;
 	private int width, height;
 
+	/** Constructs a new Enemy.
+	 * 
+	 * @param filename The name of the image file to draw
+	 * @param x Starting x coordinate
+	 * @param y Starting y coordinate
+	 * @param velocity Speed at which this enemy moves
+	 * @param width Width at which to draw image
+	 * @param height Height at which to draw image
+	 */
 	public Enemy(String filename, int x, int y, double enemyVelocity, int width, int height) {
 		super(filename, x, y, width, height);
 		dX = 0;
@@ -37,7 +51,11 @@ public class Enemy extends Character {
 		this.height = height;
 	}
 
-	// METHODS
+	/** Tracks the current coordinates, assuming the gamemode is in platform mode.
+	 * 
+	 * @param locX the location to track, x-coordinate
+	 * @param locY the location to track, y-coordinate
+	 */
 	public void walk(double locX, double locY) {
 		generateAngle(locX,locY);
 		if (yVelocity <= enemyVelocity && yVelocity >= -enemyVelocity){
@@ -51,6 +69,11 @@ public class Enemy extends Character {
 
 	}
 	
+	/** Tracks the current coordinates, assuming the gamemode is in top-down mode.
+	 * 
+	 * @param locX the location to track, x-coordinate
+	 * @param locY the location to track, y-coordinate
+	 */
 	public void walk(double locX, int locY) {
 
 		generateAngle(locX,locY);
@@ -60,14 +83,20 @@ public class Enemy extends Character {
 		}
 	}
 
-
-
+	/** Makes this Enemy jump and fall.
+	 * 
+	 */
 	public void jump() {
 		super.jump();
 	}
-
 	
-	
+	/** Serves as Enemy AI. Tracks the current Player object and moves towards it.
+	 * Detects collisions between objects and the Enemy.
+	 * 
+	 * @param obstacles the array of obstacles on the map
+	 * @param isPlatformer whether or not the gamemode is in platform or top-down mode
+	 * @param player1 the current Player object
+	 */
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer, Player player1) {
 	
 		double xCoord = getX();
@@ -287,10 +316,19 @@ public class Enemy extends Character {
 
 	}
 
+	/** Generates this Enemy's hitbox
+	 * 
+	 * @return a Rectangle2D.Double representing the hitbox
+	 */
 	public Rectangle2D.Double makeHitBox(){
 		return  new Rectangle2D.Double(x, y, this.width, this.height);
 	}
 
+	/** Generates the angle between this Enemy and the target location
+	 * 
+	 * @param crosshairX the x-coordinate of the location to track
+	 * @param crosshairY the y-coordinate of the location to track
+	 */
 	private void generateAngle(double crosshairX, double crosshairY){
 		if (crosshairX < x){
 			enemyAngle = Math.PI + Math.atan((crosshairY-y)/(crosshairX - x));

@@ -9,12 +9,21 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
+/** This class represents a sound file to be played.
+ * 
+ * @author Akshay
+ *
+ */
 public class EasySound2 implements Runnable
 {
   private SourceDataLine line = null;
   private byte[] audioBytes;
   private int numBytes;
 
+  /** Constructs a new sound object.
+   * 
+   * @param fileName the file name of the audio
+   */
   public EasySound2(String fileName)
   {
     File  soundFile = new File(fileName);
@@ -58,13 +67,16 @@ public class EasySound2 implements Runnable
     }
   }
 
+  /** Starts running this sound object
+   * 
+   */
   public void run() {
 	  line.write(audioBytes, 0, numBytes);
   }
 
-  public void stop(){
-	  line.stop();
-  }
+  /**
+   * Plays this sound object.
+   */
   public void play()
   {
 	  line.flush();
