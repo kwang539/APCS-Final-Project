@@ -38,21 +38,14 @@ public class Character extends MovingImage {
 
 			int newdir = dir/2;
 
-		
+
 			if (yVelocity <= maxVelocity && yVelocity >= -maxVelocity){
 				yVelocity += newdir;
-				//y += newdir;
 			}
 		}
 
 
 		if(dir == -1 || dir == 1){
-			/*
-			if (xVelocity <= 4 && xVelocity >= -4){
-				xVelocity += dir;
-			}
-		x+= dir*xVelocity;
-			 */
 			if (xVelocity <= maxVelocity && xVelocity >= -maxVelocity)
 				xVelocity += dir;
 		}
@@ -82,8 +75,6 @@ public class Character extends MovingImage {
 
 			onASurface = false;
 
-			//Problem is that is is testing to see if the mario is on the surface,
-			//if mario is not on a surface, he keeps going.	
 
 
 			if (yVelocity > 0) {
@@ -188,31 +179,20 @@ public class Character extends MovingImage {
 
 			moveToLocation(xCoord2,yCoord2);	
 		}
-		
-		
+
+
 		else {
-			
+
 			yVelocity *= friction;
 			double yCoord2 = yCoord + yVelocity;
 
 			Rectangle2D.Double strechY = new Rectangle2D.Double(xCoord,Math.min(yCoord,yCoord2),width,height+Math.abs(yVelocity));
-
-			//onASurface = false;
-
-			//Problem is that is is testing to see if the mario is on the surface,
-			//if mario is not on a surface, he keeps going.
-
-
-
-
-
 
 
 			if (yVelocity > 0) {
 				Shape standingSurface = null;
 				for (Shape s : obstacles) {
 					if (s.intersects(strechY)) {
-						//onASurface = true;
 						standingSurface = s;
 						yVelocity = 0;
 
@@ -239,41 +219,6 @@ public class Character extends MovingImage {
 
 			if (Math.abs(yVelocity) < .2)
 				yVelocity = 0;
-
-
-			/*if (yVelocity > 0) {
-				Shape standingSurface = null;
-				for (Shape s : obstacles) {
-					if (s.intersects(strechY)) {
-						standingSurface = s;
-						yVelocity = 0;
-					}
-				}
-				if (standingSurface != null) {
-					Rectangle r = standingSurface.getBounds();
-					yCoord2 = r.getX()-width;
-				}
-			} else if (yVelocity < 0) {
-				Shape headSurface = null;
-				for (Shape s : obstacles) {
-					if (s.intersects(strechY)) {
-						headSurface = s;
-						yVelocity = 0;
-					}
-				}
-				if (headSurface != null) {
-					Rectangle r = headSurface.getBounds();
-					yCoord2 = r.getX()+r.getWidth();
-				}
-			}
-			if (Math.abs(yVelocity) < .2)
-				yVelocity = 0;
-			 */
-
-
-
-
-
 
 
 			// ***********X AXIS***********

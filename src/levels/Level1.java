@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import bosses.Boss;
 import gameparts.Enemy;
 import gameparts.Player;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 import panels.GamePanel;
 
 public class Level1 extends Level{
@@ -19,14 +19,10 @@ public class Level1 extends Level{
 
 		
 		super.enemies.add(new Enemy("minion.png",300, 200,2, 45, 56));
-		super.enemies.add(new RangedEnemy1("andromalius.png",1100, 400, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png",1100, 400, 3, 53, 86));
 
 		super.hasRangedEnemy = true;
 
-		//super.hasBoss = true;
-		
-
-	
 
 		super.player = new Player(300, 600);
 		
@@ -41,7 +37,7 @@ public class Level1 extends Level{
 		enemies.clear();
 
 		super.enemies.add(new Enemy("minion.png",300, 200,2, 45, 56));
-		super.enemies.add(new RangedEnemy1("andromalius.png",1100, 400, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png",1100, 400, 3, 53, 86));
 		player.reset(300, 600);
 	}
 	

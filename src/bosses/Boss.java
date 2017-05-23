@@ -7,26 +7,21 @@ import java.util.ArrayList;
 
 import gameparts.Bullet;
 import gameparts.Enemy;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 
-public class Boss extends RangedEnemy1 {
+public class Boss extends RangedEnemy {
 	
 	private ArrayList<Bullet> bossBullets;
 	private HealthBar healthBar;
 
 	public Boss(String filename, int x, int y, double velocity, int width, int height) {
 		super(filename, x,y, velocity, width, height);
-		
 		healthBar = new HealthBar(100);
 		bossBullets = new ArrayList<Bullet>();
-		
 	}
 	
 	public void fire(int PlayerLocX, int PlayerLocY){
 		bossBullets.add(new Bullet("fireball.png", (int) this.getCenterX(), (int)this.getCenterY(), 25, 25, PlayerLocX, PlayerLocY));
-//		for(Bullet b: bossBullets){
-//			b.fire();
-//		}
 	}
 	
 	public void takeDamage(){

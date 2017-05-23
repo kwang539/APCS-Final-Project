@@ -10,12 +10,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-/*
- * Represents a moving image.
- *
- * by: Shelby
- * on: 5/3/13
- */
  
 public class MovingImage extends Rectangle2D.Double {
 	
@@ -58,18 +52,7 @@ public class MovingImage extends Rectangle2D.Double {
 		g.drawImage(image,(int)x,(int)y,(int)width,(int)height,io);
 		AffineTransform at = AffineTransform.getTranslateInstance(100,100);
 	}
-	
-	private BufferedImage loadImage(String filename){
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(filename));
-		} catch (IOException e){
-			
-		}
-		return img;
-	}
-	
-	
+
 }
 
 

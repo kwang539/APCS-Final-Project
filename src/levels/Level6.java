@@ -3,10 +3,10 @@ package levels;
 import java.awt.Rectangle;
 
 import bosses.Boss;
-import bosses.RangedEnemy;
+import gameparts.RangedEnemy;
 import gameparts.Enemy;
 import gameparts.Player;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 import panels.GamePanel;
 
 
@@ -33,7 +33,7 @@ public class Level6 extends Level{
 		super.hasBoss = true;
 		super.hasRangedEnemy = true;
 		super.enemies.add(new Boss("bossmelee.png", 50, 50, 3, 60, 80));
-		super.enemies.add(new RangedEnemy1("andromalius.png", 1000, 100, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png", 1000, 100, 3, 53, 86));
 		super.enemies.add(new Enemy("minion.png",300, 750,7, 45, 56));
 		super.enemies.add(new Enemy("minion.png",800, 750,7, 45, 56));
 
@@ -57,7 +57,7 @@ public class Level6 extends Level{
 		
 
 		super.enemies.add(new Boss("bossmelee.png", 50, 50, 3, 60, 80));
-		super.enemies.add(new RangedEnemy1("andromalius.png", 1000, 100, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png", 1000, 100, 3, 53, 86));
 		super.enemies.add(new Enemy("minion.png",300, 750,7, 45, 56));
 		super.enemies.add(new Enemy("minion.png",800, 750,7, 45, 56));
 

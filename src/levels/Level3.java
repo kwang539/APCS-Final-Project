@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import bosses.Boss;
 import gameparts.Enemy;
 import gameparts.Player;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 import panels.GamePanel;
 
 

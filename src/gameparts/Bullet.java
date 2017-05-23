@@ -14,22 +14,9 @@ public class Bullet extends MovingImage{
 		bulletVelocity = 10;
 		bulletAngle = 0;
 		generateAngle(crosshairX, crosshairY);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void fire(){
-		
-//
-//		if (crosshairX < x){
-//			//mouseAngle = Math.PI + Math.atan(scalar);
-//			bulletAngle = Math.PI + Math.atan((crosshairY-y)/(crosshairX - x));
-//
-//		} else {
-//			bulletAngle = Math.atan((crosshairY-y)/(crosshairX - x));
-//		}
-
-		//while(this.intersects(border) == false){
-
 
 		x += Math.cos(bulletAngle) * bulletVelocity;
 		y += Math.sin(bulletAngle) * bulletVelocity;
@@ -37,7 +24,6 @@ public class Bullet extends MovingImage{
 	
 	private void generateAngle(double crosshairX, double crosshairY){
 		if (crosshairX < x){
-			//mouseAngle = Math.PI + Math.atan(scalar);
 			bulletAngle = Math.PI + Math.atan((crosshairY-y)/(crosshairX - x));
 
 		} else {

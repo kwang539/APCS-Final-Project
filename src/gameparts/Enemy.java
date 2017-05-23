@@ -39,50 +39,37 @@ public class Enemy extends Character {
 
 	// METHODS
 	public void walk(double locX, double locY) {
-		// WALK!
-		//THIS MAKES IT NOT MERGE!!!
-		
 		generateAngle(locX,locY);
 		if (yVelocity <= enemyVelocity && yVelocity >= -enemyVelocity){
 			
 			yVelocity += Math.sin(enemyAngle) * enemyAcceleration;
-			//y += newdir;
 		}
 		
 		if (xVelocity <= enemyVelocity && xVelocity >= -enemyVelocity){
 			xVelocity += Math.cos(enemyAngle) * enemyAcceleration;
 		}
-		//x += Math.cos(enemyAngle) * enemyVelocity;
-		//y += Math.sin(enemyAngle) * enemyVelocity;
+
 	}
 	
-	//walk for the platformer version
 	public void walk(double locX, int locY) {
-		// WALK!
-		//THIS MAKES IT NOT MERGE!!!
-		
+
 		generateAngle(locX,locY);
 		
 		if (xVelocity <= enemyVelocity && xVelocity >= -enemyVelocity){
 			xVelocity += Math.cos(enemyAngle) * enemyAcceleration;
 		}
-		//x += Math.cos(enemyAngle) * enemyVelocity;
-		//y += Math.sin(enemyAngle) * enemyVelocity;
 	}
 
 
 
 	public void jump() {
-		// JUMP!
 		super.jump();
 	}
 
 	
 	
 	public void act(ArrayList<Shape> obstacles, boolean isPlatformer, Player player1) {
-		//dY += 0.5;
-		//super.act(obstacles, isPlatformer);
-		
+	
 		double xCoord = getX();
 		double yCoord = getY();
 		double width = getWidth();
@@ -99,10 +86,6 @@ public class Enemy extends Character {
 			Rectangle2D.Double stretchY = new Rectangle2D.Double(xCoord,Math.min(yCoord,yCoord2),width,height+Math.abs(yVelocity));
 
 			onASurface = false;
-
-			//Problem is that is is testing to see if the mario is on the surface,
-			//if mario is not on a surface, he keeps going.	
-
 
 			if (yVelocity > 0) {
 				Shape standingSurface = null;
@@ -141,7 +124,6 @@ public class Enemy extends Character {
 				for (Shape s : obstacles) {
 					if (s.intersects(stretchY)) {
 						standingSurface = s;
-						//yVelocity = 0;
 					}
 				}
 				if (standingSurface != null) {
@@ -153,7 +135,6 @@ public class Enemy extends Character {
 				for (Shape s : obstacles) {
 					if (s.intersects(stretchY)) {
 						headSurface = s;
-						//yVelocity = 0;
 					}
 				}
 				if (headSurface != null) {
@@ -213,22 +194,10 @@ public class Enemy extends Character {
 
 			Rectangle2D.Double strechY = new Rectangle2D.Double(xCoord,Math.min(yCoord,yCoord2),width,height+Math.abs(yVelocity));
 
-			//onASurface = false;
-
-			//Problem is that is is testing to see if the mario is on the surface,
-			//if mario is not on a surface, he keeps going.
-
-
-
-
-
-
-
 			if (yVelocity > 0) {
 				Shape standingSurface = null;
 				for (Shape s : obstacles) {
 					if (s.intersects(strechY)) {
-						//onASurface = true;
 						standingSurface = s;
 						yVelocity = 0;
 
@@ -237,8 +206,6 @@ public class Enemy extends Character {
 				if (standingSurface != null) {
 					Rectangle r = standingSurface.getBounds();
 					yCoord2 = r.getY()-height;
-					//if coming from the top
-					//makes it go around the obstacle to the right
 					xVelocity += enemyAcceleration;
 				
 						
@@ -254,7 +221,6 @@ public class Enemy extends Character {
 				if (headSurface != null) {
 					Rectangle r = headSurface.getBounds();
 					yCoord2 = r.getY()+r.getHeight();
-					//if coming from the bottom of the obstacle, will go around to the right also
 					xVelocity += enemyAcceleration;
 
 				}
@@ -321,33 +287,12 @@ public class Enemy extends Character {
 
 	}
 
-	//should only be called once within this class for most efficiency
 	public Rectangle2D.Double makeHitBox(){
 		return  new Rectangle2D.Double(x, y, this.width, this.height);
 	}
 
-	public void setIsHit(boolean hit){
-		isHit = hit;
-	}
-	public boolean getIsHit(){
-		return isHit;
-	}
-
-	//doesn't reallly work
-	public void removeEnemy(){
-		hitbox = null;
-		dX = 0;
-		dY = 0;
-
-
-		x= 90;
-		y = 30;
-		//System.out.println("remove");
-	}
-	
 	private void generateAngle(double crosshairX, double crosshairY){
 		if (crosshairX < x){
-			//mouseAngle = Math.PI + Math.atan(scalar);
 			enemyAngle = Math.PI + Math.atan((crosshairY-y)/(crosshairX - x));
 
 		} else {
@@ -355,16 +300,5 @@ public class Enemy extends Character {
 		}
 	}
 	
-
-	public void hitByBullet(ArrayList<Bullet> bullets){
-		for (Bullet b : bullets) {
-			if(this.getBounds2D().intersects(b.getBounds2D())){
-				isHit = true;
-			}
-
-		}
-
-
-	}
 
 }

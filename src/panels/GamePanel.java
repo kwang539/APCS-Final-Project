@@ -17,7 +17,7 @@ import gameparts.Bullet;
 import gameparts.Enemy;
 import gameparts.Link;
 import gameparts.Player;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 import levels.Level1;
 import levels.Level2;
 import levels.Level3;
@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable
 {
 	public static final int DRAWING_WIDTH = 1200;
 	public static final int DRAWING_HEIGHT = 900;
-	
+
 	private long timeOfLastProjectile = 0;
 	private long timeNow = 0;
 	private long time = 0;
@@ -179,7 +179,7 @@ public class GamePanel extends JPanel implements Runnable
 		AffineTransform at = g2.getTransform();
 		g2.scale(ratioX, ratioY);
 
-		
+
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Courier New",Font.PLAIN,20));
 		if(currentLevel == level0){
@@ -199,8 +199,8 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("But of course, you can keep playing. ", 50, 750);
 			g2.drawString("Just hit 'R' and I will glady generate a new object representing you, and play again.", 50, 800);
 		}
-		
-	
+
+
 		if(currentLevel == level7){
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Courier New",Font.PLAIN,20));
@@ -275,13 +275,7 @@ public class GamePanel extends JPanel implements Runnable
 							enemies.remove(e);
 						}
 						bullets.remove(b);
-					} else {
-						e.setIsHit(true);
-						enemies.remove(e);
-						bullets.remove(b);
 					}
-				} else {
-					e.setIsHit(false);
 				}
 			}
 
@@ -303,7 +297,7 @@ public class GamePanel extends JPanel implements Runnable
 
 		for(Enemy e: enemies){
 			//boss shoots back at you
-			//
+
 			if(currentLevel.hasBoss() ){
 				if(e instanceof Boss ){
 					if (timeB == 0 || timeB >= 1000) {
@@ -319,7 +313,6 @@ public class GamePanel extends JPanel implements Runnable
 						b1.fire();
 						if(b1 != null && b1.getBounds2D().intersects(player.getBounds2D())){
 							player.death();
-							//System.out.println("lolwut");
 
 						}
 						if(b1.hitObstacle(obstacles)){
@@ -329,27 +322,25 @@ public class GamePanel extends JPanel implements Runnable
 					}
 				}
 			}
-			
+
 			if(currentLevel.hasRangedEnemy() ){
-				if(e instanceof RangedEnemy1 ){
+				if(e instanceof RangedEnemy ){
 					if (timeB == 0 || timeB >= 1000) {
 						timeOfLastProjectileB = System.currentTimeMillis();
-						((RangedEnemy1) e).fire((int)player.getCenterX(), (int)player.getCenterY());
+						((RangedEnemy) e).fire((int)player.getCenterX(), (int)player.getCenterY());
 					}
 					timeNowB = System.currentTimeMillis()+1;
 					//System.out.println("Now" + timeNow);
 					timeB = timeNowB - timeOfLastProjectileB;
 
 
-					for(Bullet b1: ((RangedEnemy1) e).getbossBullets()){
+					for(Bullet b1: ((RangedEnemy) e).getbossBullets()){
 						b1.fire();
 						if(b1 != null && b1.getBounds2D().intersects(player.getBounds2D())){
 							player.death();
-							//System.out.println("lolwut");
-
 						}
 						if(b1.hitObstacle(obstacles)){
-							((RangedEnemy1) e).getbossBullets().remove(b1);
+							((RangedEnemy) e).getbossBullets().remove(b1);
 						}
 						b1.draw(g2, null);
 					}
@@ -361,8 +352,6 @@ public class GamePanel extends JPanel implements Runnable
 		}
 
 		if(bullets.size() > 0){
-
-			//sometimes has a concurrentModificationException
 			for(Bullet b: bullets){
 				b.draw(g2, null);
 			}
@@ -374,8 +363,6 @@ public class GamePanel extends JPanel implements Runnable
 		g2.rotate(mouseAngle, player.getCenterX(), player.getCenterY());
 
 		player.draw(g2, null);
-
-		// TODO Add any custom drawings here
 	}
 
 
@@ -394,7 +381,6 @@ public class GamePanel extends JPanel implements Runnable
 		currentLevel = level;
 	}
 
-
 	public Level0 getLevel0(){
 		return level0;
 	}
@@ -412,17 +398,11 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 	public void run() {
-		
-		
 		sound.playBackgroundSound();
-		
-		if (currentLevel != level0){
-			sound.stopBackgroundSound();
-		}
-		
+
 		while (true) { 
 			long startTime = System.currentTimeMillis();
-			
+
 			int lengthOfSong = 100;
 
 			if(keyControl.isPressed(KeyEvent.VK_0)){
@@ -444,31 +424,26 @@ public class GamePanel extends JPanel implements Runnable
 				loadLevel(level3);
 				isPlatformer = false;
 			}
-			
+
 
 			if(keyControl.isPressed(KeyEvent.VK_4)){
 				loadLevel(level4);
 				isPlatformer = false;
 			}
-			
+
 			if(keyControl.isPressed(KeyEvent.VK_5)){
 				loadLevel(level5);
 				isPlatformer = false;
 			}
-			
+
 			if(keyControl.isPressed(KeyEvent.VK_6)){
 				loadLevel(level6);
 				isPlatformer = false;
-
-
 			}
-
 
 			if(keyControl.isPressed(KeyEvent.VK_7)){
 				loadLevel(level7);
 				isPlatformer = false;
-
-
 			}
 
 			if(!isPlatformer){
@@ -495,7 +470,6 @@ public class GamePanel extends JPanel implements Runnable
 					timeOfLastProjectile = System.currentTimeMillis();
 					bullets.add(new Bullet("fireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 25, 25, mX, mY));
 					sound.sound1();
-
 					ammo--;
 				}
 
@@ -505,7 +479,6 @@ public class GamePanel extends JPanel implements Runnable
 
 			for(Bullet b: bullets){
 				b.fire();
-
 				if(screenRect.intersects(b)){
 					b = null;
 				}
@@ -515,12 +488,10 @@ public class GamePanel extends JPanel implements Runnable
 
 
 			for(Enemy e: enemies){
-
 				for(Enemy e1: enemies){
 					if(e1 != e)
 						obstacles.add(e1);
 				}
-
 				e.act(obstacles, isPlatformer, player);
 				for(Enemy e1: enemies){
 					if(e1 != e)
@@ -534,20 +505,18 @@ public class GamePanel extends JPanel implements Runnable
 			for(int i = 0; i< enemies.size(); i++){
 				if(!screenRect.intersects(enemies.get(i))){
 					enemies.remove(i);
-
 				}
 			}
-
 
 			if (!screenRect.intersects(player)){
 				player.death();
 			}
 
-			
-		if(currentLevel.getdoor().intersects(player)){
+
+			if(currentLevel.getdoor().intersects(player)){
 
 				int nextLevelIndex = levels.indexOf(currentLevel)+1;
-				
+
 				if(currentLevel == level7){
 					level0.reset();
 					level1.reset();
@@ -557,7 +526,7 @@ public class GamePanel extends JPanel implements Runnable
 					level5.reset();
 					level6.reset();
 					level7.reset();
-					
+
 					ammo = 20;
 					loadLevel(level1);
 					currentLevel = level1;
@@ -565,16 +534,10 @@ public class GamePanel extends JPanel implements Runnable
 				else if(levelFinished == true && nextLevelIndex < lastLevel+1){
 					loadLevel(levels.get(nextLevelIndex));
 					isPlatformer= false;
-					
-				
 				}
-
 				levelFinished = false;
-				
-				
-				
-			}
 
+			}
 
 			if(enemies.size() == 0){
 				levelFinished = true;
@@ -612,37 +575,14 @@ public class GamePanel extends JPanel implements Runnable
 			}
 
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-				
 				m.changePanel("1");
-				//isRunning = !isRunning;
 			}
 			if(e.getKeyCode() == KeyEvent.VK_4){
-				//clearLevel();
-				//loadLevel(level2);
-
 			}
-			//if level is finished, hit enter to move onto the next one
-			//for some reason, if you have hit 'r', the enter key will not work anymore
 			if(e.getKeyCode() == KeyEvent.VK_R){
-				//clearLevel();
 				isPlatformer = false;
-				
+
 				if(playerIsDead){
-					//level0 = null;
-					//level0 = new Level0();
-					//levels.add(level0);
-//					
-//					level1 = null;
-//					level1 = new Level1();
-//					levels.add(level1);
-//					
-//					level2 = null;
-//					level2 = new Level2();
-//					levels.add(level2);
-//					
-//					level3 = null;
-//					level3 = new Level3();
-//					levels.add(level3);
 					level0.reset();
 					level1.reset();
 					level2.reset();
@@ -651,24 +591,17 @@ public class GamePanel extends JPanel implements Runnable
 					level5.reset();
 					level6.reset();
 					level7.reset();
-					
 					ammo = 20;
 					loadLevel(level0);
 					currentLevel = level0;
 				}
-				
-					
-					
-					if(currentLevel == level1 && playerIsDead){
+
+				if(currentLevel == level1 && playerIsDead){
 					level1 = null;
 					level1 = new Level1();
 					levels.add(1,level1);
-					//clearLevel();
 					loadLevel(level1);
-					//levels.add(0,level1);
 					currentLevel = level1;
-					//playerIsDead = false;
-
 				}
 				else if(currentLevel == level2 && playerIsDead){
 					level2 = null;
@@ -677,9 +610,6 @@ public class GamePanel extends JPanel implements Runnable
 					loadLevel(level2);
 					levels.add(2,level2);
 					currentLevel = level2;
-					//playerIsDead = false;
-
-
 				}
 
 				playerIsDead = false;
@@ -687,30 +617,6 @@ public class GamePanel extends JPanel implements Runnable
 
 				levelFinished = false;
 
-
-				//level1.reset();
-				//System.out.println("wut");
-			}
-			if(e.getKeyCode() == KeyEvent.VK_ENTER){
-				//clearLevel();
-				//loadLevel(level1);
-				//				if(levelFinished){
-				//					for(int i = 0; i < lastLevel-1; i ++){
-				//						if(levels.get(i) == currentLevel)
-				//							loadLevel(levels.get(i+1));
-				//						//loadLevel(level);
-				//
-				//					}
-				//				}
-				//hitting enter to switch levels now works!!
-
-				int nextLevelIndex = levels.indexOf(currentLevel)+1;
-				if(levelFinished && nextLevelIndex < lastLevel){
-					loadLevel(levels.get(nextLevelIndex));
-					isPlatformer= false;
-
-				}
-				levelFinished = false;
 			}
 
 		}
@@ -722,21 +628,7 @@ public class GamePanel extends JPanel implements Runnable
 		}
 
 		public void keyTyped(KeyEvent e) {
-			if(e.getKeyCode() == KeyEvent.VK_ENTER){
-				//clearLevel();
-				//loadLevel(level1);
-				//okay well this is screwed
-				if(levelFinished){
-					for(int i = 0; i < lastLevel; i ++){
-						if(levels.get(i) == currentLevel)
-							loadLevel(levels.get(i+1));
-						//loadLevel(level);
 
-					}
-				}
-				isPlatformer= false;
-				levelFinished = false;
-			}
 		}
 
 		public boolean isPressed(int code) {
@@ -773,9 +665,7 @@ public class GamePanel extends JPanel implements Runnable
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
 			mouses.add(e.getButton());
-			//System.out.println("hi");
 		}
 
 		@Override
@@ -785,33 +675,6 @@ public class GamePanel extends JPanel implements Runnable
 			while(mouses.contains(code))
 				mouses.remove(code);
 		}
-
-		/*		private ArrayList<Integer> keys;
-
-		public KeyHandler() {
-			keys = new ArrayList<Integer>();
-		 */
-
-		/*public void keyPressed(KeyEvent e) {
-			keys.add(e.getKeyCode());
-		}*/
-
-		//		public void keyReleased(KeyEvent e) {
-		//			Integer code = e.getKeyCode();
-		//			while(keys.contains(code))
-		//				keys.remove(code);
-		//		}
-		//
-		//		public void keyTyped(KeyEvent e) {
-		//
-		//		}
-		//
-		//		public boolean isPressed(int code) {
-		//			return keys.contains(code);
-		//		}
-
-
-
 	}
 
 }

@@ -14,13 +14,9 @@ import javax.imageio.ImageIO;
 
 public class HealthBar {
 
-	private Rectangle2D.Double currentBar, maxBar;
-	private int currentWidth;
 	private int currentHP, maxHP;
 	private static final int x = 190, y = 30, width = 810, height = 50;
-
-	private BufferedImage barTexture, healthTexture;
-
+	
 	public HealthBar(int maxHP){
 		this.maxHP = maxHP;
 		currentHP = maxHP;
@@ -51,14 +47,6 @@ public class HealthBar {
 		g2d.fillRect(x+10, y+10, computeHealthFraction()-20, (height-20)/2);
 		g2d.setColor(new Color(139, 0, 0));
 		g2d.fillRect(x+10, y+10, computeHealthFraction()-20, (height-20)/4);
-		
 	}
 
-	public void loadImage(){
-		try {
-			barTexture = ImageIO.read(new File("cobblestone.png"));
-		} catch(IOException e){
-
-		}
-	}
 }

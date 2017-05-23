@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import gameparts.Enemy;
 import gameparts.Player;
-import gameparts.RangedEnemy1;
+import gameparts.RangedEnemy;
 import panels.GamePanel;
 
 
@@ -15,8 +15,8 @@ public class Level5 extends Level{
 		super("pixelart5.gif", "portal4.png");
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 150, 50, 50);
 
-		super.enemies.add(new RangedEnemy1("andromalius.png", 1000, 400, 3, 53, 86));
-		super.enemies.add(new RangedEnemy1("andromalius.png", 1000, 600, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png", 1000, 400, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png", 1000, 600, 3, 53, 86));
 		super.enemies.add(new Enemy("minion.png", 100, 800, 2, 46, 60));
 		super.enemies.add(new Enemy("minion.png", 100, 50, 2, 46, 60));
 		super.hasRangedEnemy=true;
@@ -34,8 +34,8 @@ public class Level5 extends Level{
 	public void reset(){
 		enemies.clear();
 
-		super.enemies.add(new RangedEnemy1("andromalius.png", 1000, 400, 3, 53, 86));
-		super.enemies.add(new RangedEnemy1("andromalius.png", 1000, 600, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png", 1000, 400, 3, 53, 86));
+		super.enemies.add(new RangedEnemy("andromalius.png", 1000, 600, 3, 53, 86));
 		super.enemies.add(new Enemy("minion.png", 100, 800, 2, 46, 60));
 		super.enemies.add(new Enemy("minion.png", 100, 50, 2, 46, 60));
 
