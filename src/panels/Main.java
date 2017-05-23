@@ -61,7 +61,7 @@ public class Main extends JFrame implements ActionListener{
 
 	public static void main(String[] args)
 	{
-		Main w = new Main("Programmers Worst Nightmare");
+		Main w = new Main("Programmer's Worst Nightmare");
 	}
 
 	public void changePanel(String name) {

@@ -21,7 +21,7 @@ public class InstructionsPanel extends JPanel implements ActionListener {
 	
 	Main w;
 	private JButton menuButton;
-	private String message1, message2, message3, message4, message5, message6, message7, message8, message9, message10;
+
 	private Image InstructionsImg;
 	public InstructionsPanel(Main w) {
 		this.w = w;
@@ -35,16 +35,7 @@ public class InstructionsPanel extends JPanel implements ActionListener {
 		menuButton = new JButton("Back To Menu");
 		menuButton.addActionListener(this);
 		add(menuButton);
-		message1 = "abcdefghijklmnopqrstuvwxyz";
-		message2 = "abcdefghijklmnopqrstuvwxyz";
-		message3 = "hi";
-		message4 = "hi";
-		message5 = "hi";
-		message6 = "hi";
-		message7 = "hi";
-		message8 = "hi";
-		message9 = "hi";
-		message10 = "hi";
+		
 	}
 	
 	public void paintComponent(Graphics g)
@@ -67,26 +58,29 @@ public class InstructionsPanel extends JPanel implements ActionListener {
 
 
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("Arial",Font.ROMAN_BASELINE,28));
-		int strWidth = g.getFontMetrics().stringWidth(message1);
-		g.drawString(message1, 50, 50);
-		g.drawString(message2, 50, 100);
-		g.drawString(message3, 50, 150);
-		g.drawString(message4, 50, 200);
-		g.drawString(message5, 50, 250);
-		g.drawString(message6, 50, 300);
-		g.drawString(message7, 50, 350);
-		g.drawString(message8, 50, 400);
-		g.drawString(message9, 50, 450);
-		g.drawString(message10, 50, 500);
-		
+		g.setFont(new Font("Courier New",Font.ROMAN_BASELINE,28));
+		g2.drawString("Instructions:", 50, 100);
+		g2.drawString("", 50, 150);
+		g.setFont(new Font("Courier New",Font.ROMAN_BASELINE,23));
+
+		g2.drawString("Use WASD keys to move character on screen", 50, 200);
+		g2.drawString("", 50, 250);
+		g2.drawString("Use the mouse to Aim", 50, 300);
+		g2.drawString("Left Click to fire", 50, 350);
+		g2.drawString("Ammo is displayed in the upper left hand corner", 50, 400);
+		g2.drawString("", 50, 450);
+		g2.drawString("Hit Spacebar to switch between a top-down game and a platformer", 50, 500);
+		g2.drawString("(Essentially adds gravity)", 50, 550);
+		g2.drawString("", 50, 600);
+		g2.drawString("Hit R to reset to the beginning", 50, 650);
+		g2.drawString("Hit ESC in game to return to the Menu Screen", 50, 700);
+		//g2.drawString("But of course, you can keep playing. ", 50, 750);
+		//g2.drawString("Just hit 'R' and I will glady generate a new object representing you, and play again.", 50, 800);
 		g2.setTransform(at);
 
 		// TODO Add any custom drawings here
 	}
-	public
-	
-	void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		w.changePanel("1");
 	}
 	

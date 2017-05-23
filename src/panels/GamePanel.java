@@ -66,7 +66,6 @@ public class GamePanel extends JPanel implements Runnable
 	private Player player;
 
 	//private Rectangle door;
-	private Image doorImage;
 
 	private ArrayList<Level> levels;
 	private Level0 level0;
@@ -79,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable
 	private Level7 level7;
 
 
-	private BufferedImage backgroundImg, wallImg;
+	private BufferedImage wallImg;
 
 	private final int lastLevel = 7;
 	private Level currentLevel;
@@ -118,7 +117,7 @@ public class GamePanel extends JPanel implements Runnable
 
 
 		try {
-			wallImg = ImageIO.read(new File("cobblestone.png"));
+			wallImg = ImageIO.read(new File("Brick_Wall_03.jpg"));
 		} catch (IOException e){
 
 		}
@@ -144,7 +143,7 @@ public class GamePanel extends JPanel implements Runnable
 
 
 		try {
-			cursorImage = ImageIO.read(new File("crosshair.png"));
+			cursorImage = ImageIO.read(new File("crosshairV3.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,7 +191,7 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("I'm currently on a coffee break right now, but I'll be back soon.", 50, 400);
 			g2.drawString("In the meantime, enjoy these beautifully designed worlds within my simulation.", 50, 450);
 			g2.drawString("I've made it so you can only enter the purple portals and travel between worlds ", 50, 500);
-			g2.drawString(" when you are the only living object left.", 50, 550);
+			g2.drawString("when you are the only living object left.", 50, 550);
 			g2.drawString("(That way you have to be a murderer!)", 50, 600);
 			g2.drawString("I'll catch up with you in the 6th world :]", 50, 650);
 			g2.drawString("Don't worry if you die, you'll just be permanently erased from the plane of existence.", 50, 700);
@@ -235,13 +234,15 @@ public class GamePanel extends JPanel implements Runnable
 
 		//draws the ammo
 		g2.setColor(Color.WHITE);
-		g2.setFont(new Font("Arial",Font.PLAIN,28));
+		g2.setFont(new Font("Arial",Font.PLAIN,40));
 		String ammoDisplay="";
 		for(int i = 0; i < ammo; i++){
 			ammoDisplay = ammoDisplay + "I";
 		}
 		g2.drawString(ammoDisplay, 20, 40);
 
+		g2.setColor(Color.WHITE);
+		g2.setFont(new Font("Courier New",Font.PLAIN,80));
 		if(playerIsDead){
 			g2.drawString("GAME OVER", 500, 500);
 		}
