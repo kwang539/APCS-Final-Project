@@ -494,7 +494,7 @@ public class GamePanel extends JPanel implements Runnable
 
 				if ((time == 0 || time >= 1000)&& ammo >0 && currentLevel != level0) {
 					timeOfLastProjectile = System.currentTimeMillis();
-					bullets.add(new Bullet("fireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 25, 25, mX, mY));
+					bullets.add(new Bullet("bluefireball.png", (int) player.getCenterX(), (int)player.getCenterY(), 10, 10, mX, mY));
 					sound.sound1();
 
 					ammo--;
