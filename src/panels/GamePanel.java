@@ -24,7 +24,9 @@ import levels.Level3;
 import levels.Level4;
 import levels.Level5;
 import levels.Level6;
+
 import levels.Level7;
+
 
 import java.util.*;
 
@@ -33,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable
 {
 	public static final int DRAWING_WIDTH = 1200;
 	public static final int DRAWING_HEIGHT = 900;
-
+	
 	private long timeOfLastProjectile = 0;
 	private long timeNow = 0;
 	private long time = 0;
@@ -51,7 +53,6 @@ public class GamePanel extends JPanel implements Runnable
 
 
 	private Main m;
-	//private boolean isRunning;
 
 	private double mX, mY, mouseAngle;
 	private KeyHandler keyControl;
@@ -100,6 +101,7 @@ public class GamePanel extends JPanel implements Runnable
 		level6 = new Level6();
 		level7 = new Level7();
 
+
 		levels.add(level0);
 		levels.add(level1);
 		levels.add(level2);
@@ -108,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable
 		levels.add(level5);
 		levels.add(level6);
 		levels.add(level7);
+
 
 		ammo = 20;
 
@@ -163,29 +166,10 @@ public class GamePanel extends JPanel implements Runnable
 
 		Graphics2D g2 = (Graphics2D)g;
 
-
-
-		//draws an image scaled perfectlyto the size of the screen
-		//<<<<<<< HEAD
-		//g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
-
-
-
-		//=======
 		g2.drawImage(currentLevel.getbackgroundImg(), 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT, 0,0,currentLevel.getbackgroundImg().getWidth(null) , currentLevel.getbackgroundImg().getHeight(null), null);
-
-		//g2.setPaint(new TexturePaint(backgroundImg, new Rectangle(0, 0, 16, 16)));
-		//g2.fillRect(0, 0, 1200, 900);
-
-
-
-		//<<<<<<< HEAD
-
-		//=======
 
 		g2.setPaint(null);
 
-		//>>>>>>> branch 'DankAI' of https://github.com/kwang539/APCS-Final-Project.git
 		int width = getWidth();
 		int height = getHeight();
 
@@ -196,7 +180,6 @@ public class GamePanel extends JPanel implements Runnable
 		g2.scale(ratioX, ratioY);
 
 		
-		//Where the text for the story will be
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Courier New",Font.PLAIN,20));
 		if(currentLevel == level0){
@@ -215,6 +198,7 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("Don't worry if you die, you'll just be permanently erased from the plane of existence.", 50, 700);
 			g2.drawString("But of course, you can keep playing. ", 50, 750);
 			g2.drawString("Just hit 'R' and I will glady generate a new object representing you, and play again.", 50, 800);
+
 			
 			
 
@@ -242,10 +226,8 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("Just like the last simulation, use the purple portals to travel between worlds! ", 50, 750);
 			g2.drawString("I'll see you in the 6th world!", 50, 800);
 			
-			
+	
 
-			
-			
 		}
 		//puts textures onto the obstacles, makes it a bit laggier
 		Rectangle door1 = currentLevel.getdoor();
@@ -406,23 +388,6 @@ public class GamePanel extends JPanel implements Runnable
 		// TODO Add any custom drawings here
 	}
 
-	//Spawn methods not really needed?
-	public void spawnNewPlayer(int locX, int locY) {
-		//player = new Player(DRAWING_WIDTH/2-player.MARIO_WIDTH/2,50);
-		player = new Player(locX,locY);
-
-	}
-
-	public void spawnNewEnemy(int locX, int locY, int velocity) {
-		//enemy1 = new Enemy(locX,locY);
-		enemies.add(new Enemy("mario.png",locX,locY, velocity));
-
-	}
-
-	public void spawnNewObstacle(int locX, int locY, int height, int width){
-
-		obstacles.add(new Rectangle(locX, locY, height, width));
-	}
 
 	public void clearLevel(){
 		enemies.clear();
@@ -457,68 +422,54 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 	public void run() {
+		
+		
 		sound.playBackgroundSound();
+		
+		if (currentLevel != level0){
+			sound.stopBackgroundSound();
+		}
 		
 		while (true) { 
 			long startTime = System.currentTimeMillis();
 			
-			
 			int lengthOfSong = 100;
-//			
-//			if(startTime % lengthOfSong == 0){
-//				sound.sound3();
-//			}
-
 
 			if(keyControl.isPressed(KeyEvent.VK_0)){
-				//sound.sound1();
 				loadLevel(level0);
 				isPlatformer = false;
-
-
-
 			}
 
 			if(keyControl.isPressed(KeyEvent.VK_1)){
-				//sound.sound1();
 				loadLevel(level1);
 				isPlatformer = false;
-
-
-
 			}
-
-
 
 			if(keyControl.isPressed(KeyEvent.VK_2)){
 				loadLevel(level2);
 				isPlatformer = false;
-
 			}
 
 			if(keyControl.isPressed(KeyEvent.VK_3)){
 				loadLevel(level3);
 				isPlatformer = false;
-
 			}
 			
 
 			if(keyControl.isPressed(KeyEvent.VK_4)){
 				loadLevel(level4);
 				isPlatformer = false;
-
 			}
 			
-
 			if(keyControl.isPressed(KeyEvent.VK_5)){
 				loadLevel(level5);
 				isPlatformer = false;
-
 			}
 			
 			if(keyControl.isPressed(KeyEvent.VK_6)){
 				loadLevel(level6);
 				isPlatformer = false;
+
 
 			}
 
@@ -527,31 +478,25 @@ public class GamePanel extends JPanel implements Runnable
 				loadLevel(level7);
 				isPlatformer = false;
 
+
 			}
 
 			if(!isPlatformer){
-
-
 				if (keyControl.isPressed(KeyEvent.VK_A))
 					player.walk(-1);
 				if (keyControl.isPressed(KeyEvent.VK_D))
 					player.walk(1);
-
 				if (keyControl.isPressed(KeyEvent.VK_W))
 					player.walk(-2);
-
 				if (keyControl.isPressed(KeyEvent.VK_S))
 					player.walk(2);
-			}
-			else{
+			} else {
 				if (keyControl.isPressed(KeyEvent.VK_A))
 					player.walk(-1);
 				if (keyControl.isPressed(KeyEvent.VK_D))
 					player.walk(1);
-
 				if (keyControl.isPressed(KeyEvent.VK_W))
 					player.jump();
-
 			}
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
@@ -591,16 +536,9 @@ public class GamePanel extends JPanel implements Runnable
 					if(e1 != e)
 						obstacles.remove(e1);
 				}
-				//e.hitByBullet(bullets);
-
-
-				//if enemy touches player
 				if(e.intersects(player)){
 					player.death();
 				}
-				//if(e.intersects(screenRect)){
-
-				//}
 			}
 
 			for(int i = 0; i< enemies.size(); i++){

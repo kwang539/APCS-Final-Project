@@ -14,26 +14,27 @@ import java.util.*;
 
 public class Enemy extends Character {
 
-	public static final int ENEMY_WIDTH = 40;
-	public static final int ENEMY_HEIGHT = 60;
+;
 
 	private double dX, dY;
 	private boolean isHit;
-	//the hitbox field(rect) should move with the image, so that way you won't have to create new hitboxes every second
-	//not implemented yet
+
 	private Rectangle2D.Double hitbox;
 	
 	private double enemyAcceleration;
 	private double enemyAngle;
 	
 	private double enemyVelocity;
+	private int width, height;
 
-	public Enemy(String filename, int x, int y, double enemyVelocity) {
-		super(filename, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+	public Enemy(String filename, int x, int y, double enemyVelocity, int width, int height) {
+		super(filename, x, y, width, height);
 		dX = 0;
 		dY = 0;
 		enemyAcceleration = .6;
 		this.enemyVelocity = enemyVelocity;
+		this.width = width;
+		this.height = height;
 	}
 
 	// METHODS
@@ -309,7 +310,7 @@ public class Enemy extends Character {
 		
 		if(isPlatformer){
 			walk(player1.getCenterX(), (int)player1.getCenterY());
-			if(player1.getCenterY()+ ENEMY_HEIGHT*1.7 < y){
+			if(player1.getCenterY()+ this.height*1.7 < y){
 			jump();
 			}
 
@@ -322,7 +323,7 @@ public class Enemy extends Character {
 
 	//should only be called once within this class for most efficiency
 	public Rectangle2D.Double makeHitBox(){
-		return  new Rectangle2D.Double(x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+		return  new Rectangle2D.Double(x, y, this.width, this.height);
 	}
 
 	public void setIsHit(boolean hit){

@@ -62,6 +62,9 @@ public class EasySound2 implements Runnable
 	  line.write(audioBytes, 0, numBytes);
   }
 
+  public void stop(){
+	  line.stop();
+  }
   public void play()
   {
 	  line.flush();
