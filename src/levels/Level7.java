@@ -16,7 +16,7 @@ public class Level7 extends Level{
 	public Level7(){
 		//the story will we made onto the image
 		super("black-solid-color-background.jpg", "portal4.png");
-		super.player = new Player(0, 450);
+		super.player = new Player(0, 420);
 
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT/2, 50, 50);
 		
@@ -33,6 +33,6 @@ public class Level7 extends Level{
 		
 		
 		//obstacles = Oobstacles;
-		player.reset(0, 450);
+		player.reset(0, 420);
 	}
 }

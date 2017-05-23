@@ -23,6 +23,8 @@ import levels.Level2;
 import levels.Level3;
 import levels.Level4;
 import levels.Level5;
+import levels.Level6;
+import levels.Level7;
 
 import java.util.*;
 
@@ -72,10 +74,13 @@ public class GamePanel extends JPanel implements Runnable
 	private Level3 level3;
 	private Level4 level4;
 	private Level5 level5;
+	private Level6 level6;
+	private Level7 level7;
+
 
 	private BufferedImage backgroundImg, wallImg;
 
-	private final int lastLevel = 5;
+	private final int lastLevel = 7;
 	private Level currentLevel;
 
 	private boolean levelFinished;
@@ -92,12 +97,17 @@ public class GamePanel extends JPanel implements Runnable
 		level3 = new Level3();
 		level4 = new Level4();
 		level5 = new Level5();
+		level6 = new Level6();
+		level7 = new Level7();
+
 		levels.add(level0);
 		levels.add(level1);
 		levels.add(level2);
 		levels.add(level3);
 		levels.add(level4);
 		levels.add(level5);
+		levels.add(level6);
+		levels.add(level7);
 
 		ammo = 20;
 
@@ -188,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable
 		
 		//Where the text for the story will be
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Lucida Console",Font.PLAIN,20));
+		g.setFont(new Font("Courier New",Font.PLAIN,20));
 		if(currentLevel == level0){
 			g2.drawString("Hey you, looks like you've landed in a programmer's worst nightmare.", 50, 100);
 			g2.drawString("You've now become trapped in my simulation!", 50, 150);
@@ -205,6 +215,32 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("Don't worry if you die, you'll just be permanently erased from the plane of existence.", 50, 700);
 			g2.drawString("But of course, you can keep playing. ", 50, 750);
 			g2.drawString("Just hit 'R' and I will glady generate a new object representing you, and play again.", 50, 800);
+			
+			
+
+			
+			
+		}
+		
+	
+		if(currentLevel == level7){
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Courier New",Font.PLAIN,20));
+			g2.drawString("Congratulations!", 50, 100);
+			g2.drawString("You've killed the programmer of the simulation, which means you are now out of THAT simulation.", 50, 150);
+			g2.drawString("", 50, 200);
+			g2.drawString("Now time for the bad news.", 50, 250);
+			g2.drawString("THAT simulation was actually just a simulation inside the current simulation I am running now.", 50, 300);
+			g2.drawString("You were pretty much in a simulation, INSIDE another simulation.", 50, 350);
+			g2.drawString("Talk about simulation-ception!", 50, 400);
+			g2.drawString("But now you've escaped the inner simulation", 50, 450);
+			g2.drawString("Which means, that you are now in MY simulation!", 50, 500);
+			g2.drawString("Don't worry, there is a way out of this simulation. ", 50, 550);
+			g2.drawString("It's to elimate the person who coded the simulation!", 50, 600);
+			g2.drawString("(Which is me!)", 50, 650);
+			g2.drawString("", 50, 700);
+			g2.drawString("Just like the last simulation, use the purple portals to travel between worlds! ", 50, 750);
+			g2.drawString("I'll see you in the 6th world!", 50, 800);
 			
 			
 
@@ -479,7 +515,19 @@ public class GamePanel extends JPanel implements Runnable
 				isPlatformer = false;
 
 			}
+			
+			if(keyControl.isPressed(KeyEvent.VK_6)){
+				loadLevel(level6);
+				isPlatformer = false;
 
+			}
+
+
+			if(keyControl.isPressed(KeyEvent.VK_7)){
+				loadLevel(level7);
+				isPlatformer = false;
+
+			}
 
 			if(!isPlatformer){
 
@@ -571,14 +619,31 @@ public class GamePanel extends JPanel implements Runnable
 		if(currentLevel.getdoor().intersects(player)){
 
 				int nextLevelIndex = levels.indexOf(currentLevel)+1;
-
-				if(levelFinished == true && nextLevelIndex < lastLevel+1){
+				
+				if(currentLevel == level7){
+					level0.reset();
+					level1.reset();
+					level2.reset();
+					level3.reset();
+					level4.reset();
+					level5.reset();
+					level6.reset();
+					level7.reset();
+					
+					ammo = 20;
+					loadLevel(level1);
+					currentLevel = level1;
+				}
+				else if(levelFinished == true && nextLevelIndex < lastLevel+1){
 					loadLevel(levels.get(nextLevelIndex));
-					System.out.println("  ahihihi");
 					isPlatformer= false;
+					
+				
 				}
 
 				levelFinished = false;
+				
+				
 				
 			}
 
@@ -656,6 +721,8 @@ public class GamePanel extends JPanel implements Runnable
 					level3.reset();
 					level4.reset();
 					level5.reset();
+					level6.reset();
+					level7.reset();
 					
 					ammo = 20;
 					loadLevel(level0);

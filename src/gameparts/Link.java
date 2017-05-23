@@ -25,7 +25,7 @@ private final int ACTION_TIMEOUT = 500;
 		this.surface = surface;
 		actionTimer = new Timer(ACTION_TIMEOUT,this);
 		actionTimer.setRepeats(false);
-		backgroundSound = sound3;
+		backgroundSound = sound4;
 	}
 
 	public void sound1() {

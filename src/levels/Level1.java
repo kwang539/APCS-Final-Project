@@ -21,7 +21,7 @@ public class Level1 extends Level{
 		super.enemies.add(new Enemy("mario.png",300, 200,3));
 		super.enemies.add(new RangedEnemy1("playerchar.png",1100, 400,6));
 
-		//super.hasRangedEnemy = true;
+		super.hasRangedEnemy = true;
 		//super.hasBoss = true;
 		
 		super.player = new Player(300, 600);
@@ -45,7 +45,7 @@ public class Level1 extends Level{
 		enemies.clear();
 		
 		super.enemies.add(new Enemy("mario.png",300, 200,3));
-		super.enemies.add(new RangedEnemy1("mario.png",1100, 400,1));
+		super.enemies.add(new RangedEnemy1("playerchar.png",1100, 400,1));
 		//enemies = Oenemies;
 		
 		

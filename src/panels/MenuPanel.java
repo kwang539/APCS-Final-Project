@@ -40,9 +40,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 		if(e.getSource().equals(playButton)){
 			a.stopSound3();
 
-			a.setBackgroundSoundto4();
+			//a.setBackgroundSoundto4();
 
-			a.playBackgroundSound();
+			//a.playBackgroundSound();
 			
 			//a.sound4();
 //			w.cl.removeLayoutComponent(w.panel4);
