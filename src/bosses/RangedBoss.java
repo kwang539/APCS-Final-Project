@@ -13,8 +13,8 @@ public class RangedBoss extends Boss {
 	
 	private ArrayList<Bullet> bossBullets;
 
-	public RangedBoss(String filename, int x, int y, double velocity) {
-		super(filename, x,y, velocity);
+	public RangedBoss(String filename, int x, int y, double velocity, int width, int height) {
+		super(filename, x,y, velocity, width, height);
 		
 		bossBullets = new ArrayList<Bullet>();
 		

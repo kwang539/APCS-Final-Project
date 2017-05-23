@@ -51,15 +51,16 @@ private final int ACTION_TIMEOUT = 500;
 		actionTimer.stop();
 	}
 	public void stopSound3(){
-		//actionTimer.stop();
-		//actionTimer.restart();
-		//doesn't work
 		
 	}
 	
 	
 	public void playBackgroundSound(){
 		backgroundSound.play();
+	}
+	
+	public void stopBackgroundSound(){
+		backgroundSound.stop();
 	}
 	
 	public void setBackgroundSoundto4(){

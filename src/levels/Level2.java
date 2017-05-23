@@ -16,12 +16,12 @@ public class Level2 extends Level{
 		door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 500, 50, 50);
 
 		
-		super.enemies.add(new Enemy("mario.png",50, 790,5));
-		super.enemies.add(new Enemy("mario.png",400, 790,5));
+		super.enemies.add(new Enemy("minion.png",50, 790,3, 46, 60));
+		super.enemies.add(new Enemy("minion.png",400, 790,3, 46, 60));
 		
 
 	
-		super.enemies.add(new RangedEnemy1("playerchar.png",300, 700,3));
+		super.enemies.add(new RangedEnemy1("andromalius.png",300, 700,3, 53, 68));
 
 		
 		hasRangedEnemy = true;
@@ -43,12 +43,13 @@ public class Level2 extends Level{
 	public void reset(){
 		enemies.clear();
 		
-		super.enemies.add(new Enemy("mario.png",50, 790,5));
-		super.enemies.add(new Enemy("mario.png",400, 790,5));
+		super.enemies.add(new Enemy("minion.png",50, 790,3, 46, 60));
+		super.enemies.add(new Enemy("minion.png",400, 790,3, 46, 60));
 		
 
 	
-		super.enemies.add(new RangedEnemy1("playerchar.png",300, 700,3));
+		super.enemies.add(new RangedEnemy1("andromalius.png",300, 700,3, 53, 68));
+
 		player.reset(805, 515);
 	}
 

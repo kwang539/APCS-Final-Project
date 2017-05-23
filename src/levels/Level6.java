@@ -30,8 +30,8 @@ public class Level6 extends Level{
 		super.obstacles.add(new Rectangle (50, 400, 100, 50));
 		super.obstacles.add(new Rectangle (1100, 400, 100, 50));
 
-		super.enemies.add(new Boss("disciple.png", 50, 50, 3));
-		super.enemies.add(new RangedEnemy("disciple.png", 1150, 50, 3));
+		super.enemies.add(new Boss("bossmelee.png", 50, 50, 3, 60, 80));
+		super.enemies.add(new RangedEnemy("andromalius.png", 1150, 50, 3, 53, 86));
 		
 
 		super.player = new Player(560, 400);

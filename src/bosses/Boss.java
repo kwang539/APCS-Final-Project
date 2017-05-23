@@ -14,8 +14,8 @@ public class Boss extends RangedEnemy1 {
 	private ArrayList<Bullet> bossBullets;
 	private HealthBar healthBar;
 
-	public Boss(String filename, int x, int y, double velocity) {
-		super(filename, x,y, velocity);
+	public Boss(String filename, int x, int y, double velocity, int width, int height) {
+		super(filename, x,y, velocity, width, height);
 		
 		healthBar = new HealthBar(100);
 		bossBullets = new ArrayList<Bullet>();
@@ -30,7 +30,7 @@ public class Boss extends RangedEnemy1 {
 	}
 	
 	public void takeDamage(){
-		healthBar.reduceHP(10);
+		healthBar.reduceHP(17);
 	}
 	
 	public int getCurrentHP(){

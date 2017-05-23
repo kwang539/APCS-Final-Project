@@ -171,7 +171,7 @@ public class GamePanel extends JPanel implements Runnable
 
 		
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Lucida Console",Font.PLAIN,20));
+		g.setFont(new Font("Courier New",Font.PLAIN,20));
 		if(currentLevel == level0){
 			g2.drawString("Hey you, looks like you've landed in a programmer's worst nightmare.", 50, 100);
 			g2.drawString("You've now become trapped in my simulation!", 50, 150);
@@ -188,11 +188,7 @@ public class GamePanel extends JPanel implements Runnable
 			g2.drawString("Don't worry if you die, you'll just be permanently erased from the plane of existence.", 50, 700);
 			g2.drawString("But of course, you can keep playing. ", 50, 750);
 			g2.drawString("Just hit 'R' and I will glady generate a new object representing you, and play again.", 50, 800);
-			
-			
 
-			
-			
 		}
 		//puts textures onto the obstacles, makes it a bit laggier
 		Rectangle door1 = currentLevel.getdoor();
@@ -353,23 +349,6 @@ public class GamePanel extends JPanel implements Runnable
 		// TODO Add any custom drawings here
 	}
 
-	//Spawn methods not really needed?
-	public void spawnNewPlayer(int locX, int locY) {
-		//player = new Player(DRAWING_WIDTH/2-player.MARIO_WIDTH/2,50);
-		player = new Player(locX,locY);
-
-	}
-
-	public void spawnNewEnemy(int locX, int locY, int velocity) {
-		//enemy1 = new Enemy(locX,locY);
-		enemies.add(new Enemy("mario.png",locX,locY, velocity));
-
-	}
-
-	public void spawnNewObstacle(int locX, int locY, int height, int width){
-
-		obstacles.add(new Rectangle(locX, locY, height, width));
-	}
 
 	public void clearLevel(){
 		enemies.clear();
@@ -404,89 +383,71 @@ public class GamePanel extends JPanel implements Runnable
 	}
 
 	public void run() {
+		
+		
 		sound.playBackgroundSound();
+		
+		if (currentLevel != level0){
+			sound.stopBackgroundSound();
+		}
 		
 		while (true) { 
 			long startTime = System.currentTimeMillis();
 			
-			
 			int lengthOfSong = 100;
 
-
 			if(keyControl.isPressed(KeyEvent.VK_0)){
-				//sound.sound1();
 				loadLevel(level0);
 				isPlatformer = false;
-
-
-
 			}
 
 			if(keyControl.isPressed(KeyEvent.VK_1)){
-				//sound.sound1();
 				loadLevel(level1);
 				isPlatformer = false;
-
-
-
 			}
-
-
 
 			if(keyControl.isPressed(KeyEvent.VK_2)){
 				loadLevel(level2);
 				isPlatformer = false;
-
 			}
 
 			if(keyControl.isPressed(KeyEvent.VK_3)){
 				loadLevel(level3);
 				isPlatformer = false;
-
 			}
 			
 
 			if(keyControl.isPressed(KeyEvent.VK_4)){
 				loadLevel(level4);
 				isPlatformer = false;
-
 			}
 			
-
 			if(keyControl.isPressed(KeyEvent.VK_5)){
 				loadLevel(level5);
 				isPlatformer = false;
 			}
 
-			
 			if(keyControl.isPressed(KeyEvent.VK_6)){
 				loadLevel(level6);
 				isPlatformer = false;
 			}
 
 			if(!isPlatformer){
-
-
 				if (keyControl.isPressed(KeyEvent.VK_A))
 					player.walk(-1);
 				if (keyControl.isPressed(KeyEvent.VK_D))
 					player.walk(1);
-
 				if (keyControl.isPressed(KeyEvent.VK_W))
 					player.walk(-2);
-
 				if (keyControl.isPressed(KeyEvent.VK_S))
 					player.walk(2);
-			}
-			else{
+			} else {
 				if (keyControl.isPressed(KeyEvent.VK_A))
 					player.walk(-1);
 				if (keyControl.isPressed(KeyEvent.VK_D))
 					player.walk(1);
-
 				if (keyControl.isPressed(KeyEvent.VK_W))
 					player.jump();
-
 			}
 
 			if(mouseControl.isClicked(MouseEvent.BUTTON1)){
@@ -526,16 +487,9 @@ public class GamePanel extends JPanel implements Runnable
 					if(e1 != e)
 						obstacles.remove(e1);
 				}
-				//e.hitByBullet(bullets);
-
-
-				//if enemy touches player
 				if(e.intersects(player)){
 					player.death();
 				}
-				//if(e.intersects(screenRect)){
-
-				//}
 			}
 
 			for(int i = 0; i< enemies.size(); i++){
@@ -680,18 +634,6 @@ public class GamePanel extends JPanel implements Runnable
 				//System.out.println("wut");
 			}
 			if(e.getKeyCode() == KeyEvent.VK_ENTER){
-				//clearLevel();
-				//loadLevel(level1);
-				//				if(levelFinished){
-				//					for(int i = 0; i < lastLevel-1; i ++){
-				//						if(levels.get(i) == currentLevel)
-				//							loadLevel(levels.get(i+1));
-				//						//loadLevel(level);
-				//
-				//					}
-				//				}
-				//hitting enter to switch levels now works!!
-
 				int nextLevelIndex = levels.indexOf(currentLevel)+1;
 				if(levelFinished && nextLevelIndex < lastLevel){
 					loadLevel(levels.get(nextLevelIndex));

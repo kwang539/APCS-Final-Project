@@ -6,8 +6,8 @@ public class RangedEnemy1 extends Enemy {
 	
 	private ArrayList<Bullet> bossBullets;
 
-	public RangedEnemy1(String filename, int x, int y, double velocity) {
-		super(filename, x,y, velocity);
+	public RangedEnemy1(String filename, int x, int y, double velocity, int width, int height) {
+		super(filename, x,y, velocity, width, height);
 		
 		bossBullets = new ArrayList<Bullet>();
 		

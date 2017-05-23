@@ -15,8 +15,8 @@ public class Level4 extends Level{
 	super("backgroundtester.png", "portal4.png");
 	door = new Rectangle(GamePanel.DRAWING_WIDTH-50, GamePanel.DRAWING_HEIGHT - 150, 50, 50);
 
-	super.enemies.add(new Enemy("mario.png", 100, 200, 5));
-	super.enemies.add(new Enemy("mario.png", 1000, 200, 5));
+	super.enemies.add(new Enemy("minion.png", 100, 200, 3, 46, 60));
+	super.enemies.add(new Enemy("minion.png", 1000, 200, 3, 46, 60));
 	
 	super.hasBoss = true;
 
@@ -39,15 +39,9 @@ public class Level4 extends Level{
 	public void reset(){
 		enemies.clear();
 
-		super.enemies.add(new Enemy("mario.png", 100, 200, 5));
-		super.enemies.add(new Enemy("mario.png", 1000, 200, 5));
-		
+		super.enemies.add(new Enemy("minion.png", 100, 200, 3, 46, 60));
+		super.enemies.add(new Enemy("minion.png", 1000, 200, 3, 46, 60));
 
-	
-		//enemies = Oenemies;
-		
-		
-		//obstacles = Oobstacles;
 		player.reset(590, 440);
 	}
 
